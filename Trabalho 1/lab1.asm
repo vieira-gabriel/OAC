@@ -6,8 +6,8 @@
 #
 ##################################################
 .data
-nome: .space 50
-nome_saida: .asciiz "exit.lzw"
+nome: .space 63
+nome_saida: .asciiz "exit.txt"
 buffer_leitura: .space 2048
 dicionario: .space 2048
 buffer_escrita: .space 0x1000000
@@ -29,7 +29,7 @@ buffer_escrita: .space 0x1000000
 le_nome_do_arquivo:	#le o texto digitado, mas adiciona /n
 	li $v0, 8
 	la $a0, nome
-	li $a1, 50
+	li $a1, 63
 	syscall	
 remove_n:				#remove o /n do final
 	li $t0, 0           
@@ -47,11 +47,11 @@ fim_rm:
 ##################################################
 # Lidando com arquivos
 ##################################################
-abre_arquivo:
+abre_arquivo_leitura:
 	li $v0, 13
 	la $a0, nome
 	li $a1, 0
-	li $a1, 0
+	li $a2, 0
 	syscall
 	move $s0, $v0
 	#jr $ra
@@ -59,40 +59,55 @@ le_arquivo:
 	li $v0, 14
 	move $a0, $s0
 	la $a1,  buffer_leitura
-	li $a2, 32
+	li $a2, 2048
 	syscall
 	#jr $ra
-	j exit			# Essa linha deve ser removida
+	j aaa		# Essa linha deve ser removida
+	
+abre_arquivo_escrita:
+	li $v0, 13
+	la $a0, nome_saida
+	li $a1, 1
+	li $a2, 0
+	syscall
+	move $s0, $v0
 escreve_arquivo:
 	li $v0, 15
 	move $a0, $s0
 	la $a1, buffer_escrita
-	li $a2, 256
+	li $a2, 2048
 	syscall
+	j exit
 	#jr $ra
 	
 ###################################################
 # Lidando como Dicionario
 ###################################################
+aaa:
+la $s0, buffer_leitura
+la $s1, buffer_escrita
+move $s2, $s1
+
 comprime11:
    add $t0, $s0, $zero		# $t0 é o cursor que percorre o buffer de leitura
    c0:
      move $a1, $zero			#limpa word que vai ser escrita 24 bits de endereço e 8 do caracter
-     move $t3, $zero			# $t3 é o endereço do ultimo igual
+     move $t3, $zero			# $t3 é o endereço relativo do ultimo igual
      move $a0, $s1			#base de busca é o ínicio do buffer
     c1: 
-     lbu $t2, 0($t0)			#ultimo byte lido
+     lbu $s3, 0($t0)			#ultimo byte lido
+     beqz $s3, abre_arquivo_escrita
      addi $t0, $t0, 1			#posiciona para o próximo byte
-     or $a1, $a1, $t2			#mascara o 24 bits de endereço e 8 do caracter($a1 já preparado)
+     or $a1, $a1, $s3			#mascara o 24 bits de endereço e 8 do caracter($a1 já preparado)
      jal procura
      bltz $v0, escreve_word		#se nao tem ainda (-1)
-     add $a0, $s0, $v0		#base de busca é o ultimo igual
+     move $a0, $v0		#base de busca é o ultimo igual
      move $t3, $v0			#guarda ultimo igual
      sll $a1, $v0, 8			#prepara $a1
      j c1
    escreve_word:
      sll $t3,$t3, 8 			#prepara $t3
-     or $t3, $t3, $t2			#monta endereço da ultima string igual + caracter
+     or $t3, $t3, $s3			#monta endereço da ultima string igual + caracter
      sw $t3, 0($s2)			#escreve no final do buffer de escrita
      addi $s2, $s2, 4			#atualiza fim do buffer
      j c0
@@ -104,11 +119,14 @@ procura:					#a0 base da busca, $a1 o que procuro
    addi $a0, $a0, 4
    j procura
    achou:
-     move $v0, $a1
+     move $v0, $a0
      jr $ra
    nao_achou:
      addi $v0, $zero, -1
      jr $ra
+    
+    
+    
     
 ###################VERSAO ANTERIOR########################     
 #comp:				#Compara strings. Retorna 1 se iguais e 0 se diferentes
