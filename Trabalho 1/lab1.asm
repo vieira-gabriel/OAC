@@ -6,12 +6,13 @@
 #
 ##################################################
 .data
+buffer_leitura: .space 32768
+sep:	.word 0
+buffer_escrita: .space 32768 #0x1000000
+sep2: .word 0
+
 nome: .space 63
 nome_saida: .asciiz "exit.txt"
-buffer_leitura: .space 2048
-dicionario: .space 2048
-buffer_escrita: .space 0x1000000
-
 .text
 .globl main
 
@@ -19,6 +20,9 @@ buffer_escrita: .space 0x1000000
 # $s1 - endereço indicando o inicio do buffer de escrita
 # $s2 - endereço indicando o cursor de buffer de escrita
 
+la $s0, buffer_leitura
+la $s1, buffer_escrita
+move $s2, $s1
 ###############FOMATO###########################
 # 24 BITS DE ENDEREÇO DO ULTIMO IGUAL(COM RELACAO AO INICIO)
 #   8 BITS DO CARACTER A MAIS
@@ -53,15 +57,16 @@ abre_arquivo_leitura:
 	li $a1, 0
 	li $a2, 0
 	syscall
-	move $s0, $v0
+	move $s4, $v0
 	#jr $ra
 le_arquivo: 
 	li $v0, 14
-	move $a0, $s0
+	move $a0, $s4
 	la $a1,  buffer_leitura
-	li $a2, 2048
+	li $a2, 32768
 	syscall
 	#jr $ra
+	beqz $v0, exit
 	j aaa		# Essa linha deve ser removida
 	
 abre_arquivo_escrita:
@@ -70,12 +75,12 @@ abre_arquivo_escrita:
 	li $a1, 1
 	li $a2, 0
 	syscall
-	move $s0, $v0
+	move $s5, $v0
 escreve_arquivo:
 	li $v0, 15
-	move $a0, $s0
+	move $a0, $s5
 	la $a1, buffer_escrita
-	li $a2, 2048
+	sub $a2, $s2, $s1
 	syscall
 	j exit
 	#jr $ra
@@ -83,10 +88,7 @@ escreve_arquivo:
 ###################################################
 # Lidando como Dicionario
 ###################################################
-aaa:
-la $s0, buffer_leitura
-la $s1, buffer_escrita
-move $s2, $s1
+#aaa:
 
 comprime11:
    add $t0, $s0, $zero		# $t0 é o cursor que percorre o buffer de leitura
@@ -102,8 +104,9 @@ comprime11:
      jal procura
      bltz $v0, escreve_word		#se nao tem ainda (-1)
      move $a0, $v0		#base de busca é o ultimo igual
-     move $t3, $v0			#guarda ultimo igual
-     sll $a1, $v0, 8			#prepara $a1
+     sub $t3, $v0, $s1			#guarda ultimo igual
+     addi $t3, $t3, 4
+     sll $a1, $t3, 8			#prepara $a1
      j c1
    escreve_word:
      sll $t3,$t3, 8 			#prepara $t3
@@ -124,10 +127,40 @@ procura:					#a0 base da busca, $a1 o que procuro
    nao_achou:
      addi $v0, $zero, -1
      jr $ra
+
+   aaa:    
+ 
+descomprime:
+ move $t0, $s0
+ addi $sp, $sp, -1
+ sb $0, 0($sp)
+ d0:
+    lw $a0, 0($t0)
+    beq $a0, $0, abre_arquivo_escrita
+    addi $t0, $t0, 4
+    jal descomprime_palavra
+    j d0
     
-    
-    
-    
+ 
+descomprime_palavra:		#a0 contem a palavra a ser descomprimida
+  andi $t3, $a0, 0x00ff		#caracter
+  srl $t1, $a0, 8				#remove caracter e deixa só o endereço relativo
+  addi $sp, $sp, -1
+  sb $t3, 0($sp)
+  beq $t1, $0, esc_desc
+  add $t1, $t1, $s0			#monta endereço absoluto do igual anterior
+  lw $a0, -4($t1)
+  j descomprime_palavra
+esc_desc:
+  lbu $t1, 0($sp)
+  beqz $t1, e
+  addi $sp, $sp, 1
+  sb $t1, 0($s2)
+  addi $s2, $s2, 1
+  j esc_desc
+e:
+  jr $ra
+  
 ###################VERSAO ANTERIOR########################     
 #comp:				#Compara strings. Retorna 1 se iguais e 0 se diferentes
 	#lbu $t0, 0($a0)		#$a0 contem o endereço da primeria string (referencia)
