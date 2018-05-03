@@ -98,22 +98,28 @@ comprime11:
      move $a0, $s1			#base de busca é o ínicio do buffer
     c1: 
      lbu $s3, 0($t0)			#ultimo byte lido
-     beqz $s3, abre_arquivo_escrita
+     beqz $s3, fim_compri
      addi $t0, $t0, 1			#posiciona para o próximo byte
      or $a1, $a1, $s3			#mascara o 24 bits de endereço e 8 do caracter($a1 já preparado)
      jal procura
      bltz $v0, escreve_word		#se nao tem ainda (-1)
-     move $a0, $v0		#base de busca é o ultimo igual
      sub $t3, $v0, $s1			#guarda ultimo igual
+     move $a0, $v0		#base de busca é o ultimo igual
      addi $t3, $t3, 4
      sll $a1, $t3, 8			#prepara $a1
      j c1
    escreve_word:
-     sll $t3,$t3, 8 			#prepara $t3
-     or $t3, $t3, $s3			#monta endereço da ultima string igual + caracter
-     sw $t3, 0($s2)			#escreve no final do buffer de escrita
+     #sll $t3,$t3, 8 			#prepara $t3
+     #or $t3, $t3, $s3			#monta endereço da ultima string igual + caracter
+     sw $a1, 0($s2)			#escreve no final do buffer de escrita
      addi $s2, $s2, 4			#atualiza fim do buffer
      j c0
+     
+fim_compri:
+     beqz $a1, abre_arquivo_escrita
+     sw $a1, 0($s2)			#escreve no final do buffer de escrita
+     addi $s2, $s2, 4			#atualiza fim do buffer
+     j abre_arquivo_escrita
      
 procura:					#a0 base da busca, $a1 o que procuro
    lw $t2, 0($a0)
