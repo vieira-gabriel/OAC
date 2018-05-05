@@ -6,13 +6,16 @@
 #
 ##################################################
 .data
-buffer_leitura: .space 32768
+buffer_leitura: .space 1048576
 sep:	.word 0
-buffer_escrita: .space 32768 #0x1000000
+buffer_escrita: .space 1048576 #0x1000000
 sep2: .word 0
 
 nome: .space 63
-nome_saida: .asciiz "exit.txt"
+nome_saida: .asciiz "exit.lzw"
+nome_saida2: .asciiz "exit.txt"
+texto_pergunta: .asciiz "Digite o caminho/nome do arquivo:\n"
+texto_pergunta_opcao:.asciiz "Digite 0 para compimir e 1 para descomprimir: "
 .text
 .globl main
 
@@ -30,6 +33,11 @@ move $s2, $s1
 #################################################
 # Lindando com o usuario
 #################################################
+pergunta_nome_arquivo:
+	li $v0, 4
+	la $a0, texto_pergunta
+	syscall
+	
 le_nome_do_arquivo:	#le o texto digitado, mas adiciona /n
 	li $v0, 8
 	la $a0, nome
@@ -48,6 +56,15 @@ rm:
 fim_rm:
 #  	jr $ra	
 
+pergunta_opcao:		#pergunta se quer comprimir ou descomprimir
+	li $v0, 4
+	la $a0, texto_pergunta_opcao
+	syscall
+	
+le_opcao:				#le opcao
+	li $v0, 5
+	syscall
+	move $a3,$v0
 ##################################################
 # Lidando com arquivos
 ##################################################
@@ -63,15 +80,21 @@ le_arquivo:
 	li $v0, 14
 	move $a0, $s4
 	la $a1,  buffer_leitura
-	li $a2, 32768
+	li $a2, 1048576
 	syscall
 	#jr $ra
 	beqz $v0, exit
-	j aaa		# Essa linha deve ser removida
+	beqz $a3, comprime11
+	j descomprime
 	
 abre_arquivo_escrita:
 	li $v0, 13
+	bnez $a3, a_cont
 	la $a0, nome_saida
+	j a_cont2
+a_cont:
+	la $a0, nome_saida2
+a_cont2:
 	li $a1, 1
 	li $a2, 0
 	syscall
@@ -116,7 +139,7 @@ comprime11:
      j c0
      
 fim_compri:
-     beqz $a1, abre_arquivo_escrita
+     beqz $a1, abre_arquivo_escrita #se não tem nenhum caracter a ser escrito
      sw $a1, 0($s2)			#escreve no final do buffer de escrita
      addi $s2, $s2, 4			#atualiza fim do buffer
      j abre_arquivo_escrita
@@ -134,7 +157,7 @@ procura:					#a0 base da busca, $a1 o que procuro
      addi $v0, $zero, -1
      jr $ra
 
-   aaa:    
+  aaa:    
  
 descomprime:
  move $t0, $s0
@@ -166,43 +189,7 @@ esc_desc:
   j esc_desc
 e:
   jr $ra
-  
-###################VERSAO ANTERIOR########################     
-#comp:				#Compara strings. Retorna 1 se iguais e 0 se diferentes
-	#lbu $t0, 0($a0)		#$a0 contem o endereço da primeria string (referencia)
-	#lbu $t1, 0($a1)		#$a1 contem o endereço da segunda string
-	#beq $t0, $t1, eq	
-	#li $v0, 0			#retorna 0 e sai
-	#jr $ra
-   #eq:
-   	#beqz $t0, fim_comp	#se fim da string
-   	#addi $a0, $a0, 1
-   	#addi $a1, $a1, 1
-   	#j comp
-   #fim_comp:
-   	#li $v0, 1
-#   	jr $ra
-
-#comprime:
-   #add $t1, $a2, $zero		#$a2 tem o endereço da string construida
-   #addi $v0, $zero, 1		#Deve-se substituir $v0 por outro registrador
-#igual:
-   #beqz $v0, nao_igual 				# se não há no dicionário
-   #lbu $s5, 0($s1)			#le o proximo caracter
-   #sb $s5, 0($t1)			#escreve na palavra sendo formada
-   #addi $t1, $t1, 1
-#  jal procura
-   #procura no dicionário
- #j igual
-#nao_igual:
- # sub $t0, $s0, $s3			#$t0 recebe a distancia andada do início do dicionario
- # sw $t0, 0($s1)				#escreve $t0, no final do buffer de escrita
- #sb $s5, 4($s1)				#escreve o caracter no buffer_escrita
- # addi $s1, $s1, 5
-   #escreve no dicionário	
- #  j comprime
-
- ########################################################
+ 
 main:
 	
 exit:
