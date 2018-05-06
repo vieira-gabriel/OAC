@@ -10,8 +10,7 @@ buffer_leitura: .space 1048576
 sep:	.word 0
 buffer_escrita: .space 1048576 #0x1000000
 sep2: .word 0
-
-nome: .space 63
+nome: .space 64
 nome_saida: .asciiz "exit.lzw"
 nome_saida2: .asciiz "exit.txt"
 texto_pergunta: .asciiz "Digite o caminho/nome do arquivo:\n"
@@ -117,7 +116,7 @@ comprime11:
    add $t0, $s0, $zero		# $t0 é o cursor que percorre o buffer de leitura
    c0:
      move $a1, $zero			#limpa word que vai ser escrita 24 bits de endereço e 8 do caracter
-     move $t3, $zero			# $t3 é o endereço relativo do ultimo igual
+ #    move $t3, $zero			# $t3 é o endereço relativo do ultimo igual
      move $a0, $s1			#base de busca é o ínicio do buffer
     c1: 
      lbu $s3, 0($t0)			#ultimo byte lido
@@ -126,9 +125,9 @@ comprime11:
      or $a1, $a1, $s3			#mascara o 24 bits de endereço e 8 do caracter($a1 já preparado)
      jal procura
      bltz $v0, escreve_word		#se nao tem ainda (-1)
-     sub $t3, $v0, $s1			#guarda ultimo igual
-     move $a0, $v0		#base de busca é o ultimo igual
-     addi $t3, $t3, 4
+     #sub $t3, $v0, $s1			#guarda ultimo igual
+     add $a0, $v0, $s1		#base de busca é o ultimo igual
+    addi $t3, $v0, 4
      sll $a1, $t3, 8			#prepara $a1
      j c1
    escreve_word:
@@ -146,12 +145,13 @@ fim_compri:
      
 procura:					#a0 base da busca, $a1 o que procuro
    lw $t2, 0($a0)
+#   addi $a0, $a0, 4
    beqz $t2, nao_achou		#nao achou, fim do buffer
    beq $a1, $t2, achou		#achou
    addi $a0, $a0, 4
    j procura
    achou:
-     move $v0, $a0
+     sub $v0, $a0, $s1
      jr $ra
    nao_achou:
      addi $v0, $zero, -1
