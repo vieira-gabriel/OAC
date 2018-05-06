@@ -10,21 +10,29 @@ buffer_leitura: .space 1048576
 sep:	.word 0
 buffer_escrita: .space 1048576 #0x1000000
 sep2: .word 0
+dicionario_meramente_didatico: .space 1572864
+sep3: .word 0
 nome: .space 64
 nome_saida: .asciiz "exit.lzw"
 nome_saida2: .asciiz "exit.txt"
+nome_dicionario: .asciiz "dicionario.txt"
 texto_pergunta: .asciiz "Digite o caminho/nome do arquivo:\n"
 texto_pergunta_opcao:.asciiz "Digite 0 para compimir e 1 para descomprimir: "
+nome_invalido: .asciiz "Arquivo não encontrado, ferifique o caminho/nome digitado.\n"
 .text
 .globl main
 
 # $s0 - endereço indicando o inicio do buffer de leitura
 # $s1 - endereço indicando o inicio do buffer de escrita
 # $s2 - endereço indicando o cursor de buffer de escrita
+# $s6 - endereço indicanco o cursor no dicionario didatico (nao é utilizado na compressão)
+# $s7 - caracter "|"
 
 la $s0, buffer_leitura
 la $s1, buffer_escrita
 move $s2, $s1
+la $s6, dicionario_meramente_didatico
+li $s7, '|'
 ###############FOMATO###########################
 # 24 BITS DE ENDEREÇO DO ULTIMO IGUAL(COM RELACAO AO INICIO)
 #   8 BITS DO CARACTER A MAIS
@@ -73,6 +81,7 @@ abre_arquivo_leitura:
 	li $a1, 0
 	li $a2, 0
 	syscall
+	bltz $v0, arquivo_invalido
 	move $s4, $v0
 	#jr $ra
 le_arquivo: 
@@ -85,7 +94,23 @@ le_arquivo:
 	beqz $v0, exit
 	beqz $a3, comprime11
 	j descomprime
-	
+
+abre_dicionario_escrita:
+	li $v0, 13
+	la $a0, nome_dicionario
+	li $a1, 1
+	li $a2, 0
+	syscall
+	move $s7, $v0
+escreve_dicionario_arquivo:
+	li $v0, 15
+	move $a0, $s7
+	la $a1, dicionario_meramente_didatico
+	sub $a2, $s6, $a1
+	syscall
+#	jr $ra	
+			
+					
 abre_arquivo_escrita:
 	li $v0, 13
 	bnez $a3, a_cont
@@ -107,61 +132,61 @@ escreve_arquivo:
 	j exit
 	#jr $ra
 	
+
+	
 ###################################################
-# Lidando como Dicionario
+# Comprimindo e descomprimindo
 ###################################################
-#aaa:
 
 comprime11:
    add $t0, $s0, $zero		# $t0 é o cursor que percorre o buffer de leitura
    c0:
      move $a1, $zero			#limpa word que vai ser escrita 24 bits de endereço e 8 do caracter
- #    move $t3, $zero			# $t3 é o endereço relativo do ultimo igual
      move $a0, $s1			#base de busca é o ínicio do buffer
     c1: 
      lbu $s3, 0($t0)			#ultimo byte lido
-     beqz $s3, fim_compri
+     beqz $s3, fim_compri		#acabou o arquivo de entrada?
      addi $t0, $t0, 1			#posiciona para o próximo byte
+     sb $s3, 0($s6)			#escreve no dicionario o caracter lido
+     addi $s6, $s6, 1			#posiciona pro proximo espaço
      or $a1, $a1, $s3			#mascara o 24 bits de endereço e 8 do caracter($a1 já preparado)
      jal procura
      bltz $v0, escreve_word		#se nao tem ainda (-1)
-     #sub $t3, $v0, $s1			#guarda ultimo igual
-     add $a0, $v0, $s1		#base de busca é o ultimo igual
-    addi $t3, $v0, 4
+     add $a0, $v0, $s1		#base de busca é o ultimo igual (endereço absoluto montado)
+     addi $t3, $v0, 4			#adiciona virtualmente o caracter nulo no inicio do buffer
      sll $a1, $t3, 8			#prepara $a1
      j c1
    escreve_word:
-     #sll $t3,$t3, 8 			#prepara $t3
-     #or $t3, $t3, $s3			#monta endereço da ultima string igual + caracter
+     sb $s7, 0($s6)			#adiciona o "|" no dicionario para separar os termos 
+     addi $s6, $s6, 1			#incrementa o cursor do dicionario
      sw $a1, 0($s2)			#escreve no final do buffer de escrita
      addi $s2, $s2, 4			#atualiza fim do buffer
      j c0
      
 fim_compri:
-     beqz $a1, abre_arquivo_escrita #se não tem nenhum caracter a ser escrito
+     beqz $a1, abre_dicionario_escrita #se não tem nenhum caracter a ser escrito
      sw $a1, 0($s2)			#escreve no final do buffer de escrita
      addi $s2, $s2, 4			#atualiza fim do buffer
-     j abre_arquivo_escrita
+     j abre_dicionario_escrita
      
 procura:					#a0 base da busca, $a1 o que procuro
-   lw $t2, 0($a0)
-#   addi $a0, $a0, 4
+   lw $t2, 0($a0)			#carrega o que esta no buffer
    beqz $t2, nao_achou		#nao achou, fim do buffer
    beq $a1, $t2, achou		#achou
-   addi $a0, $a0, 4
+   addi $a0, $a0, 4			#incrementa o cursor
    j procura
    achou:
-     sub $v0, $a0, $s1
+     sub $v0, $a0, $s1		#monta endereço relativo
      jr $ra
    nao_achou:
-     addi $v0, $zero, -1
+     addi $v0, $zero, -1		#retorna um endereço não valido
      jr $ra
 
-  aaa:    
+####################################################
  
 descomprime:
- move $t0, $s0
- addi $sp, $sp, -1
+ move $t0, $s0				#começa no inicio do buffer
+ addi $sp, $sp, -1			
  sb $0, 0($sp)
  d0:
     lw $a0, 0($t0)
@@ -181,10 +206,10 @@ descomprime_palavra:		#a0 contem a palavra a ser descomprimida
   lw $a0, -4($t1)
   j descomprime_palavra
 esc_desc:
-  lbu $t1, 0($sp)
-  beqz $t1, e
+  lbu $t2, 0($sp)
+  beqz $t2, e
   addi $sp, $sp, 1
-  sb $t1, 0($s2)
+  sb $t2, 0($s2)
   addi $s2, $s2, 1
   j esc_desc
 e:
@@ -192,6 +217,11 @@ e:
  
 main:
 	
+	
+arquivo_invalido:
+	li $v0, 4
+	la $a0, nome_invalido
+	syscall
 exit:
 	li $v0, 10
 	syscall
