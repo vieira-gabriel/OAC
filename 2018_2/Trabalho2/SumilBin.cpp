@@ -207,6 +207,18 @@ void sb(uint32_t address, int16_t kte, int8_t dado){
 	mem[address] = temp+backup;
 }
 
+void execute(){
+	
+}
+
+void decode(){
+
+}
+
+void fetch(){			// Função que busca a instrução
+
+}
+
 int main(int argc, char *argv[])
 {
 	
