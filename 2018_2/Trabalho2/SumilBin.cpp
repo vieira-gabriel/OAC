@@ -10,10 +10,19 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string>
-#include <iostream>
+#include <iostream>        
+#include <bitset>
 
 #define MEM_SIZE 4096 
-int32_t mem[MEM_SIZE]; 
+int32_t mem[MEM_SIZE];
+std::bitset<6> opcode;
+std::bitset<5> rs;
+std::bitset<5> rt;
+std::bitset<5> rd;
+std::bitset<5> shamt;
+std::bitset<6> funct;
+uint32_t pc;
+uint32_t ri;
 
 using namespace std;
 
@@ -207,21 +216,30 @@ void sb(uint32_t address, int16_t kte, int8_t dado){
 	mem[address] = temp+backup;
 }
 
-void execute(){
+void execute(){			// Função que executa a instrução
 	
 }
 
-void decode(){
-
+void decode(bitset<32> inst){			// Função que decodifica a instrução
+	
+	
 }
 
 void fetch(){			// Função que busca a instrução
+	bitset<32> inst;
+	string entrada;
+
+	getline(cin,entrada);
+
+	inst = bitset<32>(entrada);
+
+	decode(inst);
 
 }
 
 int main(int argc, char *argv[])
 {
-	
+	fetch();
 
     return 0;
 }
