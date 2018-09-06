@@ -221,8 +221,12 @@ void execute(){			// Função que executa a instrução
 }
 
 void decode(bitset<32> inst){			// Função que decodifica a instrução
-	
-	
+	bitset<32> temp;
+	string aux;
+	temp = (inst >>26);
+	aux = (string) temp;
+	opcode = bitset<6>(aux);
+	cout << inst << endl;
 }
 
 void fetch(){			// Função que busca a instrução
