@@ -15,6 +15,10 @@
 
 #define MEM_SIZE 4096 
 int32_t mem[MEM_SIZE];
+int16_t k16;
+uint26_t k26;
+
+int pos;
 std::bitset<6> opcode;
 std::bitset<5> rs;
 std::bitset<5> rt;
@@ -26,14 +30,34 @@ uint32_t ri;
 
 using namespace std;
 
-void dump_mem(uint32_t add, uint32_t size){			// Função que imprime o conteúdo da memória no formato hexa, palavra por palavra
+enum OPCODE{
+	EXT=0x00,			// Instruções tipo R
+	
+	LB=0x20, LH=0x21, LHU=0x25, SW=0x2B, SB=0x28, SH=0x29,
+	SLTIU=0x0B, ANDI=0x0C, ORI=0x0D, XORI=0x0E, LUI=0x0F, LBU=0x24, ADDI=0x08, SLTI=0x0A, ADDIU= 0x09, LW=0x23,
+	
+	BEQ=0x04, BNE=0x05, BLEZ=0x06, BGTZ=0x07, J=0x02, JAL=0x03
+};
+
+enum FUNCT{
+	ADD=0x20, SUB=0x22, MULT=0x18, DIV=0x1A, AND=0x24,
+	OR=0x25, XOR=0x26, NOR=0x27, SLT=0x2A, JR=0x08,
+	SLL=0x00, SRL=0x02, SRA=0x03, SYSCALL=0x0c, MFHI=0x10,
+	MFLO=0x12, ADDU=0x21, SLTU=0x2b
+};
+
+void dump_mem(uint32_t 	, uint32_t size){			// Função que imprime o conteúdo da memória no formato hexa, palavra por palavra
 	size /= 4;
-	size += add;
+	size += 	;
 
 	for(int i = add; i < size; ++i)
 	{
 		cout << "mem[" << i << "] = " << hex << mem[i] << endl;
 	}
+}
+
+void dump_reg(char format){						// Função que imprime conteudo do registrador
+
 }
 
 int32_t lw(uint32_t address, int16_t kte){
@@ -217,33 +241,52 @@ void sb(uint32_t address, int16_t kte, int8_t dado){
 }
 
 void execute(){			// Função que executa a instrução
-	
+	if(opcode == )
 }
 
-void decode(bitset<32> inst){			// Função que decodifica a instrução
-	bitset<32> temp;
-	string aux;
-	temp = (inst >>26);
-	aux = (string) temp;
-	opcode = bitset<6>(aux);
-	cout << inst << endl;
+void decode(){			// Função que decodifica a instrução
+	bitset<32> inst(ri);
+	bitset<6> aux;
+	for(int i = 0; i < 32; ++i){
+		if(i < 6)funct[i] = inst[i];
+		else if(i < 11)shamt[i - 6] = inst[i];
+		else if(i < 16)rt[i - 11] = inst[i];
+		else if(i < 21)rs[i - 16] = inst[i];
+		else if(i < 26)rd[i - 21] = inst[i];
+		else opcode[i-26] = inst[i];
+	}
+
 }
 
 void fetch(){			// Função que busca a instrução
-	bitset<32> inst;
-	string entrada;
+	if(pc == 0){
+		ri = mem[0];
+		pc = mem[4];
+		pos = 4;
+	}
+	else{
+		ri = pc;
+		pos += 4;
+		pc = mem[pos];
+	}
 
-	getline(cin,entrada);
+}
 
-	inst = bitset<32>(entrada);
+void step(){		// Função que executa uma instrução do MIPS
+	fetch();
+	decode();
+	execute();
+}
 
-	decode(inst);
-
+void salvar_arquivo(){		// Função para pegar instruções do arquivo binário e armazenar no vetor mem[]
+	ifstream instrucoes;
+	instrucoes.open("bin.txt");
+	instrucoes
 }
 
 int main(int argc, char *argv[])
 {
-	fetch();
+	step();
 
     return 0;
 }
