@@ -233,6 +233,16 @@ void sub(){
     regs[destino] = regs[entrada1] - regs[entrada2];
 }
 
+void mult(){
+    int entrada1 = (int)rs.to_ulong();
+    int entrada2 = (int)rt.to_ulong();
+    int64_t result;
+
+    result = regs[entrada1] * regs[entrada2];
+    lo = (int32_t)(result & 0xFFFFFFFF); 
+    hi = (int32_t)((result >> 32) & 0xFFFFFFFF); 
+}
+
 void div(){
     int entrada1 = (int)rs.to_ulong();
     int entrada2 = (int)rt.to_ulong();
@@ -339,7 +349,11 @@ void jr(){
     int pulo = (int)rs.to_ulong();
 
     pos = pulo;
-    pc = reg[pos];
+    pc = regs[pos];
+}
+
+void syscall(){
+
 }
 
 //------------------------------------------------------------------------------------------------
@@ -347,60 +361,165 @@ void jr(){
 void op_zero(){
     switch ((int)funct.to_ulong()){
         case ADD:
+            add();
             break;
             
         case SUB:
+            sub();
             break;
             
         case MULT:
+            mult();
             break;
             
         case DIV:
+            div();
             break;
             
         case AND:
+            _and();
             break;
 
         case OR:
+            _or();
             break;
             
         case XOR:
+            _xor();
             break;
             
         case NOR:
+            _nor();
             break;
             
         case SLT:
+            stl();
             break;
             
         case SLL:
+            sll();
             break;
             
         case SRL:
+            srl();
             break;
             
         case SRA:
+            sra();
             break;
         
         case MFHI:
+            mfhi();
             break;
 
         case MFLO:
+            mflo();
             break;
             
         case ADDU:
+            addu();
             break;
             
         case SLTU:
+            sltu();
             break;
 
         case JR:
+            jr();
             break;
             
         case SYSCALL:
+            syscall();
             break;
     }
 }
+
+// -----------------------------------------------------------------------------------------------
+
+void sltiu(){
+    int destino = (int)rt.to_ulong();
+    int entrada = (int)rs.to_ulong();
+
+    if((uint32_t)regs[entrada] < k16) regs[destino] = 1;
+    else regs[destino] = 0;
+}
+
+void andi(){
+    int destino = (int)rt.to_ulong();
+    int entrada = (int)rs.to_ulong();
+
+    regs[destino] = regs[entrada] & k16;
+}
+
+void ori(){
+    int destino = (int)rt.to_ulong();
+    int entrada = (int)rs.to_ulong();
+
+    regs[destino] = regs[entrada] | k16;
+}
+
+void xori(){
+    int destino = (int)rt.to_ulong();
+    int entrada = (int)rs.to_ulong();
+
+    regs[destino] = regs[entrada] ^ k16;
+}
+
+void lui(){
+
+}
+
+void lbu(){
+
+}
+
+void addi(){
+    int destino = (int)rt.to_ulong();
+    int entrada = (int)rs.to_ulong();
+
+    regs[destino] = regs[entrada] + k16;
+}
+
+void slti(){
+    int destino = (int)rt.to_ulong();
+    int entrada = (int)rs.to_ulong();
+
+    if(regs[entrada] < k16) regs[destino] = 1;
+    else regs[destino] = 0;
+}
+
+void addiu(){
+    int destino = (int)rt.to_ulong();
+    int entrada = (int)rs.to_ulong();
+
+    regs[destino] = (uint32_t)regs[entrada] + (uint16_t)k16;
+}
+
+void beq(){
+    
+}
+
+void bne(){
+
+}
+
+void blez(){
+
+}
+
+void bgtz(){
+
+}
+
+void j(){
+
+}
+
+void jal(){
+
+}
+
+// -----------------------------------------------------------------------------------------------
 
 void execute(){			// Função que executa a instrução
     switch ((int)opcode.to_ulong()){
@@ -409,6 +528,7 @@ void execute(){			// Função que executa a instrução
             break;
         
         case LB:
+
             break;
 
         case LH:
