@@ -19,7 +19,7 @@
 #include "Instrucoes.hpp"
 
 
-
+// --------------------------------------------------------------------------------------------
 
 void dump_mem(int start, int end, char format){			// Função que imprime o conteúdo da memória no formato hexa, palavra por palavra
 	
@@ -36,7 +36,7 @@ void decode(){			// Função que decodifica a instrução
 	shamt = (ri >> 6) & 0x1F;
 	rd = (ri >> 11) & 0x1F;
 	rt = (ri >> 16) & 0x1F;
-	rd = (ri >> 11) & 0x1F;
+	rs = (ri >> 21) & 0x1F;
 	opcode = (ri >> 26) & 0x3F;
 	k16 = ri & 0xFFFF;
 	k26 = ri & 0x3FFFFFF;
@@ -44,7 +44,6 @@ void decode(){			// Função que decodifica a instrução
 
 void fetch(){			// Função que busca a instrução
 	if(pc == 0){
-		cout << "aqui" << endl;
 		ri = mem[0];
 		pc = mem[1];
 		pos = 1;
@@ -57,6 +56,7 @@ void fetch(){			// Função que busca a instrução
 
 }
 
+
 void step(){		// Função que executa uma instrução do MIPS
 	fetch();
 	decode();
@@ -66,7 +66,7 @@ void step(){		// Função que executa uma instrução do MIPS
 void salvar_arquivo(){		// Função para pegar instruções do arquivo binário e armazenar no vetor mem[]
 	ifstream instrucoes;
 	instrucoes.open("entrada.txt");
-	int pos = 0;
+	int posicao = 0;
 	unsigned long long int valor;
 	string temp;
 	stringstream aux;
@@ -79,14 +79,14 @@ void salvar_arquivo(){		// Função para pegar instruções do arquivo binário 
 	while(instrucoes.good()){						// Lê o arquivo até o final
 		instrucoes >> temp;
 		valor = strtoul(temp.c_str(), NULL, 2);		// Transforma temp em um int de base 2
-		mem[pos] = (int) valor;						// Passa o conteudo da stringstream para o vetor da memória
-		++pos;
+		mem[posicao] = (int) valor;						// Passa o conteudo da stringstream para o vetor da memória
+		++posicao;
 	}
 	instrucoes.close();
 
 	ifstream dados;
 	dados.open("dados.txt");
-	pos = 12288;
+	posicao = 8192;
 	if(!dados.is_open()){
 		std::cout << "Arquivo nao encontrado" << std::endl;
 		exit(EXIT_FAILURE);
@@ -94,8 +94,8 @@ void salvar_arquivo(){		// Função para pegar instruções do arquivo binário 
 	while(dados.good()){						// Lê o arquivo até o final
 		dados >> temp;
 		valor = strtoul(temp.c_str(), NULL, 2);		// Transforma temp em um int de base 2
-		mem[pos] = (int) valor;						// Passa o conteudo da stringstream para o vetor da memória
-		++pos;
+		mem[posicao] = (int)valor;						// Passa o conteudo da stringstream para o vetor da memória
+		posicao+=4;
 	}
 	dados.close();
 }
@@ -105,13 +105,25 @@ int main(int argc, char *argv[])
 	regs[29] = 0x3ffc;
 	regs[28] = 0x1800;
 	salvar_arquivo();
-	step();
+	int i;
 
+
+	// string parada = "01010";
+	// int32_t para = (int)(strtoul(parada.c_str(), NULL, 2));
+	stop = 0;
+	do{
+		step();
+		cout << (int)regs[2] << endl;
+		getchar();
+	}while(((int)regs[2] != 10));
+	cout << "saiu" << endl << endl << (int)regs[2] << endl;
 	// std::bitset<5> teste (string("11111010"));
-	// std::bitset<5> teste2 (string("10110"));
+	std::bitset<5> teste2 (string("01010"));
 	// string temp1 = "11000000000000000000000000000001";
 	// string temp2 = "01111111111100000000000000000001";
 
+	// int r1 = (int) teste2;
+	// cout << r1 << endl;
 	// int32_t x8 = (int32_t)strtoul(temp1.c_str(), NULL, 2);
 	// int32_t x9 = (int32_t)strtoul(temp2.c_str(), NULL, 2);
 	// int r1, r2, r3, r4;

@@ -15,6 +15,7 @@ uint32_t pc;
 uint32_t ri;
 int32_t hi;
 int32_t lo;
+int stop;
 
 using namespace std;
 
@@ -35,18 +36,16 @@ enum FUNCT{
 };
 
 int32_t lw(uint32_t address, int16_t kte){
-	address = address/4;
 	int32_t dado, retorno;
 
 	dado = mem[address];
 	
-	cout << "Decimal: " << dec << dado << endl << "Hexadecimal " << hex << dado << endl;
+	// cout << "Decimal: " << dec << dado << endl << "Hexadecimal " << hex << dado << endl;
 	retorno = dado;
 	return retorno;
 }
 
 int32_t lh(uint32_t address, int16_t kte){
-	address = address/4;
 	int16_t dado = mem[address];
 	int32_t retorno;
 
@@ -54,13 +53,12 @@ int32_t lh(uint32_t address, int16_t kte){
 	if(kte%4 == 2) dado = (mem[address] >> 16)&0x0000FFFF;	// Mascara aplicada para conseguir os 2 bytes mais significativos
 															// após serem deslocados para a direita para se tornarem os menos significativos
 
-	cout << "Decimal: " << dec << dado << endl << "Hexadecimal " << hex << dado << endl;
+	// cout << "Decimal: " << dec << dado << endl << "Hexadecimal " << hex << dado << endl;
 	retorno = dado;
 	return retorno;
 }   
 
 uint32_t lhu(uint32_t address, int16_t kte){
-	address = address/4;
 	uint16_t dado = mem[address];
 	uint32_t retorno;
 
@@ -68,13 +66,12 @@ uint32_t lhu(uint32_t address, int16_t kte){
 	if(kte%4 == 2) dado = (mem[address] >> 16)&0x0000FFFF;	// Mascara aplicada para conseguir os 2 bytes mais significativos
 															// após serem deslocados 16 bites para a direita para se tornarem os menos significativos
 
-	cout << "Decimal: " << dec << dado << endl;
+	// cout << "Decimal: " << dec << dado << endl;
 	retorno = dado;
 	return retorno;
 }   
 
 int32_t lb(uint32_t address, int16_t kte){
-	address = address/4;
 	int32_t dado, retorno;
 	uint32_t temp = mem[address];
 
@@ -105,13 +102,12 @@ int32_t lb(uint32_t address, int16_t kte){
 		dado = temp;
 	}
 
-	cout << "Decimal: " << dec << temp << endl << "Hexadecimal " << hex << temp << endl;
+	// cout << "Decimal: " << dec << temp << endl << "Hexadecimal " << hex << temp << endl;
 	retorno = dado;
 	return retorno;
 }      
 
 int32_t lbu(uint32_t address, int16_t kte){
-	address = address/4;
 	uint32_t dado = mem[address], retorno;
 
 	if(kte%4 == 0){
@@ -130,13 +126,12 @@ int32_t lbu(uint32_t address, int16_t kte){
 		dado = ((dado >> 16) >> 8);
 	}
 
-	cout << "Decimal: " << dado << endl;
+	// cout << "Decimal: " << dado << endl;
 	retorno = dado;
 	return retorno;
 }
 
 void sw(uint32_t address, int16_t kte, int32_t dado){
-	address = address/4;
 
 	
 	if(kte%4 == 1) dado = (dado << 8);			// Caso kte seja 1, a word será deslocada para a direita, sendo aramzenada a partir da posição 1.
@@ -148,7 +143,6 @@ void sw(uint32_t address, int16_t kte, int32_t dado){
 }
 
 void sh(uint32_t address, int16_t kte, int16_t dado){
-	address = address/4;
 	uint32_t temp = (uint32_t)dado, backup;
 	
 	if(kte%4 == 0){
@@ -180,7 +174,6 @@ void sh(uint32_t address, int16_t kte, int16_t dado){
 }
 
 void sb(uint32_t address, int16_t kte, int8_t dado){
-	address = address/4;
 	uint32_t temp = (uint32_t)dado, backup;
 	
 	if(kte%4 == 0){
@@ -353,12 +346,26 @@ void jr(){
 }
 
 void syscall(){
+    switch ((int)regs[2]){
+        case 1:
+            cout << "oi" << endl;
+            break;
 
+        case 4:
+            cout << "aqui" << endl; 
+            break;
+
+        case 10:
+            stop = 1;
+            break;
+        
+    }
 }
 
 //------------------------------------------------------------------------------------------------
 
 void op_zero(){
+
     switch ((int)funct.to_ulong()){
         case ADD:
             add();
@@ -466,11 +473,10 @@ void xori(){
 }
 
 void lui(){
+    int32_t imediato = (k16 << 16);
+    int destino = (int)rt.to_ulong();
 
-}
-
-void lbu(){
-
+    regs[destino] = imediato;
 }
 
 void addi(){
@@ -478,6 +484,7 @@ void addi(){
     int entrada = (int)rs.to_ulong();
 
     regs[destino] = regs[entrada] + k16;
+    cout << destino << "  " << (int)regs[destino] << endl;
 }
 
 void slti(){
@@ -492,106 +499,180 @@ void addiu(){
     int destino = (int)rt.to_ulong();
     int entrada = (int)rs.to_ulong();
 
-    regs[destino] = (uint32_t)regs[entrada] + (uint16_t)k16;
+    regs[destino] = (uint32_t)regs[entrada] + (uint32_t)k16;
+    cout << destino << "  " << (int)regs[destino] << endl;
 }
 
 void beq(){
+    cout << regs[9] << "<-------------" << endl;
+    int entrada1 = (int)rt.to_ulong();
+    int entrada2 = (int)rs.to_ulong();
+
+    cout << pos << endl;
+    cout << endl << "reg " << entrada1 << "= " << (int)regs[entrada1] << '\t' << "reg " << entrada2 << "= " << (int)regs[entrada2] << endl << endl;
+    cout << "rt " << rt << '\t' << "rs " << rs << endl;
+    if((int)regs[entrada1] == (int)regs[entrada2]) pos += (int)k16;
+    cout << pos << endl;
+    
+    pc = mem[pos];
     
 }
 
 void bne(){
+    int entrada1 = (int)rt.to_ulong();
+    int entrada2 = (int)rs.to_ulong();
+
+    if(regs[entrada1] != regs[entrada2]) pos += (int)k16;
+    
+    pc = mem[pos];
 
 }
 
 void blez(){
+    int entrada = (int)rs.to_ulong();
+
+    if((int)regs[entrada] <= 0) pos += (int)k16;
+    
+    pc = mem[pos];
 
 }
 
 void bgtz(){
+    int entrada = (int)rs.to_ulong();
+
+    if((int)regs[entrada] > 0) pos += (int)k16;
+    
+    pc = mem[pos];
 
 }
 
 void j(){
+    int pulo = (int)(k16<<2);
+    pos = pulo/4;
+    cout << "pc" << pc << '\t' << "k16 " << (k16<<2) << endl;
+    pc = mem[pos];
+    cout << "pc" << hex << pc << endl << endl;
 
 }
 
 void jal(){
+    regs[31] = pc;
+    pc = pc | (k26 << 2);
+
+    for(pos; regs[pos] != pc || pos > 16384; ++pos){
+        if(pos == 16384) cout << endl << "ERROR" << endl;
+    }
 
 }
 
 // -----------------------------------------------------------------------------------------------
 
 void execute(){			// Função que executa a instrução
+    int destino = (int)rt.to_ulong();
+    int entrada = (int)rs.to_ulong();
+    uint32_t endereco = (uint32_t)regs[entrada];    // Usado nas funções load e store
+    int32_t dado = (int32_t)rt.to_ulong();           // Usado nas funções store
+    
+    cout << hex << ri << endl;
     switch ((int)opcode.to_ulong()){
         case EXT:
             op_zero();
             break;
         
         case LB:
-
+            regs[destino] = lb(endereco, k16);
+            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
             break;
 
         case LH:
+            regs[destino] = lh(endereco, k16);
+            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
             break;
             
         case LHU:
-            break;
-            
-        case SW:
-            break;
-            
-        case SB:
-            break;
-            
-        case SH:
-            break;
-
-        case SLTIU:
-            break;
-            
-        case ANDI:
-            break;
-            
-        case ORI:
-            break;
-            
-        case XORI:
-            break;
-            
-        case LUI:
+            regs[destino] = lhu(endereco, k16);
+            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
             break;
             
         case LBU:
-            break;
-            
-        case ADDI:
-            break;
-            
-        case SLTI:
-            break;
-            
-        case ADDIU:
+            regs[destino] = lbu(endereco, k16);
+            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
             break;
             
         case LW:
+            regs[destino] = lw(endereco, k16);
+            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
+            cout << endereco << "    " << k16 << endl << endl;
+            break;
+            
+        case SW:
+            sw(endereco, k16, dado);
+            break;
+            
+        case SB:
+            sb(endereco, k16, dado);
+            break;
+            
+        case SH:
+            sh(endereco, k16, dado);
+            break;
+            
+        case SLTI:
+            slti();
+            break;
+
+        case SLTIU:
+            sltiu();
+            break;
+            
+        case ANDI:
+            andi();
+            break;
+            
+        case ORI:
+            ori();
+            break;
+            
+        case XORI:
+            xori();
+            break;
+            
+        case LUI:
+            lui();
+            break;
+            
+        case ADDI:
+            addi();
+			cout << (int)regs[9] << endl;
+            break;
+            
+        case ADDIU:
+            addiu();
+			cout << (int)regs[2] << endl;
             break;
 
         case BEQ:
+            beq();
             break;
             
         case BNE:
+            bne();
             break;
             
         case BLEZ:
+            blez();
             break;
             
         case BGTZ:
+            bgtz();
             break;
             
         case J:
+            j();
             break;
             
-        case JAL:
+        case JAL:  
+            jal();
             break;
     }
 }
