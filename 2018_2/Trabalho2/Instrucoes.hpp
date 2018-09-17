@@ -1,3 +1,14 @@
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string>
+#include <iostream>        
+#include <bitset>
+#include <fstream>
+#include <sstream>
+#include <cstring>
+#include <algorithm>
+
 #define MEM_SIZE 16384 // 4096 não é suficiente para armazenar texto e dado na memória
 int32_t mem[MEM_SIZE];	
 int32_t regs[32];
@@ -347,17 +358,41 @@ void jr(){
 
 void syscall(){
     switch ((int)regs[2]){
-        case 1:
-            cout << "oi" << endl;
+        case 1:{
+            cout << (int)regs[4] << ' ';
             break;
-
-        case 4:
-            cout << "aqui" << endl; 
+        }
+        case 4:{
+            ostringstream temp;
+            string msg_hex;
+            string mensagem;
+            int32_t troca;          // troca a ordem dos caracteres
+            int endereco = (int)regs[4];
+            while(mem[endereco] != 32){
+                troca = (mem[endereco]>>24) & 0X000000FF;
+                troca = troca | ((mem[endereco]>>8) & 0X0000FF00);
+                troca = troca | ((mem[endereco]<<8) & 0X00FF0000);
+                troca = troca | ((mem[endereco]<<24) & 0XFF000000);
+                temp << hex << troca;
+                msg_hex = temp.str();
+                endereco += 4;
+            } 
+            int len = msg_hex.length();
+            std::string newString;
+            for(int i=0; i< len; i+=2)
+            {
+            	string byte = msg_hex.substr(i,2);
+            	char chr = (char) (int)strtol(byte.c_str(), NULL, 16);
+            	newString.push_back(chr);
+            }
+            cout << newString;
             break;
+        }
 
-        case 10:
+        case 10:{
             stop = 1;
             break;
+        }
         
     }
 }
@@ -484,7 +519,6 @@ void addi(){
     int entrada = (int)rs.to_ulong();
 
     regs[destino] = regs[entrada] + k16;
-    cout << destino << "  " << (int)regs[destino] << endl;
 }
 
 void slti(){
@@ -500,19 +534,13 @@ void addiu(){
     int entrada = (int)rs.to_ulong();
 
     regs[destino] = (uint32_t)regs[entrada] + (uint32_t)k16;
-    cout << destino << "  " << (int)regs[destino] << endl;
 }
 
 void beq(){
-    cout << regs[9] << "<-------------" << endl;
     int entrada1 = (int)rt.to_ulong();
     int entrada2 = (int)rs.to_ulong();
 
-    cout << pos << endl;
-    cout << endl << "reg " << entrada1 << "= " << (int)regs[entrada1] << '\t' << "reg " << entrada2 << "= " << (int)regs[entrada2] << endl << endl;
-    cout << "rt " << rt << '\t' << "rs " << rs << endl;
     if((int)regs[entrada1] == (int)regs[entrada2]) pos += (int)k16;
-    cout << pos << endl;
     
     pc = mem[pos];
     
@@ -549,9 +577,7 @@ void bgtz(){
 void j(){
     int pulo = (int)(k16<<2);
     pos = pulo/4;
-    cout << "pc" << pc << '\t' << "k16 " << (k16<<2) << endl;
     pc = mem[pos];
-    cout << "pc" << hex << pc << endl << endl;
 
 }
 
@@ -573,7 +599,7 @@ void execute(){			// Função que executa a instrução
     uint32_t endereco = (uint32_t)regs[entrada];    // Usado nas funções load e store
     int32_t dado = (int32_t)rt.to_ulong();           // Usado nas funções store
     
-    cout << hex << ri << endl;
+    // cout << hex << ri << endl;
     switch ((int)opcode.to_ulong()){
         case EXT:
             op_zero();
@@ -581,28 +607,22 @@ void execute(){			// Função que executa a instrução
         
         case LB:
             regs[destino] = lb(endereco, k16);
-            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
             break;
 
         case LH:
             regs[destino] = lh(endereco, k16);
-            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
             break;
             
         case LHU:
             regs[destino] = lhu(endereco, k16);
-            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
             break;
             
         case LBU:
             regs[destino] = lbu(endereco, k16);
-            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
             break;
             
         case LW:
             regs[destino] = lw(endereco, k16);
-            cout << endl << "registrador" << destino << " = " << (int)regs[destino] << endl;
-            cout << endereco << "    " << k16 << endl << endl;
             break;
             
         case SW:
@@ -643,12 +663,10 @@ void execute(){			// Função que executa a instrução
             
         case ADDI:
             addi();
-			cout << (int)regs[9] << endl;
             break;
             
         case ADDIU:
             addiu();
-			cout << (int)regs[2] << endl;
             break;
 
         case BEQ:

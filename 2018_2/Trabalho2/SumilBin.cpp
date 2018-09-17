@@ -7,15 +7,7 @@
 	Sistema Operacional: Ubuntu 16.04.10*/
 
 
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string>
-#include <iostream>        
-#include <bitset>
-#include <fstream>
-#include <sstream>
-#include <cstring>
+
 #include "Instrucoes.hpp"
 
 
@@ -107,18 +99,30 @@ int main(int argc, char *argv[])
 	salvar_arquivo();
 	int i;
 
-
-	// string parada = "01010";
-	// int32_t para = (int)(strtoul(parada.c_str(), NULL, 2));
 	stop = 0;
 	do{
 		step();
-		cout << (int)regs[2] << endl;
-		getchar();
-	}while(((int)regs[2] != 10));
-	cout << "saiu" << endl << endl << (int)regs[2] << endl;
+	}while(!stop);
+	cout << endl << endl << "PROGRAMA ENCERRADO"<< endl;
+
+	// string hex = "48656c6c6f";
+
+	// int len = hex.length();
+	// std::string newString;
+	// for(int i=0; i< len; i+=2)
+	// {
+	// 	string byte = hex.substr(i,2);
+	// 	char chr = (char) (int)strtol(byte.c_str(), NULL, 16);
+	// 	newString.push_back(chr);
+	// }
+	// cout << newString << endl;
+
+
+
+
+
 	// std::bitset<5> teste (string("11111010"));
-	std::bitset<5> teste2 (string("01010"));
+	// std::bitset<5> teste2 (string("01010"));
 	// string temp1 = "11000000000000000000000000000001";
 	// string temp2 = "01111111111100000000000000000001";
 
