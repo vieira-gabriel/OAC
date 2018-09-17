@@ -14,11 +14,28 @@
 // --------------------------------------------------------------------------------------------
 
 void dump_mem(int start, int end, char format){			// Função que imprime o conteúdo da memória no formato hexa, palavra por palavra
-	
+	for(int i = start; i < end; ++i)
+	{
+		if(format == 'h') cout << "mem[" << i << "] = " << hex << mem[i] << endl;
+		else cout << "mem[" << i << "] = " << mem[i] << endl;
+	}
 }
 
 void dump_reg(char format){						// Função que imprime conteudo do registrador
-
+	for(int i = 0; i < 32; ++i){
+		if(format == 'h') cout << "regs[" << i << "] = " << hex << regs[i] << endl;
+		else cout << "regs[" << i << "] = " << regs[i] << endl;
+	}
+	if(format == 'h'){
+		cout << "pc = " << hex << pc << endl;
+		cout << "hi = " << hex << hi << endl;
+		cout << "lo = " << hex << lo << endl;
+	}
+	else{
+		cout << "pc = " << pc << endl;
+		cout << "hi = " << hi << endl;
+		cout << "lo = " << lo << endl;
+	}
 }
 
 
@@ -104,48 +121,6 @@ int main(int argc, char *argv[])
 		step();
 	}while(!stop);
 	cout << endl << endl << "PROGRAMA ENCERRADO"<< endl;
-
-	// string hex = "48656c6c6f";
-
-	// int len = hex.length();
-	// std::string newString;
-	// for(int i=0; i< len; i+=2)
-	// {
-	// 	string byte = hex.substr(i,2);
-	// 	char chr = (char) (int)strtol(byte.c_str(), NULL, 16);
-	// 	newString.push_back(chr);
-	// }
-	// cout << newString << endl;
-
-
-
-
-
-	// std::bitset<5> teste (string("11111010"));
-	// std::bitset<5> teste2 (string("01010"));
-	// string temp1 = "11000000000000000000000000000001";
-	// string temp2 = "01111111111100000000000000000001";
-
-	// int r1 = (int) teste2;
-	// cout << r1 << endl;
-	// int32_t x8 = (int32_t)strtoul(temp1.c_str(), NULL, 2);
-	// int32_t x9 = (int32_t)strtoul(temp2.c_str(), NULL, 2);
-	// int r1, r2, r3, r4;
-	// r1 = (int)x8 + (int)x9;
-	// r2 = (uint32_t)x8 + (uint32_t)x9;
-	// r3 = (int)x8 - (int)x9;
-	// r4 = (uint32_t)x8 - (uint32_t)x9;
-	// cout << x8 << "\t" << x9 << endl;
-	// cout << r1 << "\t" << r2 << endl;
-	// cout << r3 << "\t" << r4 << endl;
-
-	// std::bitset<32> b(string("10100000001000011111111111111111"));
-	// int8_t x8 = (int8_t)(b.to_ulong() & 0xFF);
-	// int16_t x16 = (int16_t)(b.to_ulong() & 0xFFFF);
-	// int32_t x32 = (int32_t)b.to_ulong();
-	// cout << x8 << endl;
-	// cout << x16 << endl;
-	// cout << x32 << endl;
 
 
     return 0;
