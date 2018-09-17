@@ -315,7 +315,8 @@ void srl(){
 void sra(){
     int destino = (int)rd.to_ulong();
     int entrada = (int)rt.to_ulong();
-    int shift = (int)shamt.to_ulong();
+    bitset<10> desloca = (ri>>10) & 0x3FF;
+    int shift = (int)desloca.to_ulong();
     
     regs[destino] = (regs[entrada] >> shift);
 }
