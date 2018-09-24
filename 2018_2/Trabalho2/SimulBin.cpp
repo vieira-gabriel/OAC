@@ -74,7 +74,7 @@ void step(){		// Função que executa uma instrução do MIPS
 
 void salvar_arquivo(){		// Função para pegar instruções do arquivo binário e armazenar no vetor mem[]
 	ifstream instrucoes;
-	instrucoes.open("entrada.txt");
+	instrucoes.open("entrada");
 	int posicao = 0;
 	unsigned long long int valor;
 	string temp;
@@ -88,13 +88,16 @@ void salvar_arquivo(){		// Função para pegar instruções do arquivo binário 
 	while(instrucoes.good()){						// Lê o arquivo até o final
 		instrucoes >> temp;
 		valor = strtoul(temp.c_str(), NULL, 2);		// Transforma temp em um int de base 2
+		// cout << temp << endl;
+		// cout << bitset<32>(valor) << endl;
+		// getchar();
 		mem[posicao] = (int) valor;						// Passa o conteudo da stringstream para o vetor da memória
 		++posicao;
 	}
 	instrucoes.close();
 
 	ifstream dados;
-	dados.open("dados.txt");
+	dados.open("dados");
 	posicao = 8192;
 	if(!dados.is_open()){
 		std::cout << "Arquivo nao encontrado" << std::endl;

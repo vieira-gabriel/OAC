@@ -225,7 +225,6 @@ void add(){
     int entrada1 = (int)rs.to_ulong();
     int entrada2 = (int)rt.to_ulong();
     
-
     regs[destino] = regs[entrada1] + regs[entrada2];
 }
 
@@ -368,15 +367,12 @@ void syscall(){
             string mensagem;
             int32_t troca;          // troca a ordem dos caracteres
             int endereco = (int)regs[4];
-            while(mem[endereco] != 32){
                 troca = (mem[endereco]>>24) & 0X000000FF;
                 troca = troca | ((mem[endereco]>>8) & 0X0000FF00);
                 troca = troca | ((mem[endereco]<<8) & 0X00FF0000);
                 troca = troca | ((mem[endereco]<<24) & 0XFF000000);
                 temp << hex << troca;
                 msg_hex = temp.str();
-                endereco += 4;
-            } 
             int len = msg_hex.length();
             std::string newString;
             for(int i=0; i< len; i+=2)
@@ -496,8 +492,12 @@ void andi(){
 void ori(){
     int destino = (int)rt.to_ulong();
     int entrada = (int)rs.to_ulong();
+    
 
-    regs[destino] = regs[entrada] | k16;
+    regs[destino] = (regs[entrada] & 0x0000FFFF) | k16;
+    regs[destino] = regs[destino] & 0x0000FFFF;
+    regs[destino] += regs[entrada] & 0xFFFF0000;
+
 }
 
 void xori(){
@@ -512,6 +512,7 @@ void lui(){
     int destino = (int)rt.to_ulong();
 
     regs[destino] = imediato;
+	// cout << "Decimal: " << dec << imediato << endl << "Hexadecimal " << hex << imediato << endl;
 }
 
 void addi(){
@@ -537,11 +538,10 @@ void addiu(){
 }
 
 void beq(){
-    int entrada1 = (int)rt.to_ulong();
-    int entrada2 = (int)rs.to_ulong();
+    int entrada1 = (int)rs.to_ulong();
+    int entrada2 = (int)rt.to_ulong();
 
     if((int)regs[entrada1] == (int)regs[entrada2]) pos += (int)k16;
-    
     pc = mem[pos];
     
 }
@@ -583,11 +583,9 @@ void j(){
 
 void jal(){
     regs[31] = pc;
-    pc = pc | (k26 << 2);
-
-    for(pos; regs[pos] != pc || pos > 16384; ++pos){
-        if(pos == 16384) cout << endl << "ERROR" << endl;
-    }
+    int pulo = (int)(k26<<2);
+    pos = pulo/4;
+    pc = mem[pos];
 
 }
 
@@ -599,7 +597,9 @@ void execute(){			// Função que executa a instrução
     uint32_t endereco = (uint32_t)regs[entrada];    // Usado nas funções load e store
     int32_t dado = (int32_t)rt.to_ulong();           // Usado nas funções store
     
-    // cout << hex << ri << endl;
+    // cout << bitset<32>(ri) << '\t' << bitset<32>(pc) << endl;
+	// cout << bitset<32>(mem[7]) << endl;
+    // getchar();
     switch ((int)opcode.to_ulong()){
         case EXT:
             op_zero();
