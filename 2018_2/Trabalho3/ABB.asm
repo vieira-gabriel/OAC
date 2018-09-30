@@ -195,7 +195,7 @@ busca:
 	
 procura:lw $t2, 0($t3)
 	
-	beq $t2, $s7, ehmenosum
+	beq $t2, $t1, ehmenosum
 	
 	beq $s0, $t2, encontrado
 	slt $t4, $t2, $s0 
@@ -231,7 +231,7 @@ ehmenosum:
 	add $t6, $gp, $t5	# Caso s0 seja -1, conferir se é dado -1 ou -1 que corresponde a um nó vazio
 	lw $t7, 0($t6)
 	
-	bne $s7, $t7, naoencontrado	
+	bne $t1, $t7, naoencontrado	
 
 encontrado:	
 	li $v0, 4
@@ -284,7 +284,6 @@ nos:
 
 getNumNodes:
     	
-   	li $s0, 1		# Acumulador onde fica a quantidade de nós calcula o endereço do filho da esquerda
    	subu $s1, $a0, $gp
    	srl $s1, $s1, 2
     	add $s1, $s1, $s1
@@ -295,12 +294,11 @@ getNumNodes:
    	addu $s1, $gp, $s1	# Calcula o endereço do filho da direita
    	addu $s2, $gp, $s2	# Calcula o endereço do filho da esquerda
    	
-    	addiu $sp, $sp, -20
+    	addiu $sp, $sp, -16
     	sw $ra, 0($sp)
-    	sw $s0, 4($sp)
-    	sw $s1, 8($sp)
-    	sw $s2, 12($sp)
-    	sw $a0, 16($sp)
+    	sw $s1, 4($sp)
+    	sw $s2, 8($sp)
+    	sw $a0, 12($sp)
    	
     	lw $t1, ($s1)		# Carrega o valor do filho da esquerda
     	bne $t1, -1, testaEsquerda
@@ -308,30 +306,27 @@ getNumNodes:
     	bne $t2, -1, testaDireita
     	
     	lw $ra, 0($sp)
-    	lw $s0, 4($sp)
-    	lw $s1, 8($sp)
-    	lw $s2, 12($sp)
-    	lw $a0, 16($sp)
-    	addiu $sp, $sp, 20
+    	lw $s1, 4($sp)
+    	lw $s2, 8($sp)
+    	lw $a0, 12($sp)
+    	addiu $sp, $sp, 16
     	jr $ra
 	
 voltaEsquerda:    	
     	lw $ra, 0($sp)
-    	lw $s0, 4($sp)
-    	lw $s1, 8($sp)
-    	lw $s2, 12($sp)
-    	lw $a0, 16($sp)
+    	lw $s1, 4($sp)
+    	lw $s2, 8($sp)
+    	lw $a0, 12($sp)
     	
 	lw $t2, ($s2)		# Carrega o valor do filho da direita
     	bne $t2, -1, testaDireita
 	
-voltaDireita:    	
+voltaDireita:    	   	
     	lw $ra, 0($sp)
-    	lw $s0, 4($sp)
-    	lw $s1, 8($sp)
-    	lw $s2, 12($sp)
-    	lw $a0, 16($sp)
-    	addiu $sp, $sp, 20
+    	lw $s1, 4($sp)
+    	lw $s2, 8($sp)
+    	lw $a0, 12($sp)
+    	addiu $sp, $sp, 16
     	
     	jr $ra
 
