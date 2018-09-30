@@ -17,8 +17,6 @@ procurar: "\nQual dado deseja encontrar? "
 numnos: "\nQuantidade de nós na árvore: "
 
 .text
-
-main:
 	li $t1, -1
 	sw $t1, 0($gp)
 
@@ -58,7 +56,7 @@ input:
 	
 	beq $s0, 105, insercao
 	beq $s0, 98, busca
-	beq $s0, 110, nos
+	beq $s0, 110, contaNos
 	beq $s0, 115, sai
 	
 	li $v0, 4
@@ -258,7 +256,7 @@ arvorevazia:
 	syscall
 	
 	j menu
-nos:
+contaNos:
 	
 	lw $t2, 0($gp)
 	lw $t7, 4($gp)
