@@ -1,0 +1,19 @@
+
+architecture TESTEBENCH of ulaMIPS is
+	process
+	begin
+		opcode <= "0000";
+		a <= "A";
+		b <= "1";
+		wait for 20 ns;
+		opcode <= "0001";
+		a <= "0";
+		b <= "1";
+		wait for 20 ns;
+		opcode <= "0010";
+		a <= "A";
+		b <= "1";
+		wait for 20 ns;
+		opcode <= "0001";
+		a <= "A";
+		b <= "1";

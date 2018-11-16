@@ -1,0 +1,17 @@
+transcript on
+if {[file exists rtl_work]} {
+	vdel -lib rtl_work -all
+}
+vlib rtl_work
+vmap work rtl_work
+
+vcom -93 -work work {C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vhd}
+
+vcom -93 -work work {C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vht}
+
+vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cycloneii -L rtl_work -L work -voptargs="+acc"  ulaMIPS_vhd_tst
+
+add wave *
+view structure
+view signals
+run 80 ns

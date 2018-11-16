@@ -1,0 +1,142 @@
+Flow report for ULA
+Fri Nov 16 18:20:35 2018
+Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
+
+
+---------------------
+; Table of Contents ;
+---------------------
+  1. Legal Notice
+  2. Flow Summary
+  3. Flow Settings
+  4. Flow Non-Default Global Settings
+  5. Flow Elapsed Time
+  6. Flow OS Summary
+  7. Flow Log
+  8. Flow Messages
+  9. Flow Suppressed Messages
+
+
+
+----------------
+; Legal Notice ;
+----------------
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+
+
+
++---------------------------------------------------------------------------------+
+; Flow Summary                                                                    ;
++------------------------------------+--------------------------------------------+
+; Flow Status                        ; Successful - Fri Nov 16 18:20:35 2018      ;
+; Quartus II 64-Bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
+; Revision Name                      ; ULA                                        ;
+; Top-level Entity Name              ; ulaMIPS                                    ;
+; Family                             ; Cyclone II                                 ;
+; Device                             ; EP2C70F896C6                               ;
+; Timing Models                      ; Final                                      ;
+; Total logic elements               ; 1,614 / 68,416 ( 2 % )                     ;
+;     Total combinational functions  ; 1,614 / 68,416 ( 2 % )                     ;
+;     Dedicated logic registers      ; 0 / 68,416 ( 0 % )                         ;
+; Total registers                    ; 0                                          ;
+; Total pins                         ; 102 / 622 ( 16 % )                         ;
+; Total virtual pins                 ; 0                                          ;
+; Total memory bits                  ; 0 / 1,152,000 ( 0 % )                      ;
+; Embedded Multiplier 9-bit elements ; 0 / 300 ( 0 % )                            ;
+; Total PLLs                         ; 0 / 4 ( 0 % )                              ;
++------------------------------------+--------------------------------------------+
+
+
++-----------------------------------------+
+; Flow Settings                           ;
++-------------------+---------------------+
+; Option            ; Setting             ;
++-------------------+---------------------+
+; Start date & time ; 11/16/2018 18:19:45 ;
+; Main task         ; Compilation         ;
+; Revision Name     ; ULA                 ;
++-------------------+---------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Flow Non-Default Global Settings                                                                                                                      ;
++--------------------------------------+-----------------------------------------------------------------+---------------+-------------+----------------+
+; Assignment Name                      ; Value                                                           ; Default Value ; Entity Name ; Section Id     ;
++--------------------------------------+-----------------------------------------------------------------+---------------+-------------+----------------+
+; COMPILER_SIGNATURE_ID                ; 110073158625057.154239958505228                                 ; --            ; --          ; --             ;
+; EDA_DESIGN_INSTANCE_NAME             ; NA                                                              ; --            ; --          ; i1             ;
+; EDA_ENABLE_GLITCH_FILTERING          ; On                                                              ; --            ; --          ; eda_simulation ;
+; EDA_MAP_ILLEGAL_CHARACTERS           ; On                                                              ; --            ; --          ; eda_simulation ;
+; EDA_NATIVELINK_SIMULATION_TEST_BENCH ; i1                                                              ; --            ; --          ; eda_simulation ;
+; EDA_NETLIST_WRITER_OUTPUT_DIR        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4 ; --            ; --          ; eda_simulation ;
+; EDA_OUTPUT_DATA_FORMAT               ; Vhdl                                                            ; --            ; --          ; eda_simulation ;
+; EDA_SIMULATION_TOOL                  ; ModelSim-Altera (VHDL)                                          ; <None>        ; --          ; --             ;
+; EDA_TEST_BENCH_ENABLE_STATUS         ; TEST_BENCH_MODE                                                 ; --            ; --          ; eda_simulation ;
+; EDA_TEST_BENCH_FILE                  ; ulaMIPS.vht                                                     ; --            ; --          ; i1             ;
+; EDA_TEST_BENCH_MODULE_NAME           ; ulaMIPS_vhd_tst                                                 ; --            ; --          ; i1             ;
+; EDA_TEST_BENCH_NAME                  ; i1                                                              ; --            ; --          ; eda_simulation ;
+; EDA_TEST_BENCH_RUN_SIM_FOR           ; 80 ns                                                           ; --            ; --          ; i1             ;
+; EDA_WRITE_NODES_FOR_POWER_ESTIMATION ; Off                                                             ; --            ; --          ; eda_simulation ;
+; MAX_CORE_JUNCTION_TEMP               ; 85                                                              ; --            ; --          ; --             ;
+; MIN_CORE_JUNCTION_TEMP               ; 0                                                               ; --            ; --          ; --             ;
+; PARTITION_COLOR                      ; 16764057                                                        ; --            ; ulaMIPS     ; Top            ;
+; PARTITION_FITTER_PRESERVATION_LEVEL  ; PLACEMENT_AND_ROUTING                                           ; --            ; ulaMIPS     ; Top            ;
+; PARTITION_NETLIST_TYPE               ; SOURCE                                                          ; --            ; ulaMIPS     ; Top            ;
+; POWER_BOARD_THERMAL_MODEL            ; None (CONSERVATIVE)                                             ; --            ; --          ; --             ;
+; POWER_PRESET_COOLING_SOLUTION        ; 23 MM HEAT SINK WITH 200 LFPM AIRFLOW                           ; --            ; --          ; --             ;
+; PROJECT_OUTPUT_DIRECTORY             ; output_files                                                    ; --            ; --          ; --             ;
+; SEARCH_PATH                          ; c:\altera\13.0\modelsim_ase\ieee\numeric_std                    ; --            ; --          ; --             ;
+; TOP_LEVEL_ENTITY                     ; ulaMIPS                                                         ; ULA           ; --          ; --             ;
++--------------------------------------+-----------------------------------------------------------------+---------------+-------------+----------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------+
+; Flow Elapsed Time                                                                                                             ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+; Analysis & Synthesis      ; 00:00:06     ; 1.0                     ; 4669 MB             ; 00:00:05                           ;
+; Fitter                    ; 00:00:14     ; 1.0                     ; 5036 MB             ; 00:00:14                           ;
+; Assembler                 ; 00:00:05     ; 1.0                     ; 4590 MB             ; 00:00:05                           ;
+; TimeQuest Timing Analyzer ; 00:00:13     ; 1.0                     ; 4603 MB             ; 00:00:02                           ;
+; EDA Netlist Writer        ; 00:00:02     ; 1.0                     ; 4552 MB             ; 00:00:02                           ;
+; Total                     ; 00:00:40     ; --                      ; --                  ; 00:00:28                           ;
++---------------------------+--------------+-------------------------+---------------------+------------------------------------+
+
+
++----------------------------------------------------------------------------------------+
+; Flow OS Summary                                                                        ;
++---------------------------+------------------+-----------+------------+----------------+
+; Module Name               ; Machine Hostname ; OS Name   ; OS Version ; Processor type ;
++---------------------------+------------------+-----------+------------+----------------+
+; Analysis & Synthesis      ; LAPTOP-EKV1KU2I  ; Windows 7 ; 6.2        ; x86_64         ;
+; Fitter                    ; LAPTOP-EKV1KU2I  ; Windows 7 ; 6.2        ; x86_64         ;
+; Assembler                 ; LAPTOP-EKV1KU2I  ; Windows 7 ; 6.2        ; x86_64         ;
+; TimeQuest Timing Analyzer ; LAPTOP-EKV1KU2I  ; Windows 7 ; 6.2        ; x86_64         ;
+; EDA Netlist Writer        ; LAPTOP-EKV1KU2I  ; Windows 7 ; 6.2        ; x86_64         ;
++---------------------------+------------------+-----------+------------+----------------+
+
+
+------------
+; Flow Log ;
+------------
+quartus_map --read_settings_files=on --write_settings_files=off ULA -c ULA
+quartus_fit --read_settings_files=off --write_settings_files=off ULA -c ULA
+quartus_asm --read_settings_files=off --write_settings_files=off ULA -c ULA
+quartus_sta ULA -c ULA
+quartus_eda --read_settings_files=off --write_settings_files=off ULA -c ULA
+
+
+

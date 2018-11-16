@@ -1,0 +1,77 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\Gabriel Arimatéa\Documents\GitHub\OAC\2018_2\Trabalho4
+Eulamips
+Z1 w1542399562
+Z2 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z5 dC:\Users\Gabriel Arimatéa\Documents\GitHub\OAC\2018_2\Trabalho4
+Z6 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vhd
+Z7 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vhd
+l0
+L6
+VSP6ok_]zRzG@k>i^H=mLI1
+Z8 OV;C;10.1d;51
+31
+Z9 !s108 1542399659.749000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vhd|
+Z11 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vhd|
+Z12 o-93 -work work -O0
+Z13 tExplicit 1
+!s100 6HGjmT2[nlzgU0IX^G<<E1
+!i10b 1
+Abehavioral
+R2
+R3
+R4
+DEx4 work 7 ulamips 0 22 SP6ok_]zRzG@k>i^H=mLI1
+l21
+L16
+V3AXnY]CPMlJ=8>aWBVohU0
+R8
+31
+R9
+R10
+R11
+R12
+R13
+!s100 UUD8T`KD3@3X76QjiOELd1
+!i10b 1
+Eulamips_vhd_tst
+Z14 w1542399079
+R3
+R2
+R5
+Z15 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vht
+Z16 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vht
+l0
+L30
+VN:ajCaJ2GBhjVe5jJ@^U30
+!s100 453WhAC[Z`[1]b0CReB;z0
+R8
+31
+!i10b 1
+Z17 !s108 1542399660.782000
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vht|
+Z19 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho4/ulaMIPS.vht|
+R12
+R13
+Aulamips_arch
+R3
+R2
+DEx4 work 15 ulamips_vhd_tst 0 22 N:ajCaJ2GBhjVe5jJ@^U30
+l51
+L32
+VXITYbEL:So7Acj]zmcbPe3
+!s100 2`B``dFIQm595S];1@l=70
+R8
+31
+!i10b 1
+R17
+R18
+R19
+R12
+R13
