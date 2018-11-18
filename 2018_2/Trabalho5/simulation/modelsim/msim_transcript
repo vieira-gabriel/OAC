@@ -1,0 +1,165 @@
+# Reading C:/altera/13.0/modelsim_ase/tcl/vsim/pref.tcl 
+# do BREG_run_msim_rtl_vhdl.do 
+# if {[file exists rtl_work]} {
+# 	vdel -lib rtl_work -all
+# }
+# vlib rtl_work
+# vmap work rtl_work
+# Copying C:\altera\13.0\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini
+# Modifying modelsim.ini
+# ** Warning: Copied C:\altera\13.0\modelsim_ase\win32aloem/../modelsim.ini to modelsim.ini.
+#          Updated modelsim.ini.
+# 
+# vcom -93 -work work {C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/bregMIPS.vhd}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity bregMIPS
+# -- Compiling architecture Behavior of bregMIPS
+# 
+# vcom -93 -work work {C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/simulation/modelsim/bregMIPS.vht}
+# Model Technology ModelSim ALTERA vcom 10.1d Compiler 2012.11 Nov  2 2012
+# -- Loading package STANDARD
+# -- Loading package TEXTIO
+# -- Loading package std_logic_1164
+# -- Loading package NUMERIC_STD
+# -- Compiling entity bregMIPS_vhd_tst
+# -- Compiling architecture bregMIPS_arch of bregMIPS_vhd_tst
+# 
+# vsim -t 1ps -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cycloneii -L rtl_work -L work -voptargs="+acc"  bregMIPS_vhd_tst
+# vsim -L altera -L lpm -L sgate -L altera_mf -L altera_lnsim -L cycloneii -L rtl_work -L work -voptargs=\"+acc\" -t 1ps bregMIPS_vhd_tst 
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.numeric_std(body)
+# Loading work.bregmips_vhd_tst(bregmips_arch)
+# Loading work.bregmips(behavior)
+# 
+# add wave *
+# view structure
+# .main_pane.structure.interior.cs.body.struct
+# view signals
+# .main_pane.objects.interior.cs.body.tree
+# run 390 ns
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 2 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 2 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 6 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 6 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 10 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 10 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 14 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 14 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 18 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 18 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 22 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 22 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 26 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 26 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 30 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 30 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 34 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 34 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 38 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 38 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 42 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 42 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 46 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 46 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 50 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 50 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 54 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 54 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 58 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 58 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 62 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 62 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 66 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 66 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 70 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 70 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 74 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 74 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 78 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 78 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 82 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 82 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 86 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 86 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 90 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 90 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 94 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 94 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 98 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 98 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 102 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 102 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 106 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 106 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 110 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 110 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 114 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 114 ns  Iteration: 2  Instance: /bregmips_vhd_tst/i1

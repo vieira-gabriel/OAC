@@ -1,0 +1,28 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity bregMIPS is
+	generic (WSIZE : natural := 32);
+	port (
+			clk, wren, rst			: in std_logic;
+			radd1, radd2, wadd	: in std_logic_vector(4 downto 0);
+			wdata						: in std_logic_vector(WSIZE-1 downto 0);
+			r1, r2 					: out std_logic_vector(WSIZE-1 downto 0));
+end bregMIPS;
+
+architecture Behavior of bregMIPS is
+	signal  add1,  add2 : std_logic_vector(WSIZE-1 downto 0);
+	
+	begin
+	r1 <= add1;
+	r2 <= add2;
+		
+	breg_mips: process(clk, wren, rst, radd1, radd2, wadd, wdata)
+		
+	begin
+		
+		
+	end process;
+	
+end Behavior;

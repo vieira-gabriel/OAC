@@ -1,0 +1,79 @@
+m255
+K3
+13
+cModel Technology
+Z0 dC:\Users\Gabriel Arimatéa\Documents\GitHub\OAC\2018_2\Trabalho5\simulation\modelsim
+Ebregmips
+Z1 w1542580429
+Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z3 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z4 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z5 dC:\Users\Gabriel Arimatéa\Documents\GitHub\OAC\2018_2\Trabalho5\simulation\modelsim
+Z6 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/bregMIPS.vhd
+Z7 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/bregMIPS.vhd
+l0
+L5
+Vdibh;TCj62gk:XSgBRAk62
+Z8 OV;C;10.1d;51
+31
+Z9 !s108 1542583764.482000
+Z10 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/bregMIPS.vhd|
+Z11 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/bregMIPS.vhd|
+Z12 o-93 -work work -O0
+Z13 tExplicit 1
+!s100 UTlIHMZFjf8iEFF@XgSZQ1
+!i10b 1
+Abehavior
+R2
+R3
+R4
+DEx4 work 8 bregmips 0 22 dibh;TCj62gk:XSgBRAk62
+l52
+L14
+V<aF^@F9AQPS0OagkmBMI^2
+R8
+31
+R9
+R10
+R11
+R12
+R13
+!s100 `oMg6DTeMb>2[GH6]oHb@0
+!i10b 1
+Ebregmips_vhd_tst
+Z14 w1542583751
+R2
+R3
+R4
+R5
+Z15 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/simulation/modelsim/bregMIPS.vht
+Z16 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/simulation/modelsim/bregMIPS.vht
+l0
+L31
+VXZ4QWaP>;47eCAJ2XR<QB2
+!s100 VkP_:HK18M]G^leT<?EJ`3
+R8
+31
+!i10b 1
+Z17 !s108 1542583765.002000
+Z18 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/simulation/modelsim/bregMIPS.vht|
+Z19 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/Trabalho5/simulation/modelsim/bregMIPS.vht|
+R12
+R13
+Abregmips_arch
+R2
+R3
+R4
+DEx4 work 16 bregmips_vhd_tst 0 22 XZ4QWaP>;47eCAJ2XR<QB2
+l58
+L33
+V1hiQQ:C85UW9HAEECm0HE0
+!s100 OCNg_eO0d8cK96W]Bj=Og0
+R8
+31
+!i10b 1
+R17
+R18
+R19
+R12
+R13
