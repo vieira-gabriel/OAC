@@ -63,23 +63,245 @@ init : PROCESS
 -- variable declarations                                     
 BEGIN                                                        
         -- code that executes only once
-		  
+		-- Teste AND
 		opcode <= "0000";
+		
+		a <= x"FF00FF00";
+		b <= x"F00FF00F";
+		wait for 5 ns;
+		
+		-- Teste OR
+		opcode <= "0001";
+		
+		a <= x"FF00FF00";
+		b <= x"F00FF00F";
+		wait for 5 ns;
+		
+		-- Teste ADD
+		opcode <= "0010";
+		
 		a <= x"0000000A";
 		b <= x"00000001";
-		wait for 20 ns;
-		opcode <= "0001";
+		wait for 5 ns;	
+		
+		a <= x"F0000000";
+		b <= x"0FFFFFFF";
+		wait for 5 ns;
+		
+		a <= x"5FFFFFFF";
+		b <= x"5FFFFFFF";
+		wait for 5 ns;		-- overflow
+		
+		a <= x"80000000";
+		b <= x"80000000";
+		wait for 5 ns;		-- overflow
+		
 		a <= x"00000000";
+		b <= x"00000000";
+		wait for 5 ns;		-- zero
+		
+		-- Teste ADDU
+		opcode <= "0011";
+		
+		a <= x"0000000A";
 		b <= x"00000001";
-		wait for 20 ns;
+		wait for 5 ns;	
+		
+		a <= x"F0000000";
+		b <= x"0FFFFFFF";
+		wait for 5 ns;
+		
+		a <= x"5FFFFFFF";
+		b <= x"5FFFFFFF";
+		wait for 5 ns;		-- overflow
+		
+		a <= x"80000000";
+		b <= x"80000000";
+		wait for 5 ns;		-- overflow
+		
+		a <= x"00000000";
+		b <= x"00000000";
+		wait for 5 ns;		-- zero
+		
+		-- Teste SUB
+		opcode <= "0100";
+		
+		a <= x"00000000";
+		b <= x"A0000000";
+		wait for 5 ns;
+		
+		a <= x"A0000000";
+		b <= x"60000000";
+		wait for 5 ns;
+		
+		a <= x"80000000";
+		b <= x"80000000";
+		wait for 5 ns;		-- overflow
+		
+		a <= x"5FFFFFFF";
+		b <= x"5FFFFFFF";
+		wait for 5 ns;		-- overflow
+		
+		a <= x"A0000000";
+		b <= x"A0000000";
+		wait for 5 ns;		--zero
+		
+		-- Teste SUBU
+		opcode <= "0101";
+		
+		a <= x"00000000";
+		b <= x"A0000000";
+		wait for 5 ns;
+		
+		a <= x"A0000000";
+		b <= x"60000000";
+		wait for 5 ns;
+		
+		a <= x"80000000";
+		b <= x"80000000";
+		wait for 5 ns;		-- overflow
+		
+		a <= x"5FFFFFFF";
+		b <= x"5FFFFFFF";
+		wait for 5 ns;		-- overflow
+		
+		a <= x"A0000000";
+		b <= x"A0000000";
+		wait for 5 ns;		--zero
+		
+		-- teste SLT
+		opcode <= "0110";
+		
+		a <= x"000000C0";
+		b <= x"000000A0";
+		wait for 5 ns;
+		
+		a <= x"000000A0";
+		b <= x"000000C0";
+		wait for 5 ns;
+		
+		a <= x"000000C0";
+		b <= x"000000C0";
+		wait for 5 ns;
+		
+		a <= x"F00000C0";
+		b <= x"000000A0";
+		wait for 5 ns;
+		
+		a <= x"000000C0";
+		b <= x"F00000A0";
+		wait for 5 ns;
+		
+		a <= x"F00000C0";
+		b <= x"F00000A0";
+		wait for 5 ns;
+		
+		-- teste SLTU
+		opcode <= "0111";
+		
+		a <= x"000000C0";
+		b <= x"000000A0";
+		wait for 5 ns;
+		
+		a <= x"000000A0";
+		b <= x"000000C0";
+		wait for 5 ns;
+		
+		a <= x"000000C0";
+		b <= x"000000C0";
+		wait for 5 ns;
+		
+		a <= x"F00000C0";
+		b <= x"000000A0";
+		wait for 5 ns;
+		
+		a <= x"000000C0";
+		b <= x"F00000A0";
+		wait for 5 ns;
+		
+		a <= x"F00000C0";
+		b <= x"F00000A0";
+		wait for 5 ns;
+		
+		-- Teste NOR
+		opcode <= "1000";
+		
+		a <= x"FF00FF00";
+		b <= x"F00FF00F";
+		wait for 5 ns;
+		
+		a <= x"00000000";
+		b <= x"00000000";
+		wait for 5 ns;
+		
+		-- Teste XOR
+		opcode <= "1001";
+		
+		a <= x"FF00FF00";
+		b <= x"00000000";
+		wait for 5 ns;
+		
+		a <= x"FF00FF00";
+		b <= x"F00FF00F";
+		wait for 5 ns;
+		
+		-- Teste SLL
+		opcode <= "1010";
+		
+		a <= x"00000100";
+		b <= x"FFFFFFFF";
+		wait for 5 ns;
+		
+		a <= x"00000010";
+		b <= x"FFFFFFFF";
+		wait for 5 ns;
+		
+		-- Teste SRL
+		opcode <= "1011";
+		
+		a <= x"00000100";
+		b <= x"FFFFFFFF";
+		wait for 5 ns;
+		
+		a <= x"00000010";
+		b <= x"FFFFFFFF";
+		wait for 5 ns;
+		
+		-- Teste SRA
+		opcode <= "1100";
+		
+		a <= x"00000100";
+		b <= x"FFFFFFFF";
+		wait for 5 ns;
+		
+		a <= x"00000010";
+		b <= x"FF000000";
+		wait for 5 ns;
+		
+		-- Teste CLZ
 		opcode <= "1101";
-		a <= x"00000003";
-		b <= x"00000001";
-		wait for 20 ns;
+		
+		a <= x"0000000F";
+		wait for 5 ns;
+		
+		a <= x"0FFFFFF0";
+		wait for 5 ns;
+		
+		a <= x"FFFFFFF0";
+		wait for 5 ns;
+		
+		-- Teste CLO
 		opcode <= "1110";
-		a <= x"00000003";
-		b <= x"00000001";
-		wait for 20 ns;     
+		
+		a <= x"0000000F";
+		wait for 5 ns;
+		
+		a <= x"0FFFFFF0";
+		wait for 5 ns;
+		
+		a <= x"FFFFFFF0";
+		wait for 5 ns;
+		   
 WAIT;                                                       
 END PROCESS init;                                           
 always : PROCESS                                              
