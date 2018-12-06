@@ -12,15 +12,20 @@ ENTITY mips_control IS
 		wr_pc		: OUT std_logic;								--EscrevePC
 		wr_mem	: OUT std_logic;								--EscreveMEM
 		wr_breg	: OUT std_logic;								--EscreveREG
-		is_beq	: OUT std_logic; 								--
-		is_bne	: OUT std_logic;								--
+		is_beq	: OUT std_logic; 								--EscrevePCCond
+		is_bne	: OUT std_logic;								--IouD
 		s_datareg: OUT std_logic;								--RegDst
 		op_alu	: OUT std_logic_vector (1 DOWNTO 0);	--OpALU
-		s_mem_add: OUT std_logic;								--
+		s_mem_add: OUT std_logic;								--LeMem
 		s_PCin	: OUT std_logic_vector (1 DOWNTO 0);	--OrigPC
 		s_aluAin : OUT std_logic;								--OrigAALU
 		s_aluBin : OUT std_logic_vector (1 DOWNTO 0); 	--OrigBALU
-		s_reg_add: OUT std_logic								--MemparaReg
+		s_reg_add: OUT std_logic;								--MemparaReg
+		unsig		: OUT std_logic;								--Unsigned (1 quando for LBU ou LHU)
+		half_word: OUT std_logic;								--HalfWord (0 quando for LH a half word menos significativa, 1 quando for a mais significativa)
+		b_select	: OUT std_logic_vector (1 DOWNTO 0);	--Byte (seleciona Byte para LB)
+		wich_load: OUT std_logic_vector (1 DOWNTO 0);	--QualLoad
+		wich_store: OUT std_logic_vector (1 DOWNTO 0);	--QualStore
 	);
 	
 END ENTITY;
@@ -67,6 +72,11 @@ logic: process (opcode, pstate)
 		s_aluAin 	<= '0';		--OrigAALU
 		s_aluBin  	<= "00";		--OrigBALU
 		s_reg_add 	<= '0';		--MemparaReg
+		unsig			<= '0';
+		half_word	<= '0';
+		b_select		<= "00";
+		wich_load	<= "00";
+		wich_store	<= "00";
 		case pstate is 
 			when fetch_st 		=> wr_pc 	<= '1';
 										s_aluBin <= "01";
@@ -84,12 +94,29 @@ logic: process (opcode, pstate)
 								
 			when writemem_st 	=> wr_mem 	 <= '1';
 										s_mem_add <= '1';
+										if opcode = iSB
+										then wich_store <= "00";
+										else if opcode = iSH
+										then wich_store <= "01";
+										else wich_store <= "10";
+										end if;
 									
 			when rtype_ex_st	=> s_aluAin <= '1';
 										op_alu <= "10";
 									
 			when writereg_st 	=> s_reg_add <= '1';
 										wr_breg <= '1';
+										if opcode = iLBU | iLHU
+										then unsig <= '1';
+										else unsig <= '0';
+										end if;
+										if opcode = iLB | iLBU
+										then wich_load <= "00";
+										else if opcode = iLH | iLHU
+										then wich_load <= "01";
+										else wich_load <= "10";
+										end if;
+										
 								  
 			when branch_ex_st => s_aluAin <= '1';
 										op_alu <= "01";
