@@ -29,6 +29,12 @@ architecture rtl of breg is
 
 signal breg32: word_array(31 downto 0) := (others=>'0');
 
+constant ZERO : std_logic_vector(SIZE-1 downto 0) := (others => '0');
+
+for I in 0 to 31 loop
+	breg32(I) <= ZERO;
+end loop;
+
 begin
 	regA <= ZERO32 when (idxA="00000") else breg32(conv_integer(idxA));
 	regB <= ZERO32 when (idxB="00000") else breg32(conv_integer(idxB));
