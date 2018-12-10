@@ -47,7 +47,9 @@ signal
 			alu_out_v,		-- saida ULA
 			instruction_v,	-- saida do reg de instrucoes
 			imm32_x4_v,	   -- imediato extendido e multiplicado por 4
-			imm32_v			-- imediato extendido a 32 bits
+			imm32_v,		-- imediato extendido a 32 bits
+			sb_out_v
+			sh_out_v
 			: std_logic_vector(WORD_SIZE-1 downto 0);
 			
 signal addsht2_v 			: std_logic_vector(WORD_SIZE-1 downto 0);
@@ -94,12 +96,17 @@ alias    imm16_field_v	: std_logic_vector(15 downto 0) is instruction_v(15 downt
 alias 	imm26_field_v  : std_logic_vector(25 downto 0) is instruction_v(25 downto 0);
 alias 	sht_field_v		: std_logic_vector(4 downto 0)  is instruction_v(10 downto 6);
 alias    op_field_v		: std_logic_vector(5 downto 0)  is instruction_v(31 downto 26);
+alias    stor_field_v		: std_logic_vector(1 downto 0)  is instruction_v(31 downto 26);
 
-alias	sb_field_v		: std_logic_vector(1 downto 0) is regB_v(7 downto 0);
-alias	sh_field_v		: std_logic_vector(3 downto 0) is regB_v(15 downto 0);
+alias	sb_field_v		: std_logic_vector(7 downto 0) is regB_v(7 downto 0);
+alias	sh_field_v		: std_logic_vector(15 downto 0) is regB_v(15 downto 0);
 
-alias	lb_field_v		: std_logic_vector(1 downto 0) is rdmout_v(31 downto 0);
-alias	lh_field_v		: std_logic_vector(3 downto 0) is rdmout_v(31 downto 0);
+alias	lb_one_v		: std_logic_vector(7 downto 0) is rdmout_v(7 downto 0);
+alias	lb_two_v		: std_logic_vector(7 downto 0) is rdmout_v(15 downto 8);
+alias	lb_three_v		: std_logic_vector(7 downto 0) is rdmout_v(23 downto 16);
+alias	lb_four_v		: std_logic_vector(7 downto 0) is rdmout_v(31 downto 24);
+alias	lh_down_v		: std_logic_vector(15 downto 0) is rdmout_v(15 downto 0);
+alias	lh_up_v			: std_logic_vector(15 downto 0) is rdmout_v(31 downto 16);
 
 begin
 
@@ -139,11 +146,21 @@ mux_mem: mux_2
 -- demux para selecao do byte em SB
 --=======================================================================
 demux_sb: demux
+	port map (
+			d_in 	=> sb_field_v,
+			sel 	=> stor_field_v,
+			d_out => sb_out_v
+			);
 	
 --=======================================================================
 -- demux para selecao dos dois bytes em SH
 --=======================================================================
-	
+demux_sh: demux
+	port map (
+			d_in 	=> sh_field_v,
+			sel 	=> stor_field_v,
+			d_out => sh_out_v
+			);
 	
 	
 --=======================================================================
@@ -151,11 +168,11 @@ demux_sb: demux
 --=======================================================================
 mux_store:mux_3
 		port map (
-			in0 	=> pcout_v,
-			in1 	=> datadd_v,
+			in0 	=> sb_out_v,
+			in1 	=> sh_out_v,
 			in2 	=> regB_v,
-			sel 	=> sel_end_mem_s,
-			m_out => memadd_v
+			sel 	=> wich_store_v,
+			m_out => mem_wr_s
 			);
 	
 	
@@ -182,11 +199,24 @@ rdm:	regbuf
 --=======================================================================
 -- mux para selecao do byte de LB/LBU
 --=======================================================================
-	
+	mux_byte: mux_4 
+		generic map (SIZE => 8)
+		port map (in0 => lb_one_v,
+			  in1 => lb_two_v,
+			  in2 => lb_three_v,
+			  in3 => lb_four_v,
+			  sel => ,
+			  m_out => iwreg_v);
 	
 --=======================================================================
--- mux para selecao dos bytes de LH/LHU
+-- mux para selecao de um dos bytes de LH/LHU
 --=======================================================================
+	mux_byte: mux_2 
+		generic map (SIZE => 16)
+		port map (in0 => lh_up_v,
+			  in1 => lh_down_v,
+			  sel => half_word_s,
+			  m_out => iwreg_v);
 	
 	
 --=======================================================================
@@ -230,7 +260,7 @@ breg_data_mux: mux_2
 --=======================================================================		
 bcoreg: breg 
 		port map (
-			clk		=> clk,
+			clk	=> clk,
 			enable	=> reg_wr_s,
 			idxA		=> rs_field_v,
 			idxB		=> rt_field_v,
