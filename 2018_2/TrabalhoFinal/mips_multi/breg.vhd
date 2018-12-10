@@ -27,7 +27,7 @@ end entity;
 
 architecture rtl of breg is
 
-signal breg32: word_array(31 downto 0);
+signal breg32: word_array(31 downto 0) := (others=>'0');
 
 begin
 	regA <= ZERO32 when (idxA="00000") else breg32(conv_integer(idxA));
