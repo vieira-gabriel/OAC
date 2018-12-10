@@ -1,5 +1,5 @@
 Analysis & Synthesis report for Multiclico
-Mon Dec 10 16:19:54 2018
+Mon Dec 10 20:43:59 2018
 Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
 
 
@@ -14,22 +14,22 @@ Quartus II 64-Bit Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
   8. Analysis & Synthesis RAM Summary
-  9. State Machine - |mips_multi|mips_control:ctr_mips|pstate
- 10. Registers Removed During Synthesis
- 11. General Register Statistics
- 12. Inverted Register Statistics
- 13. Registers Added for RAM Pass-Through Logic
- 14. Multiplexer Restructuring Statistics (Restructuring Performed)
- 15. Source assignments for mips_mem:mem|altsyncram:altsyncram_component|altsyncram_16d1:auto_generated
- 16. Source assignments for breg:bcoreg|altsyncram:breg32_rtl_0|altsyncram_dbi1:auto_generated
- 17. Source assignments for breg:bcoreg|altsyncram:breg32_rtl_1|altsyncram_dbi1:auto_generated
- 18. Parameter Settings for User Entity Instance: reg:pc
- 19. Parameter Settings for User Entity Instance: mux_2:mux_mem
- 20. Parameter Settings for User Entity Instance: decoder_b:decoder_sb
- 21. Parameter Settings for User Entity Instance: decoder_h:decoder_sh
- 22. Parameter Settings for User Entity Instance: mux_3:mux_store
- 23. Parameter Settings for User Entity Instance: mips_mem:mem
- 24. Parameter Settings for User Entity Instance: mips_mem:mem|altsyncram:altsyncram_component
+  9. Analysis & Synthesis IP Cores Summary
+ 10. State Machine - |mips_multi|mips_control:ctr_mips|pstate
+ 11. Registers Removed During Synthesis
+ 12. General Register Statistics
+ 13. Inverted Register Statistics
+ 14. Registers Added for RAM Pass-Through Logic
+ 15. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 16. Source assignments for mem_mips:mem|altsyncram:altsyncram_component|altsyncram_f7f1:auto_generated
+ 17. Source assignments for breg:bcoreg|altsyncram:breg32_rtl_0|altsyncram_dbi1:auto_generated
+ 18. Source assignments for breg:bcoreg|altsyncram:breg32_rtl_1|altsyncram_dbi1:auto_generated
+ 19. Parameter Settings for User Entity Instance: reg:pc
+ 20. Parameter Settings for User Entity Instance: mux_2:mux_mem
+ 21. Parameter Settings for User Entity Instance: decoder_b:decoder_sb
+ 22. Parameter Settings for User Entity Instance: decoder_h:decoder_sh
+ 23. Parameter Settings for User Entity Instance: mux_3:mux_store
+ 24. Parameter Settings for User Entity Instance: mem_mips:mem|altsyncram:altsyncram_component
  25. Parameter Settings for User Entity Instance: reg:ir
  26. Parameter Settings for User Entity Instance: regbuf:rdm
  27. Parameter Settings for User Entity Instance: mux_4:mux_byte
@@ -86,13 +86,13 @@ applicable agreement for further details.
 +---------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                    ;
 +------------------------------------+--------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Mon Dec 10 16:19:54 2018      ;
+; Analysis & Synthesis Status        ; Successful - Mon Dec 10 20:43:58 2018      ;
 ; Quartus II 64-Bit Version          ; 13.0.0 Build 156 04/24/2013 SJ Web Edition ;
 ; Revision Name                      ; Multiclico                                 ;
 ; Top-level Entity Name              ; mips_multi                                 ;
 ; Family                             ; Cyclone II                                 ;
-; Total logic elements               ; 1,235                                      ;
-;     Total combinational functions  ; 1,168                                      ;
+; Total logic elements               ; 1,230                                      ;
+;     Total combinational functions  ; 1,163                                      ;
 ;     Dedicated logic registers      ; 242                                        ;
 ; Total registers                    ; 242                                        ;
 ; Total pins                         ; 37                                         ;
@@ -204,6 +204,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+---------+
 ; File Name with User-Entered Path         ; Used in Netlist ; File Type                                             ; File Name with Absolute Path                                                                                 ; Library ;
 +------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+---------+
+; mips_multi/mem_mips.vhd                  ; yes             ; User Wizard-Generated File                            ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_mips.vhd                  ;         ;
 ; mips_multi/decoder_h.vhd                 ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/decoder_h.vhd                 ;         ;
 ; mips_multi/decoder_b.vhd                 ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/decoder_b.vhd                 ;         ;
 ; mips_multi/ulamips.vhd                   ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd                   ;         ;
@@ -214,11 +215,11 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ; mips_multi/mux_2.vhd                     ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd                     ;         ;
 ; mips_multi/mips_pkg.vhd                  ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd                  ;         ;
 ; mips_multi/mips_multi.vhd                ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd                ;         ;
-; mips_multi/mips_mem.vhd                  ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_mem.vhd                  ;         ;
 ; mips_multi/mips_control.vhd              ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd              ;         ;
 ; mips_multi/extsgn.vhd                    ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/extsgn.vhd                    ;         ;
 ; mips_multi/breg.vhd                      ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/breg.vhd                      ;         ;
 ; mips_multi/alu_ctr.vhd                   ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/alu_ctr.vhd                   ;         ;
+; mips_multi/mem_control.vhd               ; yes             ; User VHDL File                                        ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_control.vhd               ;         ;
 ; altsyncram.tdf                           ; yes             ; Megafunction                                          ; c:/altera/13.0/quartus/libraries/megafunctions/altsyncram.tdf                                                ;         ;
 ; stratix_ram_block.inc                    ; yes             ; Megafunction                                          ; c:/altera/13.0/quartus/libraries/megafunctions/stratix_ram_block.inc                                         ;         ;
 ; lpm_mux.inc                              ; yes             ; Megafunction                                          ; c:/altera/13.0/quartus/libraries/megafunctions/lpm_mux.inc                                                   ;         ;
@@ -228,9 +229,9 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ; altrom.inc                               ; yes             ; Megafunction                                          ; c:/altera/13.0/quartus/libraries/megafunctions/altrom.inc                                                    ;         ;
 ; altram.inc                               ; yes             ; Megafunction                                          ; c:/altera/13.0/quartus/libraries/megafunctions/altram.inc                                                    ;         ;
 ; altdpram.inc                             ; yes             ; Megafunction                                          ; c:/altera/13.0/quartus/libraries/megafunctions/altdpram.inc                                                  ;         ;
-; db/altsyncram_16d1.tdf                   ; yes             ; Auto-Generated Megafunction                           ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/db/altsyncram_16d1.tdf                   ;         ;
+; db/altsyncram_f7f1.tdf                   ; yes             ; Auto-Generated Megafunction                           ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/db/altsyncram_f7f1.tdf                   ;         ;
 ; db/altsyncram_dbi1.tdf                   ; yes             ; Auto-Generated Megafunction                           ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/db/altsyncram_dbi1.tdf                   ;         ;
-; db/Multiciclo.ram0_breg_9a0f9e64.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/db/Multiciclo.ram0_breg_9a0f9e64.hdl.mif ;         ;
+; db/multiciclo.ram0_breg_9a0f9e64.hdl.mif ; yes             ; Auto-Generated Auto-Found Memory Initialization File  ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/db/multiciclo.ram0_breg_9a0f9e64.hdl.mif ;         ;
 +------------------------------------------+-----------------+-------------------------------------------------------+--------------------------------------------------------------------------------------------------------------+---------+
 
 
@@ -239,16 +240,16 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +---------------------------------------------+-------+
 ; Resource                                    ; Usage ;
 +---------------------------------------------+-------+
-; Estimated Total logic elements              ; 1,235 ;
+; Estimated Total logic elements              ; 1,230 ;
 ;                                             ;       ;
-; Total combinational functions               ; 1168  ;
+; Total combinational functions               ; 1163  ;
 ; Logic element usage by number of LUT inputs ;       ;
-;     -- 4 input functions                    ; 807   ;
-;     -- 3 input functions                    ; 335   ;
-;     -- <=2 input functions                  ; 26    ;
+;     -- 4 input functions                    ; 796   ;
+;     -- 3 input functions                    ; 337   ;
+;     -- <=2 input functions                  ; 30    ;
 ;                                             ;       ;
 ; Logic elements by mode                      ;       ;
-;     -- normal mode                          ; 1106  ;
+;     -- normal mode                          ; 1101  ;
 ;     -- arithmetic mode                      ; 62    ;
 ;                                             ;       ;
 ; Total registers                             ; 242   ;
@@ -260,8 +261,8 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ; Embedded Multiplier 9-bit elements          ; 0     ;
 ; Maximum fan-out node                        ; clk   ;
 ; Maximum fan-out                             ; 306   ;
-; Total fan-out                               ; 6205  ;
-; Average fan-out                             ; 4.02  ;
+; Total fan-out                               ; 6207  ;
+; Average fan-out                             ; 4.04  ;
 +---------------------------------------------+-------+
 
 
@@ -270,22 +271,23 @@ Parallel compilation was disabled, but you have multiple processors available. E
 +-------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------+--------------+
 ; Compilation Hierarchy Node                ; LC Combinationals ; LC Registers ; Memory Bits ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                     ; Library Name ;
 +-------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------+--------------+
-; |mips_multi                               ; 1168 (65)         ; 242 (0)      ; 10240       ; 0            ; 0       ; 0         ; 37   ; 0            ; |mips_multi                                                                             ;              ;
-;    |alu_ctr:actr|                         ; 24 (24)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|alu_ctr:actr                                                                ;              ;
+; |mips_multi                               ; 1163 (65)         ; 242 (0)      ; 10240       ; 0            ; 0       ; 0         ; 37   ; 0            ; |mips_multi                                                                             ;              ;
+;    |alu_ctr:actr|                         ; 23 (23)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|alu_ctr:actr                                                                ;              ;
 ;    |breg:bcoreg|                          ; 76 (76)           ; 39 (39)      ; 2048        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|breg:bcoreg                                                                 ;              ;
 ;       |altsyncram:breg32_rtl_0|           ; 0 (0)             ; 0 (0)        ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|breg:bcoreg|altsyncram:breg32_rtl_0                                         ;              ;
 ;          |altsyncram_dbi1:auto_generated| ; 0 (0)             ; 0 (0)        ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|breg:bcoreg|altsyncram:breg32_rtl_0|altsyncram_dbi1:auto_generated          ;              ;
 ;       |altsyncram:breg32_rtl_1|           ; 0 (0)             ; 0 (0)        ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|breg:bcoreg|altsyncram:breg32_rtl_1                                         ;              ;
 ;          |altsyncram_dbi1:auto_generated| ; 0 (0)             ; 0 (0)        ; 1024        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|breg:bcoreg|altsyncram:breg32_rtl_1|altsyncram_dbi1:auto_generated          ;              ;
-;    |mips_control:ctr_mips|                ; 29 (29)           ; 11 (11)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mips_control:ctr_mips                                                       ;              ;
-;    |mips_mem:mem|                         ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mips_mem:mem                                                                ;              ;
-;       |altsyncram:altsyncram_component|   ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mips_mem:mem|altsyncram:altsyncram_component                                ;              ;
-;          |altsyncram_16d1:auto_generated| ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mips_mem:mem|altsyncram:altsyncram_component|altsyncram_16d1:auto_generated ;              ;
+;    |mem_control:b_enab|                   ; 7 (7)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mem_control:b_enab                                                          ;              ;
+;    |mem_mips:mem|                         ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mem_mips:mem                                                                ;              ;
+;       |altsyncram:altsyncram_component|   ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mem_mips:mem|altsyncram:altsyncram_component                                ;              ;
+;          |altsyncram_f7f1:auto_generated| ; 0 (0)             ; 0 (0)        ; 8192        ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mem_mips:mem|altsyncram:altsyncram_component|altsyncram_f7f1:auto_generated ;              ;
+;    |mips_control:ctr_mips|                ; 30 (30)           ; 11 (11)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mips_control:ctr_mips                                                       ;              ;
 ;    |mux_2:breg_data_mux|                  ; 51 (51)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mux_2:breg_data_mux                                                         ;              ;
 ;    |mux_2:mux_mem|                        ; 8 (8)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mux_2:mux_mem                                                               ;              ;
 ;    |mux_2:mux_reg_add|                    ; 5 (5)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mux_2:mux_reg_add                                                           ;              ;
 ;    |mux_2:mux_ulaA|                       ; 32 (32)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mux_2:mux_ulaA                                                              ;              ;
-;    |mux_3:mux_store|                      ; 48 (48)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mux_3:mux_store                                                             ;              ;
+;    |mux_3:mux_store|                      ; 54 (54)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mux_3:mux_store                                                             ;              ;
 ;    |mux_4:mux_byte|                       ; 2 (2)             ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mux_4:mux_byte                                                              ;              ;
 ;    |mux_4:mux_ulaB|                       ; 50 (50)           ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|mux_4:mux_ulaB                                                              ;              ;
 ;    |reg:ir|                               ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|reg:ir                                                                      ;              ;
@@ -294,7 +296,7 @@ Parallel compilation was disabled, but you have multiple processors available. E
 ;    |regbuf:regULA|                        ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|regbuf:regULA                                                               ;              ;
 ;    |regbuf:rgA|                           ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|regbuf:rgA                                                                  ;              ;
 ;    |regbuf:rgB|                           ; 0 (0)             ; 32 (32)      ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|regbuf:rgB                                                                  ;              ;
-;    |ulamips:alu|                          ; 744 (744)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|ulamips:alu                                                                 ;              ;
+;    |ulamips:alu|                          ; 726 (726)         ; 0 (0)        ; 0           ; 0            ; 0       ; 0         ; 0    ; 0            ; |mips_multi|ulamips:alu                                                                 ;              ;
 +-------------------------------------------+-------------------+--------------+-------------+--------------+---------+-----------+------+--------------+-----------------------------------------------------------------------------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
@@ -306,8 +308,17 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------------------------------------------+
 ; breg:bcoreg|altsyncram:breg32_rtl_0|altsyncram_dbi1:auto_generated|ALTSYNCRAM          ; AUTO ; Simple Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024 ; db/Multiciclo.ram0_breg_9a0f9e64.hdl.mif ;
 ; breg:bcoreg|altsyncram:breg32_rtl_1|altsyncram_dbi1:auto_generated|ALTSYNCRAM          ; AUTO ; Simple Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024 ; db/Multiciclo.ram0_breg_9a0f9e64.hdl.mif ;
-; mips_mem:mem|altsyncram:altsyncram_component|altsyncram_16d1:auto_generated|ALTSYNCRAM ; AUTO ; Single Port      ; 256          ; 32           ; --           ; --           ; 8192 ; None                                     ;
+; mem_mips:mem|altsyncram:altsyncram_component|altsyncram_f7f1:auto_generated|ALTSYNCRAM ; AUTO ; Single Port      ; 256          ; 32           ; --           ; --           ; 8192 ; mips_rom.mif                             ;
 +----------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------------------------------------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis IP Cores Summary                                                                                                                                                  ;
++--------+--------------+---------+--------------+--------------+--------------------------+---------------------------------------------------------------------------------------------+
+; Vendor ; IP Core Name ; Version ; Release Date ; License Type ; Entity Instance          ; IP Include File                                                                             ;
++--------+--------------+---------+--------------+--------------+--------------------------+---------------------------------------------------------------------------------------------+
+; Altera ; RAM: 1-PORT  ; 13.0    ; N/A          ; N/A          ; |mips_multi|mem_mips:mem ; C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_mips.vhd ;
++--------+--------------+---------+--------------+--------------+--------------------------+---------------------------------------------------------------------------------------------+
 
 
 Encoding Type:  One-Hot
@@ -639,32 +650,32 @@ Encoding Type:  One-Hot
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                      ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------+
 ; 5:1                ; 2 bits    ; 6 LEs         ; 4 LEs                ; 2 LEs                  ; Yes        ; |mips_multi|reg:pc|sr_out[0]                    ;
-; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |mips_multi|reg:pc|sr_out[30]                   ;
-; 5:1                ; 26 bits   ; 78 LEs        ; 52 LEs               ; 26 LEs                 ; Yes        ; |mips_multi|reg:pc|sr_out[22]                   ;
+; 5:1                ; 4 bits    ; 12 LEs        ; 8 LEs                ; 4 LEs                  ; Yes        ; |mips_multi|reg:pc|sr_out[31]                   ;
+; 5:1                ; 26 bits   ; 78 LEs        ; 52 LEs               ; 26 LEs                 ; Yes        ; |mips_multi|reg:pc|sr_out[19]                   ;
 ; 4:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; No         ; |mips_multi|data                                ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |mips_multi|mips_control:ctr_mips|wich_store[1] ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |mips_multi|mux_4:mux_ulaB|m_out[30]            ;
-; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |mips_multi|mux_2:breg_data_mux|m_out[14]       ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; No         ; |mips_multi|mux_2:breg_data_mux|m_out[13]       ;
 ; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |mips_multi|mux_4:mux_ulaB|m_out[0]             ;
-; 4:1                ; 12 bits   ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |mips_multi|mux_4:mux_ulaB|m_out[29]            ;
-; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |mips_multi|mux_4:mux_ulaB|m_out[6]             ;
-; 5:1                ; 8 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |mips_multi|mux_3:mux_store|m_out[24]           ;
-; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |mips_multi|mux_3:mux_store|m_out[20]           ;
-; 7:1                ; 7 bits    ; 28 LEs        ; 21 LEs               ; 7 LEs                  ; No         ; |mips_multi|mux_2:breg_data_mux|m_out[5]        ;
-; 7:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |mips_multi|mux_3:mux_store|m_out[11]           ;
-; 7:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; No         ; |mips_multi|mux_3:mux_store|m_out[0]            ;
-; 11:1               ; 3 bits    ; 21 LEs        ; 15 LEs               ; 6 LEs                  ; No         ; |mips_multi|alu_ctr:actr|alu_ctr[0]             ;
-; 23:1               ; 7 bits    ; 105 LEs       ; 70 LEs               ; 35 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux8                    ;
-; 22:1               ; 7 bits    ; 98 LEs        ; 63 LEs               ; 35 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux17                   ;
+; 4:1                ; 12 bits   ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |mips_multi|mux_4:mux_ulaB|m_out[18]            ;
+; 4:1                ; 16 bits   ; 32 LEs        ; 32 LEs               ; 0 LEs                  ; No         ; |mips_multi|mux_4:mux_ulaB|m_out[14]            ;
+; 5:1                ; 8 bits    ; 24 LEs        ; 24 LEs               ; 0 LEs                  ; No         ; |mips_multi|mux_3:mux_store|m_out[27]           ;
+; 6:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |mips_multi|mux_3:mux_store|m_out[21]           ;
+; 7:1                ; 7 bits    ; 28 LEs        ; 21 LEs               ; 7 LEs                  ; No         ; |mips_multi|mux_2:breg_data_mux|m_out[3]        ;
+; 7:1                ; 8 bits    ; 32 LEs        ; 16 LEs               ; 16 LEs                 ; No         ; |mips_multi|mux_3:mux_store|m_out[14]           ;
+; 7:1                ; 8 bits    ; 32 LEs        ; 8 LEs                ; 24 LEs                 ; No         ; |mips_multi|mux_3:mux_store|m_out[3]            ;
+; 11:1               ; 3 bits    ; 21 LEs        ; 15 LEs               ; 6 LEs                  ; No         ; |mips_multi|alu_ctr:actr|alu_ctr[1]             ;
+; 23:1               ; 7 bits    ; 105 LEs       ; 70 LEs               ; 35 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux10                   ;
+; 22:1               ; 7 bits    ; 98 LEs        ; 63 LEs               ; 35 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux18                   ;
 ; 24:1               ; 4 bits    ; 64 LEs        ; 40 LEs               ; 24 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux7                    ;
-; 23:1               ; 4 bits    ; 60 LEs        ; 36 LEs               ; 24 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux27                   ;
+; 23:1               ; 4 bits    ; 60 LEs        ; 36 LEs               ; 24 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux25                   ;
 ; 25:1               ; 2 bits    ; 32 LEs        ; 20 LEs               ; 12 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux2                    ;
 ; 24:1               ; 2 bits    ; 32 LEs        ; 20 LEs               ; 12 LEs                 ; No         ; |mips_multi|ulamips:alu|Mux29                   ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+-------------------------------------------------+
 
 
 +----------------------------------------------------------------------------------------------------+
-; Source assignments for mips_mem:mem|altsyncram:altsyncram_component|altsyncram_16d1:auto_generated ;
+; Source assignments for mem_mips:mem|altsyncram:altsyncram_component|altsyncram_f7f1:auto_generated ;
 +---------------------------------+--------------------+------+--------------------------------------+
 ; Assignment                      ; Value              ; From ; To                                   ;
 +---------------------------------+--------------------+------+--------------------------------------+
@@ -740,19 +751,8 @@ Note: In order to hide this table in the UI and the text report file, please set
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
 
-+-----------------------------------------------------------+
-; Parameter Settings for User Entity Instance: mips_mem:mem ;
-+----------------+-------+----------------------------------+
-; Parameter Name ; Value ; Type                             ;
-+----------------+-------+----------------------------------+
-; width          ; 32    ; Signed Integer                   ;
-; waddr          ; 8     ; Signed Integer                   ;
-+----------------+-------+----------------------------------+
-Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
-
-
 +-------------------------------------------------------------------------------------------+
-; Parameter Settings for User Entity Instance: mips_mem:mem|altsyncram:altsyncram_component ;
+; Parameter Settings for User Entity Instance: mem_mips:mem|altsyncram:altsyncram_component ;
 +------------------------------------+----------------------+-------------------------------+
 ; Parameter Name                     ; Value                ; Type                          ;
 +------------------------------------+----------------------+-------------------------------+
@@ -787,10 +787,10 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                       ;
 ; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                       ;
 ; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                       ;
-; WIDTH_BYTEENA_A                    ; 1                    ; Signed Integer                ;
+; WIDTH_BYTEENA_A                    ; 4                    ; Signed Integer                ;
 ; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                       ;
 ; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                       ;
-; BYTE_SIZE                          ; 8                    ; Untyped                       ;
+; BYTE_SIZE                          ; 8                    ; Signed Integer                ;
 ; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                       ;
 ; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                       ;
 ; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                       ;
@@ -807,7 +807,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                       ;
 ; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                       ;
 ; DEVICE_FAMILY                      ; Cyclone II           ; Untyped                       ;
-; CBXI_PARAMETER                     ; altsyncram_16d1      ; Untyped                       ;
+; CBXI_PARAMETER                     ; altsyncram_f7f1      ; Untyped                       ;
 +------------------------------------+----------------------+-------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
 
@@ -1127,7 +1127,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 ; Name                                      ; Value                                        ;
 +-------------------------------------------+----------------------------------------------+
 ; Number of entity instances                ; 3                                            ;
-; Entity Instance                           ; mips_mem:mem|altsyncram:altsyncram_component ;
+; Entity Instance                           ; mem_mips:mem|altsyncram:altsyncram_component ;
 ;     -- OPERATION_MODE                     ; SINGLE_PORT                                  ;
 ;     -- WIDTH_A                            ; 32                                           ;
 ;     -- NUMWORDS_A                         ; 256                                          ;
@@ -1163,14 +1163,13 @@ Note: In order to hide this table in the UI and the text report file, please set
 +-------------------------------------------+----------------------------------------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "mips_control:ctr_mips"                                                                    ;
-+------------+--------+----------+-------------------------------------------------------------------------------------+
-; Port       ; Type   ; Severity ; Details                                                                             ;
-+------------+--------+----------+-------------------------------------------------------------------------------------+
-; store_type ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-; ext_type   ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
-+------------+--------+----------+-------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "mips_control:ctr_mips"                                                                  ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; Port     ; Type   ; Severity ; Details                                                                             ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
+; ext_type ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++----------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +---------------------------------------------+
@@ -1247,7 +1246,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:11     ;
+; Top            ; 00:00:09     ;
 +----------------+--------------+
 
 
@@ -1257,9 +1256,12 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Synthesis
     Info: Version 13.0.0 Build 156 04/24/2013 SJ Web Edition
-    Info: Processing started: Mon Dec 10 16:19:37 2018
+    Info: Processing started: Mon Dec 10 20:43:46 2018
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off Multiciclo -c Multiclico
 Warning (20028): Parallel compilation is not licensed and has been disabled
+Info (12021): Found 2 design units, including 1 entities, in source file mips_multi/mem_mips.vhd
+    Info (12022): Found design unit 1: mem_mips-SYN
+    Info (12023): Found entity 1: mem_mips
 Info (12021): Found 2 design units, including 1 entities, in source file mips_multi/decoder_h.vhd
     Info (12022): Found design unit 1: decoder_h-rtl
     Info (12023): Found entity 1: decoder_h
@@ -1305,7 +1307,6 @@ Info (12021): Found 2 design units, including 1 entities, in source file mips_mu
 Info (12021): Found 2 design units, including 1 entities, in source file mips_multi/mips_control.vhd
     Info (12022): Found design unit 1: mips_control-control_op
     Info (12023): Found entity 1: mips_control
-Warning (12019): Can't analyze file -- file mips_multi/mem_addr.vhd is missing
 Warning (12019): Can't analyze file -- file mips_multi/inst_mem.vhd is missing
 Info (12021): Found 2 design units, including 1 entities, in source file mips_multi/extsgn.vhd
     Info (12022): Found design unit 1: extsgn-wires
@@ -1320,8 +1321,10 @@ Info (12021): Found 2 design units, including 1 entities, in source file mips_mu
     Info (12022): Found design unit 1: alu_ctr-behav
     Info (12023): Found entity 1: alu_ctr
 Warning (12019): Can't analyze file -- file mips_multi/adder.vhd is missing
+Info (12021): Found 2 design units, including 1 entities, in source file mips_multi/mem_control.vhd
+    Info (12022): Found design unit 1: mem_control-control_mem
+    Info (12023): Found entity 1: mem_control
 Info (12127): Elaborating entity "mips_multi" for the top level hierarchy
-Warning (10036): Verilog HDL or VHDL warning at mips_multi.vhd(68): object "store_tipe_v" assigned a value but never read
 Warning (10541): VHDL Signal Declaration warning at mips_multi.vhd(69): used implicit default value for signal "ext_type_v" because signal was never assigned a value or an explicit default value. Use of implicit default value may introduce unintended design optimizations.
 Warning (10036): Verilog HDL or VHDL warning at mips_multi.vhd(73): object "type_ext_v" assigned a value but never read
 Info (12128): Elaborating entity "reg" for hierarchy "reg:pc"
@@ -1329,10 +1332,11 @@ Info (12128): Elaborating entity "mux_2" for hierarchy "mux_2:mux_mem"
 Info (12128): Elaborating entity "decoder_b" for hierarchy "decoder_b:decoder_sb"
 Info (12128): Elaborating entity "decoder_h" for hierarchy "decoder_h:decoder_sh"
 Info (12128): Elaborating entity "mux_3" for hierarchy "mux_3:mux_store"
-Info (12128): Elaborating entity "mips_mem" for hierarchy "mips_mem:mem"
-Info (12128): Elaborating entity "altsyncram" for hierarchy "mips_mem:mem|altsyncram:altsyncram_component"
-Info (12130): Elaborated megafunction instantiation "mips_mem:mem|altsyncram:altsyncram_component"
-Info (12133): Instantiated megafunction "mips_mem:mem|altsyncram:altsyncram_component" with the following parameter:
+Info (12128): Elaborating entity "mem_mips" for hierarchy "mem_mips:mem"
+Info (12128): Elaborating entity "altsyncram" for hierarchy "mem_mips:mem|altsyncram:altsyncram_component"
+Info (12130): Elaborated megafunction instantiation "mem_mips:mem|altsyncram:altsyncram_component"
+Info (12133): Instantiated megafunction "mem_mips:mem|altsyncram:altsyncram_component" with the following parameter:
+    Info (12134): Parameter "byte_size" = "8"
     Info (12134): Parameter "clock_enable_input_a" = "BYPASS"
     Info (12134): Parameter "clock_enable_output_a" = "BYPASS"
     Info (12134): Parameter "init_file" = "mips_rom.mif"
@@ -1346,11 +1350,10 @@ Info (12133): Instantiated megafunction "mips_mem:mem|altsyncram:altsyncram_comp
     Info (12134): Parameter "power_up_uninitialized" = "FALSE"
     Info (12134): Parameter "widthad_a" = "8"
     Info (12134): Parameter "width_a" = "32"
-    Info (12134): Parameter "width_byteena_a" = "1"
-Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_16d1.tdf
-    Info (12023): Found entity 1: altsyncram_16d1
-Info (12128): Elaborating entity "altsyncram_16d1" for hierarchy "mips_mem:mem|altsyncram:altsyncram_component|altsyncram_16d1:auto_generated"
-Critical Warning (127003): Can't find Memory Initialization File or Hexadecimal (Intel-Format) File C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_rom.mif -- setting all initial values to 0
+    Info (12134): Parameter "width_byteena_a" = "4"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_f7f1.tdf
+    Info (12023): Found entity 1: altsyncram_f7f1
+Info (12128): Elaborating entity "altsyncram_f7f1" for hierarchy "mem_mips:mem|altsyncram:altsyncram_component|altsyncram_f7f1:auto_generated"
 Info (12128): Elaborating entity "regbuf" for hierarchy "regbuf:rdm"
 Info (12128): Elaborating entity "mux_4" for hierarchy "mux_4:mux_byte"
 Info (12128): Elaborating entity "mux_2" for hierarchy "mux_2:mux_half"
@@ -1362,6 +1365,7 @@ Info (12128): Elaborating entity "mux_4" for hierarchy "mux_4:mux_ulaB"
 Info (12128): Elaborating entity "alu_ctr" for hierarchy "alu_ctr:actr"
 Info (12128): Elaborating entity "ulamips" for hierarchy "ulamips:alu"
 Info (12128): Elaborating entity "mips_control" for hierarchy "mips_control:ctr_mips"
+Info (12128): Elaborating entity "mem_control" for hierarchy "mem_control:b_enab"
 Warning (276020): Inferred RAM node "breg:bcoreg|breg32_rtl_0" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
 Warning (276020): Inferred RAM node "breg:bcoreg|breg32_rtl_1" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
 Info (19000): Inferred 2 megafunctions from design logic
@@ -1418,15 +1422,15 @@ Info (12021): Found 1 design units, including 1 entities, in source file db/alts
     Info (12023): Found entity 1: altsyncram_dbi1
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Info (21057): Implemented 1438 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 1433 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 5 input pins
     Info (21059): Implemented 32 output pins
-    Info (21061): Implemented 1305 logic cells
+    Info (21061): Implemented 1300 logic cells
     Info (21064): Implemented 96 RAM segments
-Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 10 warnings
-    Info: Peak virtual memory: 4679 megabytes
-    Info: Processing ended: Mon Dec 10 16:19:54 2018
-    Info: Elapsed time: 00:00:17
-    Info: Total CPU time (on all processors): 00:00:13
+Info: Quartus II 64-Bit Analysis & Synthesis was successful. 0 errors, 7 warnings
+    Info: Peak virtual memory: 4673 megabytes
+    Info: Processing ended: Mon Dec 10 20:43:59 2018
+    Info: Elapsed time: 00:00:13
+    Info: Total CPU time (on all processors): 00:00:12
 
 

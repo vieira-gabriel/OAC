@@ -225,17 +225,24 @@ end component;
 
 
 
-component mips_mem is
-	generic (
-		WIDTH : natural := 32;
-		WADDR : natural := IMEM_ADDR);
+component mem_mips is
 	port (
-		address	: IN STD_LOGIC_VECTOR (WADDR-1 DOWNTO 0);
+		address	: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+		byteena	: IN STD_LOGIC_VECTOR (3 DOWNTO 0) :=  (OTHERS => '1');
 		clk		: IN STD_LOGIC;
-		data		: IN STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0);
+		data		: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
 		wren		: IN STD_LOGIC ;
-		q			: OUT STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0));
+		q			: OUT STD_LOGIC_VECTOR (31 DOWNTO 0));
 end component;
+
+component mem_control is
+	port (
+		store_type	:	IN std_logic_vector (2 DOWNTO 0);
+		a1a0			: IN std_logic_vector (1 DOWNTO 0);		
+		byteenable	: OUT std_logic_vector (3 DOWNTO 0)
+		);
+end component;
+	
 
 				  
 

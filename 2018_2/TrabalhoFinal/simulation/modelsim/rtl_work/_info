@@ -6,7 +6,7 @@ Z0 dC:\Users\Gabriel Arimatéa\Documents\GitHub\OAC\2018_2\TrabalhoFinal\simulati
 Ealu_ctr
 Z1 w1544447648
 Z2 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
-Z3 DPx4 work 8 mips_pkg 0 22 TloKogUW8_WG>B]Xb0kzn2
+Z3 DPx4 work 8 mips_pkg 0 22 Ob^jzHR0jd1mgGk]_li831
 Z4 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
 Z5 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
 Z6 dC:\Users\Gabriel Arimatéa\Documents\GitHub\OAC\2018_2\TrabalhoFinal\simulation\modelsim
@@ -15,15 +15,15 @@ Z8 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_mul
 l0
 L8
 Vij7<E1zN]c@Ii<jP3oIUk1
-!s100 W=HbGZ6:B<z;EW9=e0SRE0
 Z9 OV;C;10.1d;51
 31
-!i10b 1
-Z10 !s108 1544466248.980000
+Z10 !s108 1544481698.282000
 Z11 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/alu_ctr.vhd|
 Z12 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/alu_ctr.vhd|
 Z13 o-93 -work work -O0
 Z14 tExplicit 1
+!s100 W=HbGZ6:B<z;EW9=e0SRE0
+!i10b 1
 Abehav
 R2
 R3
@@ -33,15 +33,15 @@ DEx4 work 7 alu_ctr 0 22 ij7<E1zN]c@Ii<jP3oIUk1
 l20
 L18
 VTShcRbacf7n<PCM<R?lXe2
-!s100 g9eMSl_kHmn2Y7RCWboLI3
 R9
 31
-!i10b 1
 R10
 R11
 R12
 R13
 R14
+!s100 g9eMSl_kHmn2Y7RCWboLI3
+!i10b 1
 Ebreg
 Z15 w1544460707
 R2
@@ -58,7 +58,7 @@ L10
 V@8`bB?R9g4L5C@Ug6HJ?73
 R9
 31
-Z20 !s108 1544466248.182000
+Z20 !s108 1544481697.783000
 Z21 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/breg.vhd|
 Z22 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/breg.vhd|
 R13
@@ -101,7 +101,7 @@ L7
 VFbS6<?kGT]nd`_6[Kz0NK3
 R9
 31
-Z27 !s108 1544466241.261000
+Z27 !s108 1544481692.553000
 Z28 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/decoder_b.vhd|
 Z29 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/decoder_b.vhd|
 R13
@@ -144,7 +144,7 @@ L7
 V>]H3dWjK8P`JSl3MoZ=LE1
 R9
 31
-Z33 !s108 1544466240.006000
+Z33 !s108 1544481691.781000
 Z34 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/decoder_h.vhd|
 Z35 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/decoder_h.vhd|
 R13
@@ -185,7 +185,7 @@ L6
 Ve5N<e:C04z@WRUW2McG[:2
 R9
 31
-Z39 !s108 1544466247.341000
+Z39 !s108 1544481697.264000
 Z40 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/extsgn.vhd|
 Z41 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/extsgn.vhd|
 R13
@@ -210,23 +210,97 @@ R13
 R14
 !s100 P[l`KL@0g_T>G@eaFN5PD2
 !i10b 1
-Emips_control
-Z42 w1544464452
+Emem_control
+Z42 w1544481580
 R3
 R2
 R4
 R5
 R6
-Z43 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd
-Z44 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd
+Z43 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_control.vhd
+Z44 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_control.vhd
+l0
+L6
+V>8l6U<A=IcAXa__nE30ca3
+R9
+31
+Z45 !s108 1544481698.982000
+Z46 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_control.vhd|
+Z47 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_control.vhd|
+R13
+R14
+!s100 5oILCVAED^O;RTb^kXlBD1
+!i10b 1
+Acontrol_mem
+R3
+R2
+R4
+R5
+DEx4 work 11 mem_control 0 22 >8l6U<A=IcAXa__nE30ca3
+l18
+L17
+V?[hZR:KT@BYZ@EobVm>D_2
+R9
+31
+R45
+R46
+R47
+R13
+R14
+!s100 df0W:kYZidCTk`7f@>DOI1
+!i10b 1
+Emem_mips
+Z48 w1544481656
+R4
+R5
+R6
+Z49 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_mips.vhd
+Z50 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_mips.vhd
+l0
+L42
+VaG^ADSEnlK=@Eli]83CkB3
+R9
+31
+Z51 !s108 1544481689.124000
+Z52 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_mips.vhd|
+Z53 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mem_mips.vhd|
+R13
+R14
+!s100 6>6g;IAgbW7zPjSka<j_:2
+!i10b 1
+Asyn
+R4
+R5
+DEx4 work 8 mem_mips 0 22 aG^ADSEnlK=@Eli]83CkB3
+l89
+L55
+VnMmCZ63E^TjD3=9GRCKBf2
+R9
+31
+R51
+R52
+R53
+R13
+R14
+!s100 j2W1J21VIiMERj<lDfjMf3
+!i10b 1
+Emips_control
+Z54 w1544481415
+R3
+R2
+R4
+R5
+R6
+Z55 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd
+Z56 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd
 l0
 L6
 VFjz0kh;Nenoda3dV9k:_72
 R9
 31
-Z45 !s108 1544466246.537000
-Z46 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd|
-Z47 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd|
+Z57 !s108 1544481696.598000
+Z58 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd|
+Z59 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_control.vhd|
 R13
 R14
 !s100 B=nQ]NF4Em]U;0miRXDOo0
@@ -242,71 +316,30 @@ L34
 VYjNGzGFFFS5SF_ea83OI00
 R9
 31
-R45
-R46
-R47
+R57
+R58
+R59
 R13
 R14
-!s100 XcTnPddULL[J?J`f0czF81
-!i10b 1
-Emips_mem
-Z48 w1543493670
-Z49 DPx9 altera_mf 20 altera_mf_components 0 22 No]@D`cShSLI4UOb8Ijo62
-R3
-R2
-R4
-R5
-R6
-Z50 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_mem.vhd
-Z51 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_mem.vhd
-l0
-L12
-VO@SdERni9?Y^U]HOf7dC:1
-R9
-31
-Z52 !s108 1544466245.506000
-Z53 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_mem.vhd|
-Z54 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_mem.vhd|
-R13
-R14
-!s100 07?NJ;z_:YCIC@5R`i1mQ1
-!i10b 1
-Artl
-R49
-R3
-R2
-R4
-R5
-DEx4 work 8 mips_mem 0 22 O@SdERni9?Y^U]HOf7dC:1
-l64
-L24
-VWQE>nnLAJMT>EnaEBn>OK1
-R9
-31
-R52
-R53
-R54
-R13
-R14
-!s100 eUmh48WmQK;12HFl6>`lH0
+!s100 cdQZ>ElHA@XYKcezImgmb0
 !i10b 1
 Emips_multi
-Z55 w1544465345
+Z60 w1544481606
 R2
 R3
 R4
 R5
 R6
-Z56 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd
-Z57 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd
+Z61 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd
+Z62 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd
 l0
 L8
 Vc5e]jH`emI3iKd>ZMXh192
 R9
 31
-Z58 !s108 1544466244.827000
-Z59 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd|
-Z60 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd|
+Z63 !s108 1544481695.841000
+Z64 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd|
+Z65 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_multi.vhd|
 R13
 R14
 !s100 nLj0fh6YOPaHGjoUWT1kH1
@@ -317,37 +350,72 @@ R3
 R4
 R5
 DEx4 work 10 mips_multi 0 22 c5e]jH`emI3iKd>ZMXh192
-l119
+l120
 L19
-Vn`:8Mm5iGCGT^GWcLCXQi1
+VC4n6Xo6IE=7b`Kn;;3zWT3
 R9
 31
-R58
-R59
-R60
+R63
+R64
+R65
 R13
 R14
-!s100 0l1_=S?nH4H6e]?7IiHXU1
+!s100 8^4oDZ76MhVPbaTXlY81k0
 !i10b 1
+Emips_multi_vhd_tst
+Z66 w1544472956
+R4
+R5
+R6
+Z67 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/simulation/modelsim/mips_multi.vht
+Z68 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/simulation/modelsim/mips_multi.vht
+l0
+L30
+VgEPDLl3WW@_>:zJCVZe_[3
+!s100 Q4oH`E_lNYE^kh>EfV7`@1
+R9
+31
+!i10b 1
+Z69 !s108 1544481699.657000
+Z70 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/simulation/modelsim/mips_multi.vht|
+Z71 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/simulation/modelsim/mips_multi.vht|
+R13
+R14
+Amips_multi_arch
+R4
+R5
+DEx4 work 18 mips_multi_vhd_tst 0 22 gEPDLl3WW@_>:zJCVZe_[3
+l49
+L32
+V>eY:UnEMj21?hF^gSVljS0
+!s100 XZf?JV4G>aXgWXmAL<Q3:0
+R9
+31
+!i10b 1
+R69
+R70
+R71
+R13
+R14
 Pmips_pkg
 R2
 R4
 R5
-Z61 w1544465411
+Z72 w1544481166
 R6
-Z62 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd
-Z63 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd
+Z73 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd
+Z74 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd
 l0
 L6
-VTloKogUW8_WG>B]Xb0kzn2
+VOb^jzHR0jd1mgGk]_li831
 R9
 31
-Z64 !s108 1544466239.116000
-Z65 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd|
-Z66 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd|
+Z75 !s108 1544481691.064000
+Z76 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd|
+Z77 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mips_pkg.vhd|
 R13
 R14
-!s100 5S`]l[JHaYkZFQ1;RX[6A2
+!s100 >SQ7mzd8KSGaY26Am9OmD1
 !i10b 1
 Bbody
 R3
@@ -355,20 +423,20 @@ R2
 R4
 R5
 l0
-L253
+L260
 VjHjkP2zVYhJ7i:?`Bf?Q80
 R9
 31
-R64
-R65
-R66
+R75
+R76
+R77
 R13
 R14
 nbody
-!s100 laZRAXFz4VEf[66`6TYH:1
+!s100 l;I1TjN0jDYZU[YJL04=03
 !i10b 1
 Emux_2
-Z67 w1390850328
+Z78 w1390850328
 R2
 R3
 R16
@@ -376,16 +444,16 @@ R24
 R4
 R5
 R6
-Z68 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd
-Z69 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd
+Z79 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd
+Z80 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd
 l0
 L6
 Vg0Io]c`bdUN4[=;LL9M6=2
 R9
 31
-Z70 !s108 1544466243.986000
-Z71 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd|
-Z72 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd|
+Z81 !s108 1544481695.243000
+Z82 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd|
+Z83 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_2.vhd|
 R13
 R14
 !s100 9ce3kMhhE>?Ya2@7W_38>2
@@ -403,9 +471,9 @@ L15
 VeShBG@FzQc0:GjFD]2Z001
 R9
 31
-R70
-R71
-R72
+R81
+R82
+R83
 R13
 R14
 !s100 E?5jS]Sd5gQzi1UJMfSXE2
@@ -419,16 +487,16 @@ R24
 R4
 R5
 R6
-Z73 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_3.vhd
-Z74 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_3.vhd
+Z84 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_3.vhd
+Z85 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_3.vhd
 l0
 L6
 VNA_IWTgOn=MT0>d7<2TSR0
 R9
 31
-Z75 !s108 1544466243.308000
-Z76 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_3.vhd|
-Z77 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_3.vhd|
+Z86 !s108 1544481694.386000
+Z87 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_3.vhd|
+Z88 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_3.vhd|
 R13
 R14
 !s100 ^VM<[HMnZeP=0iQkE`<XE3
@@ -446,15 +514,15 @@ L16
 VmO7Tg1be?oD<h`[VW=VbB2
 R9
 31
-R75
-R76
-R77
+R86
+R87
+R88
 R13
 R14
 !s100 dH=bL6`[B9UP2l47LRzR?2
 !i10b 1
 Emux_4
-Z78 w1390927606
+Z89 w1390927606
 R2
 R3
 R16
@@ -462,16 +530,16 @@ R24
 R4
 R5
 R6
-Z79 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_4.vhd
-Z80 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_4.vhd
+Z90 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_4.vhd
+Z91 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_4.vhd
 l0
 L6
 VU^TFaTngo2GPVVYQJhzT12
 R9
 31
-Z81 !s108 1544466242.590000
-Z82 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_4.vhd|
-Z83 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_4.vhd|
+Z92 !s108 1544481693.866000
+Z93 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_4.vhd|
+Z94 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/mux_4.vhd|
 R13
 R14
 !s100 2KjE@fFJfU;hkjFm4_@^02
@@ -489,28 +557,28 @@ L16
 VS002UVOF6>F=DLE=l;@Y72
 R9
 31
-R81
-R82
-R83
+R92
+R93
+R94
 R13
 R14
 !s100 8SPiA@VYl8lQOMS1W[Oka1
 !i10b 1
 Ereg
-Z84 w1364603272
+Z95 w1364603272
 R4
 R5
 R6
-Z85 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/reg.vhd
-Z86 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/reg.vhd
+Z96 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/reg.vhd
+Z97 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/reg.vhd
 l0
 L7
 V=M[ABcRJOEGR;Bk2YdQ=C3
 R9
 31
-Z87 !s108 1544466238.375000
-Z88 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/reg.vhd|
-Z89 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/reg.vhd|
+Z98 !s108 1544481690.332000
+Z99 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/reg.vhd|
+Z100 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/reg.vhd|
 R13
 R14
 !s100 VzGUjc>85]Tl_V^;DRB]42
@@ -524,28 +592,28 @@ L21
 VGI8ZZ_bzE>hF;BINzY?G>1
 R9
 31
-R87
-R88
-R89
+R98
+R99
+R100
 R13
 R14
 !s100 m3b>>X::ZgKUNcA2PKKXY1
 !i10b 1
 Eregbuf
-Z90 w1375058238
+Z101 w1375058238
 R4
 R5
 R6
-Z91 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/regbuf.vhd
-Z92 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/regbuf.vhd
+Z102 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/regbuf.vhd
+Z103 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/regbuf.vhd
 l0
 L7
 V<YlF2G;hj=P5B33heZJQR3
 R9
 31
-Z93 !s108 1544466236.452000
-Z94 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/regbuf.vhd|
-Z95 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/regbuf.vhd|
+Z104 !s108 1544481689.735000
+Z105 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/regbuf.vhd|
+Z106 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/regbuf.vhd|
 R13
 R14
 !s100 4C6SegQn=jTK3[3EB`?oA1
@@ -559,30 +627,30 @@ L19
 V><K:O9C;i7<RGfcUOdDdW1
 R9
 31
-R93
-R94
-R95
+R104
+R105
+R106
 R13
 R14
 !s100 dU0zZFiXlE=gIaOd@PWTE1
 !i10b 1
 Eulamips
-Z96 w1544041951
+Z107 w1544041951
 R3
 R2
 R4
 R5
 R6
-Z97 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd
-Z98 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd
+Z108 8C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd
+Z109 FC:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd
 l0
 L6
 V957e;X87d5@@JMjQU:0C]3
 R9
 31
-Z99 !s108 1544466242.112000
-Z100 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd|
-Z101 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd|
+Z110 !s108 1544481693.179000
+Z111 !s90 -reportprogress|300|-93|-work|work|C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd|
+Z112 !s107 C:/Users/Gabriel Arimatéa/Documents/GitHub/OAC/2018_2/TrabalhoFinal/mips_multi/ulamips.vhd|
 R13
 R14
 !s100 HnWMACfcTV9a0cNiI]Qc[3
@@ -598,9 +666,9 @@ L19
 V;3`kW7bh7g70Y9go]]N_C0
 R9
 31
-R99
-R100
-R101
+R110
+R111
+R112
 R13
 R14
 !s100 zBZG?ROOi5miBE6R<aYE91

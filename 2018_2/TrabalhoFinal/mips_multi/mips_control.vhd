@@ -99,8 +99,7 @@ logic: process (opcode, pstate)
 			when ldreg_st 	=>		s_datareg <= '1';
 							wr_breg	  <= '1';
 								
-			when writemem_st 	=> 				wr_mem 	 <= '1';
-										
+			when writemem_st 	=> wr_mem 	 <= '1';
 										s_mem_add <= '1';
 										if opcode = iSB
 										then wich_store <= "00";
