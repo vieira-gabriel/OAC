@@ -10,6 +10,7 @@ entity extsgn is
 		);
 	port (
 		input : in std_logic_vector(IN_SIZE-1 downto 0);
+		ext_type: in std_logic_vector(1 downto 0); 
 		output: out std_logic_vector(OUT_SIZE-1 downto 0)
 		);
 end entity;
@@ -17,7 +18,13 @@ end entity;
 architecture wires of extsgn is
 signal tmp : std_logic_vector(OUT_SIZE-1 downto 0);
 begin
-	output <= tmp;
-	tmp(IN_SIZE-1 downto 0) <= input;
-	tmp(OUT_SIZE-1 downto IN_SIZE) <= (others => input(IN_SIZE-1));
+	if ext_type = "00" then
+		output <= tmp;
+		tmp(IN_SIZE-1 downto 0) <= input;
+		tmp(OUT_SIZE-1 downto IN_SIZE) <= (others => input(IN_SIZE-1));
+	else 
+		output <= tmp;
+		tmp(IN_SIZE-1 downto 0) <= input;
+		tmp(OUT_SIZE-1 downto IN_SIZE) <= (others => '0');
+	end if;	
 end wires;
