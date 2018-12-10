@@ -57,6 +57,10 @@ signal alu_sel_v			: std_logic_vector(3 downto 0);  -- indice registador escrito
 signal sel_aluB_v 		: std_logic_vector(1 downto 0);	-- seleciona entrada B da ula
 signal alu_op_v			: std_logic_vector(1 downto 0);	-- codigo op ula
 signal org_pc_v			: std_logic_vector(1 downto 0);	-- selecao entrada do PC
+signal b_select_v		: std_logic_vector(1 downto 0);
+signal wich_load_v		: std_logic_vector(1 downto 0);
+signal wich_store_v		: std_logic_vector(1 downto 0);
+ext_type_v			: in std_logic_vector (1 DOWNTO 0);
 
 signal 	
 			branch_s,		-- beq ou bne
@@ -73,7 +77,12 @@ signal
 			reg_wr_s,		-- escreve breg
 			sel_end_mem_s,	-- seleciona endereco memoria
 			sel_aluA_s,		-- seleciona entrada A da ula
-			zero_s			-- sinal zero da ula
+			zero_s,			-- sinal zero da ula
+			unsig_s,
+			half_word_s
+			
+			
+			
 			: std_logic;
 			
 
@@ -86,7 +95,12 @@ alias 	imm26_field_v  : std_logic_vector(25 downto 0) is instruction_v(25 downto
 alias 	sht_field_v		: std_logic_vector(4 downto 0)  is instruction_v(10 downto 6);
 alias    op_field_v		: std_logic_vector(5 downto 0)  is instruction_v(31 downto 26);
 
-	
+alias	sb_field_v		: std_logic_vector(1 downto 0) is regB_v(7 downto 0);
+alias	sh_field_v		: std_logic_vector(3 downto 0) is regB_v(15 downto 0);
+
+alias	lb_field_v		: std_logic_vector(1 downto 0) is rdmout_v(31 downto 0);
+alias	lh_field_v		: std_logic_vector(3 downto 0) is rdmout_v(31 downto 0);
+
 begin
 
 data 			<=  pcout_v when debug = "00" else
@@ -120,7 +134,31 @@ mux_mem: mux_2
 			sel 	=> sel_end_mem_s,
 			m_out => memadd_v
 			);
-		
+
+--=======================================================================
+-- demux para selecao do byte em SB
+--=======================================================================
+demux_sb: demux
+	
+--=======================================================================
+-- demux para selecao dos dois bytes em SH
+--=======================================================================
+	
+	
+	
+--=======================================================================
+-- mux para encadeamento de qual store
+--=======================================================================
+mux_store:mux_3
+		port map (
+			in0 	=> pcout_v,
+			in1 	=> datadd_v,
+			in2 	=> regB_v,
+			sel 	=> sel_end_mem_s,
+			m_out => memadd_v
+			);
+	
+	
 --=======================================================================
 -- Memoria do MIPS
 --=======================================================================		
@@ -141,6 +179,32 @@ rdm:	regbuf
 		generic map (SIZE => 32)
 		port map (sr_in => memout_v, clk => clk, sr_out => rdmout_v);
 	
+--=======================================================================
+-- mux para selecao do byte de LB/LBU
+--=======================================================================
+	
+	
+--=======================================================================
+-- mux para selecao dos bytes de LH/LHU
+--=======================================================================
+	
+	
+--=======================================================================
+-- Resize do LB/LBU
+--=======================================================================
+	
+	
+--=======================================================================
+--  Resize do  LH/LHU
+--=======================================================================
+	
+	
+--=======================================================================
+--  mux para selecao de load
+--=======================================================================
+	
+	
+
 --=======================================================================
 -- Mux para enderecamento do registrador a ser escrito
 --=======================================================================
@@ -195,7 +259,7 @@ rgB:	regbuf
 --=======================================================================
 sgnx:	extsgn
 		port map (
-			input => imm16_field_v, output => imm32_v
+			input => imm16_field_v,ext_type => ext_type_v, output => imm32_v,
 		);
 
 --=======================================================================
@@ -229,7 +293,9 @@ actr: alu_ctr
 			port map (
 				op_alu 	=> alu_op_v,
 				funct	 	=> func_field_v,
-				alu_ctr	=> alu_sel_v
+				ext_type => ext_type_v
+				alu_ctr	=> alu_sel_v,
+				
 			);
 
 --=======================================================================
@@ -284,7 +350,13 @@ ctr_mips: mips_control
 			s_aluAin => sel_aluA_s,
 			s_aluBin => sel_aluB_v,
 			wr_breg	=> reg_wr_s,
-			s_reg_add => reg_dst_s
+			s_reg_add => reg_dst_s,
+			unsig => unsig_s,
+			half_word => half_word_s,
+			b_select =>  b_select_v,
+			wich_load => wich_load_v,
+			wich_store => wich_store_v,
+			ext_type => type_ext_v,
 		);
 		
 end architecture;
