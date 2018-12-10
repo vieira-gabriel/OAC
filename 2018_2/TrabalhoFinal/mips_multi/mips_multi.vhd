@@ -48,8 +48,9 @@ signal
 			instruction_v,	-- saida do reg de instrucoes
 			imm32_x4_v,	   -- imediato extendido e multiplicado por 4
 			imm32_v,		-- imediato extendido a 32 bits
-			sb_out_v
-			sh_out_v
+			sb_out_v,
+			sh_out_v,
+			load_out_v
 			: std_logic_vector(WORD_SIZE-1 downto 0);
 			
 signal addsht2_v 			: std_logic_vector(WORD_SIZE-1 downto 0);
@@ -63,6 +64,8 @@ signal b_select_v		: std_logic_vector(1 downto 0);
 signal wich_load_v		: std_logic_vector(1 downto 0);
 signal wich_store_v		: std_logic_vector(1 downto 0);
 ext_type_v			: in std_logic_vector (1 DOWNTO 0);
+mb_out_v			: in std_logic_vector (7 DOWNTO 0);
+mh_out_v			: in std_logic_vector (15 DOWNTO 0);
 
 signal 	
 			branch_s,		-- beq ou bne
@@ -96,7 +99,8 @@ alias    imm16_field_v	: std_logic_vector(15 downto 0) is instruction_v(15 downt
 alias 	imm26_field_v  : std_logic_vector(25 downto 0) is instruction_v(25 downto 0);
 alias 	sht_field_v		: std_logic_vector(4 downto 0)  is instruction_v(10 downto 6);
 alias    op_field_v		: std_logic_vector(5 downto 0)  is instruction_v(31 downto 26);
-alias    stor_field_v		: std_logic_vector(1 downto 0)  is instruction_v(31 downto 26);
+alias    a1a0_field_v		: std_logic_vector(1 downto 0)  is instruction_v(1 downto 0);
+alias    a1_field_v		: std_logic is instruction_v(1);
 
 alias	sb_field_v		: std_logic_vector(7 downto 0) is regB_v(7 downto 0);
 alias	sh_field_v		: std_logic_vector(15 downto 0) is regB_v(15 downto 0);
@@ -129,7 +133,12 @@ datadd_v		<= X"000000" & '1' & alu_out_v(8 downto 2);
 --=======================================================================
 pc:	reg 
 		generic map (SIZE => 32)
-		port map (sr_in => pcin_v, sr_out => pcout_v, rst => rst, clk => clk, enable => pc_wr_s);
+		port map (sr_in => pcin_v,
+			  sr_out => pcout_v, 
+			  rst => rst, 
+			  clk => clk, 
+			  enable => pc_wr_s
+			 );
 
 --=======================================================================
 -- mux para enderecamento da memoria
@@ -143,22 +152,22 @@ mux_mem: mux_2
 			);
 
 --=======================================================================
--- demux para selecao do byte em SB
+-- decoder para selecao do byte em SB
 --=======================================================================
-demux_sb: demux
+decoder_sb: decoder_b
 	port map (
 			d_in 	=> sb_field_v,
-			sel 	=> stor_field_v,
+			sel 	=> a1a0_field_v,
 			d_out => sb_out_v
 			);
 	
 --=======================================================================
--- demux para selecao dos dois bytes em SH
+-- decoder para selecao dos dois bytes em SH
 --=======================================================================
-demux_sh: demux
+decoder_sh: decoder_h
 	port map (
 			d_in 	=> sh_field_v,
-			sel 	=> stor_field_v,
+			sel 	=> a1_field_v,
 			d_out => sh_out_v
 			);
 	
@@ -180,59 +189,99 @@ mux_store:mux_3
 -- Memoria do MIPS
 --=======================================================================		
 mem:  mips_mem
-		port map (address => memadd_v(9 downto 2), data => regB_v, wren => mem_wr_s, clk => clk_rom, Q => memout_v );
+	port map (
+		address => memadd_v(9 downto 2), 
+		data => regB_v, 
+		wren => mem_wr_s, 
+		clk => clk_rom, 
+		Q => memout_v 
+	);
 	
 --=======================================================================
 -- RI - registrador de instruções
 --=======================================================================	
 ir:	reg
 		generic map (SIZE => 32)
-		port map (sr_in => memout_v, sr_out => instruction_v, rst => '0', clk => clk, enable => ir_wr_s );
+		port map (
+			sr_in => memout_v, 
+			sr_out => instruction_v, 
+			rst => '0', 
+			clk => clk, 
+			enable => ir_wr_s 
+		);
 
 --=======================================================================
 -- RDM - registrador de dados da memoria
 --=======================================================================
 rdm:	regbuf 
 		generic map (SIZE => 32)
-		port map (sr_in => memout_v, clk => clk, sr_out => rdmout_v);
+		port map (
+			sr_in => memout_v, 
+			clk => clk, 
+			sr_out => rdmout_v
+		);
 	
 --=======================================================================
 -- mux para selecao do byte de LB/LBU
 --=======================================================================
 	mux_byte: mux_4 
-		generic map (SIZE => 8)
-		port map (in0 => lb_one_v,
+		generic map (W_SIZE => 8)
+		port map (
+			  in0 => lb_one_v,
 			  in1 => lb_two_v,
 			  in2 => lb_three_v,
 			  in3 => lb_four_v,
-			  sel => ,
-			  m_out => iwreg_v);
+			  sel => a1a0_field_v,
+			  m_out => mb_out_v
+			 );
 	
 --=======================================================================
 -- mux para selecao de um dos bytes de LH/LHU
 --=======================================================================
 	mux_byte: mux_2 
 		generic map (SIZE => 16)
-		port map (in0 => lh_up_v,
-			  in1 => lh_down_v,
-			  sel => half_word_s,
-			  m_out => iwreg_v);
+		port map (
+			in0 => lh_up_v,
+			in1 => lh_down_v,
+			sel => a1_field_v,
+			m_out =>mh_out_v 
+		);
 	
 	
 --=======================================================================
 -- Resize do LB/LBU
 --=======================================================================
-	
-	
+res_byte: extsgn
+	generic map (
+		IN_SIZE : natural := 8;
+		SEL_SIZE => 0)
+	port map (
+			input =>mb_out_v ,
+			ext_type => unsig_s, 
+			output =>byte_out_v ,
+		);
 --=======================================================================
 --  Resize do  LH/LHU
 --=======================================================================
-	
+res_half: extsgn
+	generic map (SEL_SIZE => 0)
+	port map (
+			input => mh_out_v,
+			ext_type =>unsig_s , 
+			output => half_out_v,
+		);
 	
 --=======================================================================
 --  mux para selecao de load
 --=======================================================================
-	
+	mux_load: mux_3
+		port map (
+			in0 	=>byte_out_v ,
+			in1 	=> half_out_v,
+			in2   => rdmout_v,
+			sel 	=> wich_load_v,
+			m_out =>load_out_v 
+			);
 	
 
 --=======================================================================
@@ -251,7 +300,7 @@ mux_reg_add: mux_2
 breg_data_mux: mux_2 
 		generic map (SIZE => 32)
 		port map (in0 => rULA_out_v,
-					 in1 => rdmout_v,
+					 in1 => load_out_v,
 					 sel => mem_reg_s,
 					 m_out => regdata_v);
 		
@@ -289,7 +338,9 @@ rgB:	regbuf
 --=======================================================================
 sgnx:	extsgn
 		port map (
-			input => imm16_field_v,ext_type => ext_type_v, output => imm32_v,
+			input => imm16_field_v,
+			ext_type => ext_type_v, 
+			output => imm32_v,
 		);
 
 --=======================================================================
