@@ -27,7 +27,8 @@ package mips_pkg is
 	constant iSH			: std_logic_vector(5 downto 0) := "101001";
 	constant iADDI			: std_logic_vector(5 downto 0) := "001000";
 	constant iORI			: std_logic_vector(5 downto 0) := "001101";
-	constant iJ				: std_logic_vector(5 downto 0) := "000010";
+	constant iANDI			: std_logic_vector(5 downto 0) := "001100";
+	constant iJ			: std_logic_vector(5 downto 0) := "000010";
 	constant iBEQ			: std_logic_vector(5 downto 0) := "000100";
 	constant iBNE			: std_logic_vector(5 downto 0) := "000101";
 	
@@ -47,7 +48,7 @@ package mips_pkg is
 	constant ULA_ADD		: std_logic_vector(3 downto 0) := "0010"; -- 2
 	constant ULA_SUB		: std_logic_vector(3 downto 0) := "0110"; -- 6
 	constant ULA_AND		: std_logic_vector(3 downto 0) := "0000"; -- 0
-	constant ULA_OR		: std_logic_vector(3 downto 0) := "0001"; -- 1
+	constant ULA_OR			: std_logic_vector(3 downto 0) := "0001"; -- 1
 	constant ULA_XOR		: std_logic_vector(3 downto 0) := "1001"; -- 9
 	constant ULA_NOP		: std_logic_vector(3 downto 0) := "1111"; -- 15
 	constant ULA_NOR		: std_logic_vector(3 downto 0) := "1100"; -- 12
@@ -93,14 +94,6 @@ package mips_pkg is
 	);
 	end component;
 	
-	component mem_addr is
-	generic (
-		SIZE : natural := 32 );
-	port (
-	 	in0, in1	: in std_logic_vector(SIZE-1 downto 0);
-		sel		: in std_logic;
-		m_out		: out std_logic_vector(IMEM_ADDR-1 downto 0));
-	end component;
 	
 	component mux_2 is
 	generic (
@@ -133,28 +126,9 @@ package mips_pkg is
 		m_out						: out std_logic_vector(W_SIZE-1 downto 0));
 	end component;
 	
-	component adder is
-	generic (
-		DATA_WIDTH : natural := WORD_SIZE
-	);
-	port (
-		a	 : in std_logic_vector ((DATA_WIDTH-1) downto 0);
-		b	 : in std_logic_vector ((DATA_WIDTH-1) downto 0);
-		res : out std_logic_vector ((DATA_WIDTH-1) downto 0)
-	);
-	end component;
+
 	
-	component inst_mem is
-	generic (
-		WIDTH : natural := WORD_SIZE;
-		WADDR : natural := 8);
-	port (
-		address	: IN STD_LOGIC_VECTOR (WADDR-1 DOWNTO 0);
-		clk		: IN STD_LOGIC;
-		data		: IN STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0);
-		wren		: IN STD_LOGIC ;
-		q			: OUT STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0));
-	end component;
+	
 
 	component ulamips is
 	port (
@@ -188,8 +162,9 @@ package mips_pkg is
 	component alu_ctr is
 	port (
 		op_alu		: in std_logic_vector(1 downto 0);
-		funct			: in std_logic_vector(5 downto 0);
-		alu_ctr	   : out std_logic_vector(3 downto 0)
+		funct		: in std_logic_vector(5 downto 0);
+		ext_type	: in std_logic_vector (1 DOWNTO 0);
+		alu_ctr		: out std_logic_vector(3 downto 0)
 	);
 	end component;
 	
@@ -211,24 +186,17 @@ package mips_pkg is
 		s_aluAin : OUT std_logic;
 		s_aluBin : OUT std_logic_vector (1 DOWNTO 0); 
 		wr_breg	: OUT std_logic;
-		s_reg_add: OUT std_logic
+		s_reg_add: OUT std_logic;
+		unsig		: OUT std_logic;								--Unsigned (1 quando for LBU ou LHU)
+		half_word: OUT std_logic;								--HalfWord (0 quando for LH a half word menos significativa, 1 quando for a mais significativa)
+		b_select	: OUT std_logic_vector (1 DOWNTO 0);
+		wich_load: OUT std_logic_vector (1 DOWNTO 0);
+		wich_store: OUT std_logic_vector (1 DOWNTO 0);
+		ext_type: OUT std_logic_vector (1 DOWNTO 0)
 	);
 	END component;
 	
-	component control is
-	port (
-		opcode : in std_logic_vector(5 downto 0);
-		op_ula :	out std_logic_vector(1 downto 0);
-		reg_dst,
-		rd_mem,
-		branch,
-		jump,
-		mem2reg,
-		mem_wr,
-		alu_src,
-		breg_wr:	out std_logic
-		);
-end component;
+	
 
 component extsgn is
 	generic (
@@ -237,16 +205,12 @@ component extsgn is
 		);
 	port (
 		input : in std_logic_vector(IN_SIZE-1 downto 0);
+		ext_type: in std_logic_vector (1 DOWNTO 0); 
 		output: out std_logic_vector(OUT_SIZE-1 downto 0)
 		);
 end component;
 
-component sig_ext is
-	port (
-		imm16	: in std_logic_vector(WORD_SIZE/2 - 1 downto 0);
-		ext32 : out std_logic_vector(WORD_SIZE-1 downto 0)
-		);
-end component;
+
 
 component mips_mem is
 	generic (
@@ -260,16 +224,20 @@ component mips_mem is
 		q			: OUT STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0));
 end component;
 
-component data_mem is
-	port
-	(
-		address	: IN STD_LOGIC_VECTOR (7 DOWNTO 0);
-		clock		: IN STD_LOGIC;
-		data		: IN STD_LOGIC_VECTOR (31 DOWNTO 0);
+				  
+component inst_mem is
+	generic (
+		WIDTH : natural := WORD_SIZE;
+		WADDR : natural := 8);
+	port (
+		address	: IN STD_LOGIC_VECTOR (WADDR-1 DOWNTO 0);
+		clk		: IN STD_LOGIC;
+		data		: IN STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0);
 		wren		: IN STD_LOGIC ;
-		q			: OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
-	);
-end component;
+		q			: OUT STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0));
+	end component;
+				  
+
 	
 --	procedure mux2x1 (signal x0, x1	: in std_logic_vector(WORD_SIZE-1 downto 0); 
 --							signal sel	: in std_logic;
