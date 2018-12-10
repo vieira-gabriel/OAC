@@ -10,24 +10,25 @@ ENTITY mips_control IS
 		clk, rst	: IN std_logic;
 		opcode	: IN std_logic_vector (5 DOWNTO 0);
 		imediate : IN std_logic_vector (15 DOWNTO 0); 	--Campo imediato (será utilzado para selecionar os MUX do SB, Sh, Sw, Lw, Lh, Lb, ...)
-		wr_ir		: OUT std_logic; 								--EscreveIR
-		wr_pc		: OUT std_logic;								--EscrevePC
-		wr_mem	: OUT std_logic;								--EscreveMEM
-		wr_breg	: OUT std_logic;								--EscreveREG
-		is_beq	: OUT std_logic; 								--EscrevePCCond
-		is_bne	: OUT std_logic;								--IouD
-		s_datareg: OUT std_logic;								--RegDst
+		wr_ir		: OUT std_logic; 		--EscreveIR
+		wr_pc		: OUT std_logic;		--EscrevePC
+		wr_mem	: OUT std_logic;			--EscreveMEM
+		wr_breg	: OUT std_logic;			--EscreveREG
+		is_beq	: OUT std_logic; 			--EscrevePCCond
+		is_bne	: OUT std_logic;			--IouD
+		s_datareg: OUT std_logic;			--RegDst
 		op_alu	: OUT std_logic_vector (1 DOWNTO 0);	--OpALU
-		s_mem_add: OUT std_logic;								--LeMem
+		s_mem_add: OUT std_logic;			--LeMem
 		s_PCin	: OUT std_logic_vector (1 DOWNTO 0);	--OrigPC
-		s_aluAin : OUT std_logic;								--OrigAALU
+		s_aluAin : OUT std_logic;			--OrigAALU
 		s_aluBin : OUT std_logic_vector (1 DOWNTO 0); 	--OrigBALU
-		s_reg_add: OUT std_logic;								--MemparaReg
-		unsig		: OUT std_logic;								--Unsigned (1 quando for LBU ou LHU)
-		half_word: OUT std_logic;								--HalfWord (0 quando for LH a half word menos significativa, 1 quando for a mais significativa)
-		b_select	: OUT std_logic_vector (1 DOWNTO 0);	--Byte (seleciona o(s) Byte(s) que será(ão) escrito(s ou lido(s) referente à palavra)
+		s_reg_add: OUT std_logic;			--MemparaReg
+		unsig	: OUT std_logic;			--Unsigned (1 quando for LBU ou LHU)
+		half_word: OUT std_logic;			--HalfWord (0 quando for LH a half word menos significativa, 1 quando for a mais significativa)
+		b_select: OUT std_logic_vector (1 DOWNTO 0);	--Byte (seleciona o(s) Byte(s) que será(ão) escrito(s ou lido(s) referente à palavra)
 		wich_load: OUT std_logic_vector (1 DOWNTO 0);	--QualLoad
-		wich_store: OUT std_logic_vector (1 DOWNTO 0)	--QualStore
+		wich_store: OUT std_logic_vector (1 DOWNTO 0);	--QualStore
+		ext_type: OUT std_logic_vector (1 DOWNTO 0)	--tipo de extensão de sinal
 	);
 	
 END ENTITY;
@@ -74,32 +75,35 @@ logic: process (opcode, imediate, pstate)
 		s_mem_add 	<= '0';		--LeMem
 		s_PCin		<= "00"; 	--OrigPC
 		s_aluAin 	<= '0';		--OrigAALU
-		s_aluBin  	<= "00";		--OrigBALU
+		s_aluBin  	<= "00";	--OrigBALU
 		s_reg_add 	<= '0';		--MemparaReg
-		unsig			<= '0';
+		unsig		<= '0';
 		half_word	<= '0';
-		b_select		<= "00";
+		b_select	<= "00";
 		wich_load	<= "00";
 		wich_store	<= "10";
+		ext_type 	<= "00";
 		
 		value_imm :=  to_integer(unsigned(imediate));
 		
 		case pstate is 
-			when fetch_st 		=> wr_pc 	<= '1';
-										s_aluBin <= "01";
-										wr_ir 	<= '1';
+			when fetch_st => 		wr_pc <= '1';
+							s_aluBin <= "01";
+							wr_ir 	<= '1';
 								
-			when decode_st 	=>	s_aluBin <= "11";
+			when decode_st 	=>		s_aluBin <= "11";
 								
-			when c_mem_add_st => s_aluAin <= '1';
-										s_aluBin <= "10";
+			when c_mem_add_st => 		s_aluAin <= '1';
+							s_aluBin <= "10";
+							if opcode = (iORI) then ext_type <= "01";
+							if opcode = (iANDI) then ext_type <= "10";
 										
-			when readmem_st 	=> s_mem_add <= '1';
+			when readmem_st =>		s_mem_add <= '1';
 								 
-			when ldreg_st 		=>	s_datareg <= '1';
-										wr_breg	  <= '1';
+			when ldreg_st 	=>		s_datareg <= '1';
+							wr_breg	  <= '1';
 								
-			when writemem_st 	=> wr_mem 	 <= '1';
+			when writemem_st 	=> 				wr_mem 	 <= '1';
 										b_select <= std_logic_vector(to_unsigned((value_imm mod 4),b_select'length));
 										s_mem_add <= '1';
 										if opcode = iSB
@@ -109,33 +113,26 @@ logic: process (opcode, imediate, pstate)
 												--if b_select = 1 | 3		--(adicionar condição de erro)
 										end if;
 									
-			when rtype_ex_st	=> s_aluAin <= '1';
+			when rtype_ex_st	=>				s_aluAin <= '1';
 										op_alu <= "10";
 									
-			when writereg_st 	=> s_reg_add <= '1';
+			when writereg_st 	=> 				s_reg_add <= '1';
 										b_select <= std_logic_vector(to_unsigned((value_imm mod 4),b_select'length));
 										wr_breg <= '1';
-										if opcode = iLBU
-										then unsig <= '1';
+										if opcode = iLBU then unsig <= '1';
 										else unsig <= '0';
 										end if;
-										if opcode = iLHU
-										then unsig <= '1';
+										if opcode = iLHU then unsig <= '1';
 										else unsig <= '0';
 										end if;
-										if opcode = iLB
-										then wich_load <= "00";
-										elsif opcode = iLBU
-										then wich_load <= "00";
-										elsif opcode = iLH
-										then wich_load <= "01";
-												--if b_select = 1 | 3		--(adicionar condição de erro)
-										elsif opcode =  iLHU
-										then wich_load <= "01";
-												--if b_select = 1 | 3		--(adicionar condição de erro)
+										if opcode = iLB then wich_load <= "00";
+										elsif opcode = iLBU then wich_load <= "00";
+										elsif opcode = iLH then wich_load <= "01";
+									        --if b_select = 1 | 3		--(adicionar condição de erro)
+										elsif opcode =  iLHU then wich_load <= "01";
+										--if b_select = 1 | 3		--(adicionar condição de erro)
 										end if;
-										
-								  
+																		  
 			when branch_ex_st => s_aluAin <= '1';
 										op_alu <= "01";
 										s_PCin <= "01";
@@ -144,9 +141,10 @@ logic: process (opcode, imediate, pstate)
 										else is_bne <= '1';
 										end if;
 									
-			when jump_ex_st 	=>	s_PCin  <= "10";
+			when jump_ex_st 	=>				s_PCin  <= "10";
 										wr_pc   <= '1';
-			when arith_imm_st => wr_breg <= '1';
+															 
+			when arith_imm_st => 					wr_breg <= '1';
 		end case;
 	end process;
 	
@@ -159,7 +157,7 @@ new_state: process (opcode, pstate)
 			when fetch_st => 	nstate <= decode_st;
 			when decode_st =>	case opcode is
 									when iRTYPE => nstate <= rtype_ex_st;
-									when iLW | iLB | iLBU | iLH | iLHU | iSW | iSH | iSB | iADDI => nstate <= c_mem_add_st;
+									when iLW | iLB | iLBU | iLH | iLHU | iSW | iSH | iSB | iADDI | iANDI | iORI => nstate <= c_mem_add_st;
 									when iBEQ | iBNE => nstate <= branch_ex_st;
 									when iJ => nstate <= jump_ex_st;
 									when others => null;
@@ -167,7 +165,7 @@ new_state: process (opcode, pstate)
 			when c_mem_add_st => case opcode is 
 									when iLW | iLB | iLBU | iLH | iLHU => nstate <= readmem_st;
 									when iSW | iSH | iSB => nstate <= writemem_st;
-									when iADDI => nstate <= arith_imm_st;
+									when iADDI | iANDI | iORI => nstate <= arith_imm_st;
 									when others => null;
 								 end case;
 			when readmem_st 	=> nstate <= ldreg_st;
