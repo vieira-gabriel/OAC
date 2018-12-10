@@ -50,7 +50,10 @@ signal
 			imm32_v,		-- imediato extendido a 32 bits
 			sb_out_v,
 			sh_out_v,
-			load_out_v
+			load_out_v,
+			store_out_v,
+			byte_out_v,
+			half_out_v
 			: std_logic_vector(WORD_SIZE-1 downto 0);
 			
 signal addsht2_v 			: std_logic_vector(WORD_SIZE-1 downto 0);
@@ -60,12 +63,14 @@ signal alu_sel_v			: std_logic_vector(3 downto 0);  -- indice registador escrito
 signal sel_aluB_v 		: std_logic_vector(1 downto 0);	-- seleciona entrada B da ula
 signal alu_op_v			: std_logic_vector(1 downto 0);	-- codigo op ula
 signal org_pc_v			: std_logic_vector(1 downto 0);	-- selecao entrada do PC
-signal b_select_v		: std_logic_vector(1 downto 0);
 signal wich_load_v		: std_logic_vector(1 downto 0);
 signal wich_store_v		: std_logic_vector(1 downto 0);
-ext_type_v			: in std_logic_vector (1 DOWNTO 0);
-mb_out_v			: in std_logic_vector (7 DOWNTO 0);
-mh_out_v			: in std_logic_vector (15 DOWNTO 0);
+signal store_tipe_v		: std_logic_vector(2 downto 0);
+signal ext_type_v			: std_logic_vector (1 DOWNTO 0);
+signal mb_out_v			: std_logic_vector (7 DOWNTO 0);
+signal mh_out_v			: std_logic_vector (15 DOWNTO 0);
+signal unsig_v			: std_logic_vector (1 DOWNTO 0);
+signal type_ext_v			: std_logic_vector(1 DOWNTO 0);
 
 signal 	
 			branch_s,		-- beq ou bne
@@ -83,8 +88,7 @@ signal
 			sel_end_mem_s,	-- seleciona endereco memoria
 			sel_aluA_s,		-- seleciona entrada A da ula
 			zero_s,			-- sinal zero da ula
-			unsig_s,
-			half_word_s
+			unsig_s
 			
 			
 			
@@ -127,6 +131,7 @@ imm32_x4_v 	<= imm32_v(29 downto 0) & "00";
 
 datadd_v		<= X"000000" & '1' & alu_out_v(8 downto 2);
 
+unsig_v <= unsig_s & '0';
 
 --=======================================================================
 -- PC - Contador de programa
@@ -181,7 +186,7 @@ mux_store:mux_3
 			in1 	=> sh_out_v,
 			in2 	=> regB_v,
 			sel 	=> wich_store_v,
-			m_out => mem_wr_s
+			m_out => store_out_v
 			);
 	
 	
@@ -191,7 +196,7 @@ mux_store:mux_3
 mem:  mips_mem
 	port map (
 		address => memadd_v(9 downto 2), 
-		data => regB_v, 
+		data => store_out_v ,
 		wren => mem_wr_s, 
 		clk => clk_rom, 
 		Q => memout_v 
@@ -238,7 +243,7 @@ rdm:	regbuf
 --=======================================================================
 -- mux para selecao de um dos bytes de LH/LHU
 --=======================================================================
-	mux_byte: mux_2 
+	mux_half: mux_2 
 		generic map (SIZE => 16)
 		port map (
 			in0 => lh_up_v,
@@ -253,22 +258,20 @@ rdm:	regbuf
 --=======================================================================
 res_byte: extsgn
 	generic map (
-		IN_SIZE : natural := 8;
-		SEL_SIZE => 0)
+		IN_SIZE => 8)
 	port map (
 			input =>mb_out_v ,
-			ext_type => unsig_s, 
-			output =>byte_out_v ,
+			ext_type => unsig_v, 
+			output =>byte_out_v
 		);
 --=======================================================================
 --  Resize do  LH/LHU
 --=======================================================================
 res_half: extsgn
-	generic map (SEL_SIZE => 0)
 	port map (
 			input => mh_out_v,
-			ext_type =>unsig_s , 
-			output => half_out_v,
+			ext_type =>unsig_v , 
+			output => half_out_v
 		);
 	
 --=======================================================================
@@ -340,7 +343,7 @@ sgnx:	extsgn
 		port map (
 			input => imm16_field_v,
 			ext_type => ext_type_v, 
-			output => imm32_v,
+			output => imm32_v
 		);
 
 --=======================================================================
@@ -374,8 +377,8 @@ actr: alu_ctr
 			port map (
 				op_alu 	=> alu_op_v,
 				funct	 	=> func_field_v,
-				ext_type => ext_type_v
-				alu_ctr	=> alu_sel_v,
+				ext_type => ext_type_v,
+				alu_ctr	=> alu_sel_v
 				
 			);
 
@@ -433,11 +436,22 @@ ctr_mips: mips_control
 			wr_breg	=> reg_wr_s,
 			s_reg_add => reg_dst_s,
 			unsig => unsig_s,
-			half_word => half_word_s,
-			b_select =>  b_select_v,
 			wich_load => wich_load_v,
 			wich_store => wich_store_v,
-			ext_type => type_ext_v,
+			store_type => store_tipe_v,
+			ext_type => type_ext_v
 		);
 		
+--=======================================================================
+-- BYTEENAB - Registrador com informações sobre o store
+--=======================================================================
+--b_enab:	reg 
+--		generic map (SIZE => 5)
+--		port map (sr_in => store_tipe_v && a1a0_field_v,
+--			  sr_out => , 
+--			  rst => rst, 
+--			  clk => clk, 
+--			  enable => 
+--			 );
+			 
 end architecture;

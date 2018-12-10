@@ -15,9 +15,6 @@ use work.mips_pkg.all;
   architecture rtl of decoder_h is
   signal tmp : std_logic_vector(31 downto 0);
     begin
-      if sel = "0" then
-        d_out <= d_in(15 downto 0) & X"0000"; 
-      else 
-         d_out <= X"0000" & d_in(15 downto 0);
-      end if;	
+		d_out <= d_in(15 downto 0) & X"0000" when (sel = '0') else
+					X"0000" & d_in(15 downto 0);
     end architecture;

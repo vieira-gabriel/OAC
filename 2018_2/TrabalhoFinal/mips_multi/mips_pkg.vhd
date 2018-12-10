@@ -104,9 +104,10 @@ package mips_pkg is
 	generic (SIZE : natural := 8);
 	port (
 	 	  d_in	: in std_logic_vector(SIZE-1 downto 0);
-		  sel		: in std_logic_vector(1 downto 0));
+		  sel		: in std_logic_vector(1 downto 0);
 		  d_out		: out std_logic_vector(31 downto 0));
-  	end component;			  
+  	end component;	
+	
 	component mux_2 is
 	
 	  generic (
@@ -201,10 +202,9 @@ package mips_pkg is
 		wr_breg	: OUT std_logic;
 		s_reg_add: OUT std_logic;
 		unsig		: OUT std_logic;								--Unsigned (1 quando for LBU ou LHU)
-		half_word: OUT std_logic;								--HalfWord (0 quando for LH a half word menos significativa, 1 quando for a mais significativa)
-		b_select	: OUT std_logic_vector (1 DOWNTO 0);
 		wich_load: OUT std_logic_vector (1 DOWNTO 0);
 		wich_store: OUT std_logic_vector (1 DOWNTO 0);
+		store_type:	OUT std_logic_vector (2 DOWNTO 0);
 		ext_type: OUT std_logic_vector (1 DOWNTO 0)
 	);
 	END component;

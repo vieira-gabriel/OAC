@@ -25,6 +25,7 @@ ENTITY mips_control IS
 		unsig	: OUT std_logic;									--Unsigned (1 quando for LBU ou LHU)
 		wich_load: OUT std_logic_vector (1 DOWNTO 0);	--QualLoad
 		wich_store: OUT std_logic_vector (1 DOWNTO 0);	--QualStore
+		store_type:	OUT std_logic_vector (2 DOWNTO 0);	--TipoEscrita
 		ext_type: OUT std_logic_vector (1 DOWNTO 0)		--tipo de extensão de sinal
 	);
 	
@@ -57,7 +58,7 @@ reg: process(clk, rst)
 		end if;
 	end process;
 		
-logic: process (opcode, imediate, pstate)
+logic: process (opcode, pstate)
 	
 	begin
 		wr_ir			<= '0'; 		--EscreveIR
@@ -76,6 +77,7 @@ logic: process (opcode, imediate, pstate)
 		unsig			<= '0';
 		wich_load	<= "00";
 		wich_store	<= "10";
+		store_type	<= "001";
 		ext_type 	<= "00";
 		
 		case pstate is 
@@ -88,7 +90,9 @@ logic: process (opcode, imediate, pstate)
 			when c_mem_add_st => 		s_aluAin <= '1';
 							s_aluBin <= "10";
 							if opcode = (iORI) then ext_type <= "01";
+							end if;
 							if opcode = (iANDI) then ext_type <= "10";
+							end if;
 										
 			when readmem_st =>		s_mem_add <= '1';
 								 
@@ -100,8 +104,10 @@ logic: process (opcode, imediate, pstate)
 										s_mem_add <= '1';
 										if opcode = iSB
 										then wich_store <= "00";
+												store_type <= "100";
 										elsif opcode = iSH
 										then wich_store <= "01";
+												store_type <= "010";
 										end if;
 									
 			when rtype_ex_st	=>				s_aluAin <= '1';
