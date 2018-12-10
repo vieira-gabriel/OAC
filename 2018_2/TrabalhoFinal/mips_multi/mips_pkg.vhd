@@ -83,9 +83,7 @@ package mips_pkg is
 	end component; 
 	
 	component regbuf is
-	generic (
-		SIZE : natural := 32
-	);
+	generic (SIZE : natural := 32);
 	port 
 	(
 		clk		: in std_logic;
@@ -94,9 +92,24 @@ package mips_pkg is
 	);
 	end component;
 	
+	component decoder_h is
+	generic (SIZE : natural := 16);
+	port (
+	 	  d_in	: in std_logic_vector(SIZE-1 downto 0);
+		  sel		: in std_logic;
+		  d_out		: out std_logic_vector(31 downto 0));
+  	end component;
 	
+	component decoder_b is
+	generic (SIZE : natural := 8);
+	port (
+	 	  d_in	: in std_logic_vector(SIZE-1 downto 0);
+		  sel		: in std_logic_vector(1 downto 0));
+		  d_out		: out std_logic_vector(31 downto 0));
+  	end component;			  
 	component mux_2 is
-	generic (
+	
+	  generic (
 		SIZE : natural := 32
 	);
 	port (	
@@ -225,17 +238,7 @@ component mips_mem is
 end component;
 
 				  
-component inst_mem is
-	generic (
-		WIDTH : natural := WORD_SIZE;
-		WADDR : natural := 8);
-	port (
-		address	: IN STD_LOGIC_VECTOR (WADDR-1 DOWNTO 0);
-		clk		: IN STD_LOGIC;
-		data		: IN STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0);
-		wren		: IN STD_LOGIC ;
-		q			: OUT STD_LOGIC_VECTOR (WIDTH-1 DOWNTO 0));
-	end component;
+
 				  
 
 	
