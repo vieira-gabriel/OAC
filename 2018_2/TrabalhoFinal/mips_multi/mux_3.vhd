@@ -16,6 +16,6 @@ end entity;
 architecture rtl of mux_3 is 
 begin
 	m_out <= in0 when (sel = "00") else 
-				in1 when (sel = "01") else
-				in2;
+		 in1 when (sel = "01") else
+		 in2;
 end architecture;
