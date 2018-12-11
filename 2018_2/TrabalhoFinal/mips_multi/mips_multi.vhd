@@ -69,7 +69,6 @@ signal ext_type_v			: std_logic_vector (1 DOWNTO 0);
 signal mb_out_v			: std_logic_vector (7 DOWNTO 0);
 signal mh_out_v			: std_logic_vector (15 DOWNTO 0);
 signal unsig_v			: std_logic_vector (1 DOWNTO 0);
-signal type_ext_v			: std_logic_vector(1 DOWNTO 0);
 signal byteena_v			: std_logic_vector(3 downto 0);
 signal memadd_v			: std_logic_vector(7 DOWNTO 0);		-- endereco da memoria
 
@@ -442,7 +441,7 @@ ctr_mips: mips_control
 			wich_load => wich_load_v,
 			wich_store => wich_store_v,
 			store_type => store_tipe_v,
-			ext_type => type_ext_v
+			ext_type => ext_type_v
 		);
 		
 --=======================================================================

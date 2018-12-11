@@ -26,7 +26,7 @@ alu_ctr <=
 			ULA_SLL  when (op_alu="10" and funct=iSLL)  else
 			ULA_SRA  when (op_alu="10" and funct=iSRA)  else
 			ULA_SRL  when (op_alu="10" and funct=iSRL)  else
-			ULA_ADD when (op_alu="10" and funct=iADD) or (op_alu="10")  else
+			ULA_ADD when (op_alu="10" and funct=iADD) else
 			ULA_ADD when (ext_type="00" and op_alu="00") else
 			ULA_SUB when (op_alu="10" and funct=iSUB) else
 			ULA_SUB when (op_alu="01") else

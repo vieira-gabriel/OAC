@@ -84,7 +84,6 @@ logic: process (opcode, pstate)
 			when fetch_st => 		wr_pc <= '1';
 							s_aluBin <= "01";
 							wr_ir 	<= '1';
-							ext_type <= "00";
 								
 			when decode_st 	=>		s_aluBin <= "11";
 								
