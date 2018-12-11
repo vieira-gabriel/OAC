@@ -36,7 +36,6 @@ signal
 			memout_v,		-- saida da memoria
 			rdmout_v,		-- saida do registrador de dados da memoria
 			rULA_out_v,		-- registrador na saida da ula
-			memadd_v,		-- endereco da memoria
 			datadd_v,		-- endereco de dado na memoria
 			regAin_v,		-- saida A do BREG
 			regBin_v,		-- saida B do BREG
@@ -72,6 +71,7 @@ signal mh_out_v			: std_logic_vector (15 DOWNTO 0);
 signal unsig_v			: std_logic_vector (1 DOWNTO 0);
 signal type_ext_v			: std_logic_vector(1 DOWNTO 0);
 signal byteena_v			: std_logic_vector(3 downto 0);
+signal memadd_v			: std_logic_vector(7 DOWNTO 0);		-- endereco da memoria
 
 signal 	
 			branch_s,		-- beq ou bne
@@ -104,8 +104,8 @@ alias    imm16_field_v	: std_logic_vector(15 downto 0) is instruction_v(15 downt
 alias 	imm26_field_v  : std_logic_vector(25 downto 0) is instruction_v(25 downto 0);
 alias 	sht_field_v		: std_logic_vector(4 downto 0)  is instruction_v(10 downto 6);
 alias    op_field_v		: std_logic_vector(5 downto 0)  is instruction_v(31 downto 26);
-alias    a1a0_field_v		: std_logic_vector(1 downto 0)  is instruction_v(1 downto 0);
-alias    a1_field_v		: std_logic is instruction_v(1);
+alias    a1a0_field_v		: std_logic_vector(1 downto 0)  is datadd_v(1 downto 0);
+alias    a1_field_v		: std_logic is datadd_v(1);
 
 alias	sb_field_v		: std_logic_vector(7 downto 0) is regB_v(7 downto 0);
 alias	sh_field_v		: std_logic_vector(15 downto 0) is regB_v(15 downto 0);
@@ -150,9 +150,10 @@ pc:	reg
 -- mux para enderecamento da memoria
 --=======================================================================		
 mux_mem: mux_2
+		generic map (SIZE => 8)
 		port map (
-			in0 	=> pcout_v,
-			in1 	=> datadd_v,
+			in0 	=> pcout_v(9 DOWNTO 2),
+			in1 	=> datadd_v(7 DOWNTO 0),
 			sel 	=> sel_end_mem_s,
 			m_out => memadd_v
 			);
@@ -196,7 +197,7 @@ mux_store:mux_3
 --=======================================================================		
 mem:  mem_mips
 	port map (
-		address => memadd_v(9 downto 2),
+		address => memadd_v,
 		byteena => byteena_v,
 		data => store_out_v ,
 		wren => mem_wr_s, 

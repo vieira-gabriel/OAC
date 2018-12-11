@@ -71,6 +71,7 @@ signal mb_out_v			: std_logic_vector (7 DOWNTO 0);
 signal mh_out_v			: std_logic_vector (15 DOWNTO 0);
 signal unsig_v			: std_logic_vector (1 DOWNTO 0);
 signal type_ext_v			: std_logic_vector(1 DOWNTO 0);
+signal byteena_v			: std_logic_vector(3 downto 0);
 
 signal 	
 			branch_s,		-- beq ou bne
@@ -129,7 +130,7 @@ pc_wr_s 		<= jump_s or (zero_s and is_beq_s) or ((not zero_s) and is_bne_s);
 
 imm32_x4_v 	<= imm32_v(29 downto 0) & "00";
 
-datadd_v		<= X"000000" & '1' & alu_out_v(8 downto 2);
+datadd_v		<= X"000000" & '1' & rULA_out_v(8 downto 2);
 
 unsig_v <= unsig_s & '0';
 
@@ -193,9 +194,10 @@ mux_store:mux_3
 --=======================================================================
 -- Memoria do MIPS
 --=======================================================================		
-mem:  mips_mem
+mem:  mem_mips
 	port map (
-		address => memadd_v(9 downto 2), 
+		address => memadd_v(9 downto 2),
+		byteena => byteena_v,
 		data => store_out_v ,
 		wren => mem_wr_s, 
 		clk => clk_rom, 
@@ -443,15 +445,13 @@ ctr_mips: mips_control
 		);
 		
 --=======================================================================
--- BYTEENAB - Registrador com informações sobre o store
+-- mem_control - Controle da memória; saida é o byte enable
 --=======================================================================
---b_enab:	reg 
---		generic map (SIZE => 5)
---		port map (sr_in => store_tipe_v && a1a0_field_v,
---			  sr_out => , 
---			  rst => rst, 
---			  clk => clk, 
---			  enable => 
---			 );
+b_enab:	mem_control 
+		port map(
+			store_type	=> store_tipe_v,
+			a1a0			=> a1a0_field_v,		
+			byteenable	=> byteena_v
+		);
 			 
 end architecture;

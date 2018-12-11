@@ -72,6 +72,7 @@ ARCHITECTURE SYN OF mem_mips IS
 		outdata_aclr_a		: STRING;
 		outdata_reg_a		: STRING;
 		power_up_uninitialized		: STRING;
+		ram_block_type		: STRING;
 		widthad_a		: NATURAL;
 		width_a		: NATURAL;
 		width_byteena_a		: NATURAL
@@ -94,7 +95,7 @@ BEGIN
 		byte_size => 8,
 		clock_enable_input_a => "BYPASS",
 		clock_enable_output_a => "BYPASS",
-		init_file => "mips_rom.mif",
+		init_file => "../simulation/modelsim/mips_rom.mif",
 		intended_device_family => "Cyclone II",
 		lpm_hint => "ENABLE_RUNTIME_MOD=NO",
 		lpm_type => "altsyncram",
@@ -103,6 +104,7 @@ BEGIN
 		outdata_aclr_a => "NONE",
 		outdata_reg_a => "UNREGISTERED",
 		power_up_uninitialized => "FALSE",
+		ram_block_type => "M4K",
 		widthad_a => 8,
 		width_a => 32,
 		width_byteena_a => 4
@@ -142,9 +144,9 @@ END SYN;
 -- Retrieval info: PRIVATE: JTAG_ENABLED NUMERIC "0"
 -- Retrieval info: PRIVATE: JTAG_ID STRING "NONE"
 -- Retrieval info: PRIVATE: MAXIMUM_DEPTH NUMERIC "0"
--- Retrieval info: PRIVATE: MIFfilename STRING "mips_rom.mif"
+-- Retrieval info: PRIVATE: MIFfilename STRING "../simulation/modelsim/mips_rom.mif"
 -- Retrieval info: PRIVATE: NUMWORDS_A NUMERIC "256"
--- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "0"
+-- Retrieval info: PRIVATE: RAM_BLOCK_TYPE NUMERIC "2"
 -- Retrieval info: PRIVATE: READ_DURING_WRITE_MODE_PORT_A NUMERIC "3"
 -- Retrieval info: PRIVATE: RegAddr NUMERIC "1"
 -- Retrieval info: PRIVATE: RegData NUMERIC "1"
@@ -160,7 +162,7 @@ END SYN;
 -- Retrieval info: CONSTANT: BYTE_SIZE NUMERIC "8"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_INPUT_A STRING "BYPASS"
 -- Retrieval info: CONSTANT: CLOCK_ENABLE_OUTPUT_A STRING "BYPASS"
--- Retrieval info: CONSTANT: INIT_FILE STRING "mips_rom.mif"
+-- Retrieval info: CONSTANT: INIT_FILE STRING "../simulation/modelsim/mips_rom.mif"
 -- Retrieval info: CONSTANT: INTENDED_DEVICE_FAMILY STRING "Cyclone II"
 -- Retrieval info: CONSTANT: LPM_HINT STRING "ENABLE_RUNTIME_MOD=NO"
 -- Retrieval info: CONSTANT: LPM_TYPE STRING "altsyncram"
@@ -169,6 +171,7 @@ END SYN;
 -- Retrieval info: CONSTANT: OUTDATA_ACLR_A STRING "NONE"
 -- Retrieval info: CONSTANT: OUTDATA_REG_A STRING "UNREGISTERED"
 -- Retrieval info: CONSTANT: POWER_UP_UNINITIALIZED STRING "FALSE"
+-- Retrieval info: CONSTANT: RAM_BLOCK_TYPE STRING "M4K"
 -- Retrieval info: CONSTANT: WIDTHAD_A NUMERIC "8"
 -- Retrieval info: CONSTANT: WIDTH_A NUMERIC "32"
 -- Retrieval info: CONSTANT: WIDTH_BYTEENA_A NUMERIC "4"
