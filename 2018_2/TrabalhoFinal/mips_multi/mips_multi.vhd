@@ -52,7 +52,9 @@ signal
 			load_out_v,
 			store_out_v,
 			byte_out_v,
-			half_out_v
+			half_out_v,
+			imm_lui,
+			data_v
 			: std_logic_vector(WORD_SIZE-1 downto 0);
 			
 signal addsht2_v 			: std_logic_vector(WORD_SIZE-1 downto 0);
@@ -71,6 +73,7 @@ signal mh_out_v			: std_logic_vector (15 DOWNTO 0);
 signal unsig_v			: std_logic_vector (1 DOWNTO 0);
 signal byteena_v			: std_logic_vector(3 downto 0);
 signal memadd_v			: std_logic_vector(7 DOWNTO 0);		-- endereco da memoria
+signal ctr_lui_mux		: std_logic_vector(1 downto 0);
 
 signal 	
 			branch_s,		-- beq ou bne
@@ -88,7 +91,8 @@ signal
 			sel_end_mem_s,	-- seleciona endereco memoria
 			sel_aluA_s,		-- seleciona entrada A da ula
 			zero_s,			-- sinal zero da ula
-			unsig_s
+			unsig_s,
+			lui_ctr_s
 			
 			
 			
@@ -132,6 +136,15 @@ imm32_x4_v 	<= imm32_v(29 downto 0) & "00";
 datadd_v		<= X"000000" & '1' & rULA_out_v(8 downto 2);
 
 unsig_v <= unsig_s & '0';
+
+imm_lui <= imm16_field_v & x"0000";
+
+ctr_lui_mux <= lui_ctr_s & mem_reg_s;
+
+data_v <=  pcout_v when debug = "00" else
+				alu_out_v when debug = "01" else
+					 instruction_v when debug = "10" else
+					 memout_v;
 
 --=======================================================================
 -- PC - Contador de programa
@@ -200,7 +213,7 @@ mem:  mem_mips
 		byteena => byteena_v,
 		data => store_out_v ,
 		wren => mem_wr_s, 
-		clk => clk_rom, 
+		clk => clk_rom, --not clk, 
 		Q => memout_v 
 	);
 	
@@ -302,11 +315,11 @@ mux_reg_add: mux_2
 --=======================================================================
 -- Mux de selecao de dado para escrita no banco de registradores
 --=======================================================================					 
-breg_data_mux: mux_2 
-		generic map (SIZE => 32)
+breg_data_mux: mux_3 
 		port map (in0 => rULA_out_v,
 					 in1 => load_out_v,
-					 sel => mem_reg_s,
+					 in2 => imm_lui,
+					 sel => ctr_lui_mux,
 					 m_out => regdata_v);
 		
 --=======================================================================
@@ -402,7 +415,11 @@ alu:	ulamips
 --=======================================================================			
 regULA:	regbuf 
 		generic map (SIZE => 32)
-		port map (sr_in => alu_out_v, clk => clk, sr_out => rULA_out_v);		
+		port map (
+			sr_in => alu_out_v, 
+			clk => clk, 
+			sr_out => rULA_out_v
+		);		
 		
 --=======================================================================
 -- Mux para selecao da entrada do PC
@@ -441,7 +458,8 @@ ctr_mips: mips_control
 			wich_load => wich_load_v,
 			wich_store => wich_store_v,
 			store_type => store_tipe_v,
-			ext_type => ext_type_v
+			ext_type => ext_type_v,
+			lui_ctr => lui_ctr_s
 		);
 		
 --=======================================================================
@@ -453,5 +471,15 @@ b_enab:	mem_control
 			a1a0			=> a1a0_field_v,		
 			byteenable	=> byteena_v
 		);
+		
+--=======================================================================
+-- hex7seg - Conexão com a placa
+--=======================================================================
+display: hex7seg
+	port map(
+		clk => clk,
+		data_in => data_v
+		);
+		
 			 
 end architecture;

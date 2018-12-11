@@ -82,7 +82,7 @@ END PROCESS clkgen;
                                        
 always : PROCESS                                                                               
 BEGIN                                                 
-			for i in 0 to 50 loop
+			for i in 0 to 150 loop
 			clk <= '1';
 			wait for 10 ps;
 			clk <= '0';

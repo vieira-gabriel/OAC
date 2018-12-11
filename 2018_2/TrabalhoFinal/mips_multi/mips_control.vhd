@@ -26,7 +26,8 @@ ENTITY mips_control IS
 		wich_load: OUT std_logic_vector (1 DOWNTO 0);	--QualLoad
 		wich_store: OUT std_logic_vector (1 DOWNTO 0);	--QualStore
 		store_type:	OUT std_logic_vector (2 DOWNTO 0);	--TipoEscrita
-		ext_type: OUT std_logic_vector (1 DOWNTO 0)		--tipo de extensão de sinal
+		ext_type: OUT std_logic_vector (1 DOWNTO 0);		--tipo de extensão de sinal
+		lui_ctr: OUT std_logic
 	);
 	
 END ENTITY;
@@ -36,7 +37,8 @@ ARCHITECTURE control_op OF mips_control IS
 	type ctr_state is (	fetch_st,     -- 0000
 								decode_st,    -- 0001
 								c_mem_add_st, -- 0010
-								readmem_st, 
+								readmem_st,
+								lui_st,
 								ldreg_st, 
 								writemem_st, 
 								rtype_ex_st, 
@@ -79,6 +81,7 @@ logic: process (opcode, pstate)
 		wich_store	<= "10";
 		store_type	<= "001";
 		ext_type 	<= "00";
+		lui_ctr		<= '0';
 		
 		case pstate is 
 			when fetch_st => 		wr_pc <= '1';
@@ -88,14 +91,18 @@ logic: process (opcode, pstate)
 								
 			when decode_st 	=>		s_aluBin <= "11";
 								
-			when c_mem_add_st => 		s_aluAin <= '1';
-							s_aluBin <= "10";
-							if opcode = (iORI) then ext_type <= "01";
-							end if;
-							if opcode = (iANDI) then ext_type <= "10";
-							end if;
+			when c_mem_add_st =>	s_aluAin <= '1';
+										s_aluBin <= "10";
+										if opcode = (iORI) then ext_type <= "01";
+										end if;
+										if opcode = (iANDI) then ext_type <= "10";
+										end if;
+							
 										
 			when readmem_st =>		s_mem_add <= '1';
+			
+			when lui_st		=>	lui_ctr <= '1';
+									wr_breg <= '1';
 								 
 			when ldreg_st 	=>		s_datareg <= '1';
 							wr_breg	  <= '1';
@@ -135,10 +142,10 @@ logic: process (opcode, pstate)
 										else is_bne <= '1';
 										end if;
 									
-			when jump_ex_st 	=>				s_PCin  <= "10";
+			when jump_ex_st 	=>	s_PCin  <= "10";
 										wr_pc   <= '1';
 															 
-			when arith_imm_st => 					wr_breg <= '1';
+			when arith_imm_st => wr_breg <= '1';
 		end case;
 	end process;
 	
@@ -154,12 +161,13 @@ new_state: process (opcode, pstate)
 									when iLW | iLB | iLBU | iLH | iLHU | iSW | iSH | iSB | iADDI | iANDI | iORI => nstate <= c_mem_add_st;
 									when iBEQ | iBNE => nstate <= branch_ex_st;
 									when iJ => nstate <= jump_ex_st;
+									when iLUI => nstate <= lui_st;
 									when others => null;
 									end case;
 			when c_mem_add_st => case opcode is 
 									when iLW | iLB | iLBU | iLH | iLHU => nstate <= readmem_st;
 									when iSW | iSH | iSB => nstate <= writemem_st;
-									when iADDI | iANDI | iORI => nstate <= arith_imm_st;
+									when iADDI | iANDI | iORI  => nstate <= arith_imm_st;
 									when others => null;
 								 end case;
 			when readmem_st 	=> nstate <= ldreg_st;

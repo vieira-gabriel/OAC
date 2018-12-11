@@ -38,7 +38,7 @@ ula: process (A, B, aluctl, a32, tmp)
 		when ULA_XOR => a32 <= (A xor B);
 		when ULA_ADD => a32 <= std_logic_vector(signed(A) + signed(B));
 							 ovfl <= (A(SIZE-1) xnor B(SIZE-1)) and (a32(SIZE-1) xor A(SIZE-1));
-		when ULA_SUB => a32 <=  tmp;
+		when ULA_SUB => a32 <=  std_logic_vector(signed(A) - signed(B));
 							 ovfl <= (A(SIZE-1) xnor (not B(SIZE-1))) and (a32(SIZE-1) xor A(SIZE-1));
 		when ULA_SLT => a32 <= (0=>tmp(SIZE-1), others=>'0');
 		when ULA_SLL => a32 <= to_stdlogicvector(to_bitvector(B) sll to_integer(unsigned(A)));

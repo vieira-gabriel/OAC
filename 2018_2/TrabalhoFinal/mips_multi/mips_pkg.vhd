@@ -28,9 +28,10 @@ package mips_pkg is
 	constant iADDI			: std_logic_vector(5 downto 0) := "001000";
 	constant iORI			: std_logic_vector(5 downto 0) := "001101";
 	constant iANDI			: std_logic_vector(5 downto 0) := "001100";
-	constant iJ			: std_logic_vector(5 downto 0) := "000010";
+	constant iJ				: std_logic_vector(5 downto 0) := "000010";
 	constant iBEQ			: std_logic_vector(5 downto 0) := "000100";
 	constant iBNE			: std_logic_vector(5 downto 0) := "000101";
+	constant iLUI			: std_logic_vector(5 downto 0) := "001111";
 	
 	-- Campo funct
 	constant iADD			: std_logic_vector(5 downto 0) := "100000";
@@ -48,7 +49,7 @@ package mips_pkg is
 	constant ULA_ADD		: std_logic_vector(3 downto 0) := "0010"; -- 2
 	constant ULA_SUB		: std_logic_vector(3 downto 0) := "0110"; -- 6
 	constant ULA_AND		: std_logic_vector(3 downto 0) := "0000"; -- 0
-	constant ULA_OR			: std_logic_vector(3 downto 0) := "0001"; -- 1
+	constant ULA_OR		: std_logic_vector(3 downto 0) := "0001"; -- 1
 	constant ULA_XOR		: std_logic_vector(3 downto 0) := "1001"; -- 9
 	constant ULA_NOP		: std_logic_vector(3 downto 0) := "1111"; -- 15
 	constant ULA_NOR		: std_logic_vector(3 downto 0) := "1100"; -- 12
@@ -56,6 +57,7 @@ package mips_pkg is
 	constant ULA_SLL		: std_logic_vector(3 downto 0) := "1000"; -- 8
 	constant ULA_SRL		: std_logic_vector(3 downto 0) := "0011"; -- 3
 	constant ULA_SRA		: std_logic_vector(3 downto 0) := "0101"; -- 5
+	constant ULA_LUI		: std_logic_vector(3 downto 0) := "0100";
 	
 	component mips_multi is
 	port 
@@ -205,7 +207,8 @@ package mips_pkg is
 		wich_load: OUT std_logic_vector (1 DOWNTO 0);
 		wich_store: OUT std_logic_vector (1 DOWNTO 0);
 		store_type:	OUT std_logic_vector (2 DOWNTO 0);
-		ext_type: OUT std_logic_vector (1 DOWNTO 0)
+		ext_type: OUT std_logic_vector (1 DOWNTO 0);
+		lui_ctr: OUT std_logic
 	);
 	END component;
 	
@@ -243,9 +246,21 @@ component mem_control is
 		);
 end component;
 	
-
-				  
-
+component hex7seg is
+	port 
+	(
+		clk				: in std_logic;
+		data_in 			: in  std_logic_vector(31 downto 0);
+		data0				: out	std_logic_vector(6 downto 0);
+		data1				: out	std_logic_vector(6 downto 0);
+		data2				: out	std_logic_vector(6 downto 0);
+		data3				: out	std_logic_vector(6 downto 0);
+		data4				: out	std_logic_vector(6 downto 0);
+		data5				: out	std_logic_vector(6 downto 0);
+		data6				: out	std_logic_vector(6 downto 0);
+		data7				: out	std_logic_vector(6 downto 0)
+	);
+end component;
 				  
 
 	

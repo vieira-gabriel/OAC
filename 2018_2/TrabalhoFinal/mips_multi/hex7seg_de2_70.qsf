@@ -51,17 +51,75 @@ set_global_assignment -name MIN_CORE_JUNCTION_TEMP 0
 set_global_assignment -name MAX_CORE_JUNCTION_TEMP 85
 set_global_assignment -name DEVICE_FILTER_PIN_COUNT 896
 set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
-set_location_assignment PIN_AA23 -to hex_in[0]
-set_location_assignment PIN_AB26 -to hex_in[1]
-set_location_assignment PIN_AB25 -to hex_in[2]
-set_location_assignment PIN_AC27 -to hex_in[3]
-set_location_assignment PIN_AD17 -to seven_out[6]
-set_location_assignment PIN_AF17 -to seven_out[5]
-set_location_assignment PIN_AE17 -to seven_out[4]
-set_location_assignment PIN_AG16 -to seven_out[3]
-set_location_assignment PIN_AF16 -to seven_out[2]
-set_location_assignment PIN_AE16 -to seven_out[1]
-set_location_assignment PIN_AG13 -to seven_out[0]
+set_location_assignment PIN_AA23 -to debug[0]
+set_location_assignment PIN_AB26 -to debug[1]
+
+set_location_assignment PIN_T29 -to clk
+
+set_location_assignment PIN_AE8 -to data0[0]
+set_location_assignment PIN_AF9 -to data0[1]
+set_location_assignment PIN_AH9 -to data0[2]
+set_location_assignment PIN_AD10 -to data0[3]
+set_location_assignment PIN_AF10 -to data0[4]
+set_location_assignment PIN_AD11 -to data0[5]
+set_location_assignment PIN_AD12 -to data0[6]
+
+set_location_assignment PIN_AD17 -to data1[6]
+set_location_assignment PIN_AF17 -to data1[5]
+set_location_assignment PIN_AE17 -to data1[4]
+set_location_assignment PIN_AG16 -to data1[3]
+set_location_assignment PIN_AF16 -to data1[2]
+set_location_assignment PIN_AE16 -to data1[1]
+set_location_assignment PIN_AG13 -to data1[0]
+
+set_location_assignment PIN_AE7 -to data2[0]
+set_location_assignment PIN_AF7 -to data2[1]
+set_location_assignment PIN_AH5 -to data2[2]
+set_location_assignment PIN_AG4 -to data2[3]
+set_location_assignment PIN_AB18 -to data2[4]
+set_location_assignment PIN_AB19 -to data2[5]
+set_location_assignment PIN_AE19 -to data2[6]
+
+set_location_assignment PIN_P6 -to data3[0]
+set_location_assignment PIN_P4 -to data3[1]
+set_location_assignment PIN_N10 -to data3[2]
+set_location_assignment PIN_N7 -to data3[3]
+set_location_assignment PIN_M8 -to data3[4]
+set_location_assignment PIN_M7 -to data3[5]
+set_location_assignment PIN_M6 -to data3[6]
+
+set_location_assignment PIN_P1 -to data4[0]
+set_location_assignment PIN_P2 -to data4[1]
+set_location_assignment PIN_P3 -to data4[2]
+set_location_assignment PIN_N2 -to data4[3]
+set_location_assignment PIN_N3 -to data4[4]
+set_location_assignment PIN_M1 -to data4[5]
+set_location_assignment PIN_M2 -to data4[6]
+
+set_location_assignment PIN_M3 -to data5[0]
+set_location_assignment PIN_L1 -to data5[1]
+set_location_assignment PIN_L2 -to data5[2]
+set_location_assignment PIN_L3 -to data5[3]
+set_location_assignment PIN_K1 -to data5[4]
+set_location_assignment PIN_K4 -to data5[5]
+set_location_assignment PIN_K5 -to data5[6]
+
+set_location_assignment PIN_H6 -to data6[0]
+set_location_assignment PIN_H4 -to data6[1]
+set_location_assignment PIN_H7 -to data6[2]
+set_location_assignment PIN_H8 -to data6[3]
+set_location_assignment PIN_G4 -to data6[4]
+set_location_assignment PIN_F4 -to data6[5]
+set_location_assignment PIN_E4 -to data6[6]
+
+set_location_assignment PIN_K3 -to data7[0]
+set_location_assignment PIN_J1 -to data7[1]
+set_location_assignment PIN_J2 -to data7[2]
+set_location_assignment PIN_H1 -to data7[3]
+set_location_assignment PIN_H2 -to data7[4]
+set_location_assignment PIN_H3 -to data7[5]
+set_location_assignment PIN_G1 -to data7[6]
+
 set_global_assignment -name USE_CONFIGURATION_DEVICE ON
 set_global_assignment -name CYCLONEII_RESERVE_NCEO_AFTER_CONFIGURATION "USE AS REGULAR IO"
 set_global_assignment -name RESERVE_ASDO_AFTER_CONFIGURATION "USE AS REGULAR IO"
