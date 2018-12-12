@@ -107,7 +107,7 @@ alias    imm16_field_v	: std_logic_vector(15 downto 0) is instruction_v(15 downt
 alias 	imm26_field_v  : std_logic_vector(25 downto 0) is instruction_v(25 downto 0);
 alias 	sht_field_v		: std_logic_vector(4 downto 0)  is instruction_v(10 downto 6);
 alias    op_field_v		: std_logic_vector(5 downto 0)  is instruction_v(31 downto 26);
-alias    a1a0_field_v		: std_logic_vector(1 downto 0)  is datadd_v(1 downto 0);
+alias    a1a0_field_v	: std_logic_vector(1 downto 0)  is datadd_v(1 downto 0);
 alias    a1_field_v		: std_logic is datadd_v(1);
 
 alias	sb_field_v		: std_logic_vector(7 downto 0) is regB_v(7 downto 0);
@@ -261,8 +261,8 @@ rdm:	regbuf
 	mux_half: mux_2 
 		generic map (SIZE => 16)
 		port map (
-			in0 => lh_up_v,
-			in1 => lh_down_v,
+			in0 => lh_down_v,
+			in1 => lh_up_v,
 			sel => a1_field_v,
 			m_out =>mh_out_v 
 		);

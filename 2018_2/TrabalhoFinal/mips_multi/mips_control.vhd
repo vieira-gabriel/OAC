@@ -77,19 +77,19 @@ logic: process (opcode, pstate)
 		s_aluBin  	<= "00";	--OrigBALU
 		s_reg_add 	<= '0';		--MemparaReg
 		unsig			<= '0';
-		wich_load	<= "00";
+		wich_load	<= "11";
 		wich_store	<= "10";
 		store_type	<= "001";
 		ext_type 	<= "00";
 		lui_ctr		<= '0';
 		
 		case pstate is 
-			when fetch_st => 		wr_pc <= '1';
-							s_aluBin <= "01";
-							wr_ir 	<= '1';
-							ext_type <= "00";
+			when fetch_st 		=>	wr_pc <= '1';
+										s_aluBin <= "01";
+										wr_ir 	<= '1';
+										ext_type <= "00";
 								
-			when decode_st 	=>		s_aluBin <= "11";
+			when decode_st 	=>	s_aluBin <= "11";
 								
 			when c_mem_add_st =>	s_aluAin <= '1';
 										s_aluBin <= "10";
@@ -99,13 +99,33 @@ logic: process (opcode, pstate)
 										end if;
 							
 										
-			when readmem_st =>		s_mem_add <= '1';
+			when readmem_st 	=>	s_mem_add <= '1';
+										s_aluAin <= '1';
+										if opcode = iLBU then unsig <= '1';
+																	wich_load <= "00";
+										else unsig <= '0';
+										end if;
+										if opcode = iLHU then unsig <= '1';
+																	wich_load <= "01";
+										else unsig <= '0';
+										end if;
+										if opcode = iLB then wich_load <= "00";
+										elsif opcode = iLH then wich_load <= "01";
+										end if;
 			
-			when lui_st		=>	lui_ctr <= '1';
-									wr_breg <= '1';
+			when lui_st			=>	lui_ctr <= '1';
+										wr_breg <= '1';
+			
 								 
-			when ldreg_st 	=>		s_datareg <= '1';
-							wr_breg	  <= '1';
+			when ldreg_st 		=>	s_datareg <= '1';
+										wr_breg <= '1';
+										if opcode = iLB then wich_load <= "00";
+										elsif opcode = iLBU then 	unsig <= '1';
+																			wich_load <= "00";
+										elsif opcode = iLH then wich_load <= "01";
+										elsif opcode = iLHU then 	unsig <= '1';
+																			wich_load <= "01";
+										end if;
 								
 			when writemem_st 	=> wr_mem 	 <= '1';
 										s_mem_add <= '1';
@@ -117,22 +137,11 @@ logic: process (opcode, pstate)
 												store_type <= "010";
 										end if;
 									
-			when rtype_ex_st	=>				s_aluAin <= '1';
+			when rtype_ex_st	=>	s_aluAin <= '1';
 										op_alu <= "10";
 									
-			when writereg_st 	=> 				s_reg_add <= '1';
+			when writereg_st 	=>	s_reg_add <= '1';
 										wr_breg <= '1';
-										if opcode = iLBU then unsig <= '1';
-										else unsig <= '0';
-										end if;
-										if opcode = iLHU then unsig <= '1';
-										else unsig <= '0';
-										end if;
-										if opcode = iLB then wich_load <= "00";
-										elsif opcode = iLBU then wich_load <= "00";
-										elsif opcode = iLH then wich_load <= "01";
-										elsif opcode =  iLHU then wich_load <= "01";
-										end if;
 																		  
 			when branch_ex_st => s_aluAin <= '1';
 										op_alu <= "01";
