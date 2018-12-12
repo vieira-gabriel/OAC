@@ -30,8 +30,8 @@ architecture rtl of breg is
 signal breg32: word_array(31 downto 0) := (
 	x"00000000", -- $ra
 	x"00000000", -- $fp
-	x"7fffeffc", -- $sp			Valor inicial no registrador de acordo com o MARS
-	x"10008000", -- $gp			Valor inicial no registrador de acordo com o MARS
+	x"00003ffc", -- $sp			Valor inicial no registrador de acordo com o MARS
+	x"00001800", -- $gp			Valor inicial no registrador de acordo com o MARS
 	x"00000000", -- $k1
 	x"00000000", -- $k0
 	x"00000000", -- $t9

@@ -54,14 +54,16 @@ signal
 			byte_out_v,
 			half_out_v,
 			imm_lui,
-			data_v
+			data_v,
+			shamt_ext_v
 			: std_logic_vector(WORD_SIZE-1 downto 0);
 			
 signal addsht2_v 			: std_logic_vector(WORD_SIZE-1 downto 0);
 signal rset_s, clock_s 	: std_logic;
 signal iwreg_v 			: std_logic_vector(4 downto 0);  -- indice registador escrito
 signal alu_sel_v			: std_logic_vector(3 downto 0);  -- indice registador escrito
-signal sel_aluB_v 		: std_logic_vector(1 downto 0);	-- seleciona entrada B da ula
+signal sel_aluB_v			: std_logic_vector(1 downto 0);	-- seleciona entrada B da ula
+signal sel_aluA_v			: std_logic_vector(1 downto 0);	-- seleciona entrada A da ula		
 signal alu_op_v			: std_logic_vector(1 downto 0);	-- codigo op ula
 signal org_pc_v			: std_logic_vector(1 downto 0);	-- selecao entrada do PC
 signal wich_load_v		: std_logic_vector(1 downto 0);
@@ -89,7 +91,6 @@ signal
 			reg_dst_s,		-- controle endereco reg
 			reg_wr_s,		-- escreve breg
 			sel_end_mem_s,	-- seleciona endereco memoria
-			sel_aluA_s,		-- seleciona entrada A da ula
 			zero_s,			-- sinal zero da ula
 			unsig_s,
 			lui_ctr_s
@@ -107,8 +108,8 @@ alias    imm16_field_v	: std_logic_vector(15 downto 0) is instruction_v(15 downt
 alias 	imm26_field_v  : std_logic_vector(25 downto 0) is instruction_v(25 downto 0);
 alias 	sht_field_v		: std_logic_vector(4 downto 0)  is instruction_v(10 downto 6);
 alias    op_field_v		: std_logic_vector(5 downto 0)  is instruction_v(31 downto 26);
-alias    a1a0_field_v	: std_logic_vector(1 downto 0)  is datadd_v(1 downto 0);
-alias    a1_field_v		: std_logic is datadd_v(1);
+alias    a1a0_field_v	: std_logic_vector(1 downto 0)  is rULA_out_v(1 downto 0);
+alias    a1_field_v		: std_logic is rULA_out_v(1);
 
 alias	sb_field_v		: std_logic_vector(7 downto 0) is regB_v(7 downto 0);
 alias	sh_field_v		: std_logic_vector(15 downto 0) is regB_v(15 downto 0);
@@ -146,6 +147,8 @@ data_v <=  pcout_v when debug = "00" else
 					 instruction_v when debug = "10" else
 					 memout_v;
 
+shamt_ext_v <= x"000000" & "000" & sht_field_v;
+					 
 --=======================================================================
 -- PC - Contador de programa
 --=======================================================================
@@ -364,11 +367,12 @@ sgnx:	extsgn
 --=======================================================================
 -- Mux para selecao da entrada de cima da ula
 --=======================================================================		
-mux_ulaA: mux_2
+mux_ulaA: mux_3
 		port map (
 			in0 	=> pcout_v, 
 			in1 	=> regA_v,
-			sel 	=> sel_aluA_s,
+			in2	=> shamt_ext_v,
+			sel 	=> sel_aluA_v,
 			m_out => aluA_v
 		);
 		
@@ -440,7 +444,8 @@ ctr_mips: mips_control
 		port map (	
 			clk 		=> clk,
 			rst 		=> rst,
-			opcode 	=> op_field_v,	
+			opcode 	=> op_field_v,
+			funct		=> func_field_v,
 			wr_ir		=> ir_wr_s,
 			wr_pc		=> jump_s,
 			wr_mem	=> mem_wr_s,
@@ -450,7 +455,7 @@ ctr_mips: mips_control
 			op_alu	=> alu_op_v,
 			s_mem_add => sel_end_mem_s,
 			s_PCin	=> org_pc_v,
-			s_aluAin => sel_aluA_s,
+			s_aluAin => sel_aluA_v,
 			s_aluBin => sel_aluB_v,
 			wr_breg	=> reg_wr_s,
 			s_reg_add => reg_dst_s,

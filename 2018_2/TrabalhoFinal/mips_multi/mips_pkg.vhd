@@ -190,6 +190,7 @@ package mips_pkg is
 	(
 		clk, rst	: IN std_logic;
 		opcode	: IN std_logic_vector (5 DOWNTO 0);
+		funct		: IN std_logic_vector (5 DOWNTO 0);
 		wr_ir		: OUT std_logic;
 		wr_pc		: OUT std_logic;
 		wr_mem	: OUT std_logic;
@@ -199,7 +200,7 @@ package mips_pkg is
 		op_alu	: OUT std_logic_vector (1 DOWNTO 0);
 		s_mem_add: OUT std_logic;
 		s_PCin	: OUT std_logic_vector (1 DOWNTO 0);
-		s_aluAin : OUT std_logic;
+		s_aluAin : OUT std_logic_vector (1 DOWNTO 0);
 		s_aluBin : OUT std_logic_vector (1 DOWNTO 0); 
 		wr_breg	: OUT std_logic;
 		s_reg_add: OUT std_logic;

@@ -41,9 +41,9 @@ ula: process (A, B, aluctl, a32, tmp)
 		when ULA_SUB => a32 <=  std_logic_vector(signed(A) - signed(B));
 							 ovfl <= (A(SIZE-1) xnor (not B(SIZE-1))) and (a32(SIZE-1) xor A(SIZE-1));
 		when ULA_SLT => a32 <= (0=>tmp(SIZE-1), others=>'0');
-		when ULA_SLL => a32 <= to_stdlogicvector(to_bitvector(B) sll to_integer(unsigned(A)));
-		when ULA_SRA => a32 <= to_stdlogicvector(to_bitvector(B) sra to_integer(unsigned(A)));
-		when ULA_SRL => a32 <= to_stdlogicvector(to_bitvector(B) srl to_integer(unsigned(A)));
+		when ULA_SLL => a32 <= std_logic_vector(shift_left(unsigned(B), to_integer(signed(A))));
+		when ULA_SRA => a32 <= std_logic_vector(shift_right(signed(B),to_integer(signed(A))));
+		when ULA_SRL => a32 <= std_logic_vector(shift_right(unsigned(B),to_integer(signed(A))));
 		when others  => a32 <= (others=>'0');
 	end case;
 end process;

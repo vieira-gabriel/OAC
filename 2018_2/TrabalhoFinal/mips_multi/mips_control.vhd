@@ -9,19 +9,20 @@ ENTITY mips_control IS
 	(
 		clk, rst	: IN std_logic;
 		opcode	: IN std_logic_vector (5 DOWNTO 0);
+		funct		: IN std_logic_vector (5 DOWNTO 0);
 		wr_ir		: OUT std_logic; 								--EscreveIR
 		wr_pc		: OUT std_logic;								--EscrevePC
 		wr_mem	: OUT std_logic;								--EscreveMEM
 		wr_breg	: OUT std_logic;								--EscreveREG
 		is_beq	: OUT std_logic; 								--EscrevePCCond
 		is_bne	: OUT std_logic;								--IouD
-		s_datareg: OUT std_logic;								--RegDst
+		s_datareg: OUT std_logic;								--MemparaReg
 		op_alu	: OUT std_logic_vector (1 DOWNTO 0);	--OpALU
 		s_mem_add: OUT std_logic;								--LeMem
 		s_PCin	: OUT std_logic_vector (1 DOWNTO 0);	--OrigPC
-		s_aluAin : OUT std_logic;								--OrigAALU
+		s_aluAin : OUT std_logic_vector (1 DOWNTO 0);	--OrigAALU
 		s_aluBin : OUT std_logic_vector (1 DOWNTO 0); 	--OrigBALU
-		s_reg_add: OUT std_logic;								--MemparaReg
+		s_reg_add: OUT std_logic;								--RegDst
 		unsig	: OUT std_logic;									--Unsigned (1 quando for LBU ou LHU)
 		wich_load: OUT std_logic_vector (1 DOWNTO 0);	--QualLoad
 		wich_store: OUT std_logic_vector (1 DOWNTO 0);	--QualStore
@@ -69,13 +70,12 @@ logic: process (opcode, pstate)
 		wr_breg		<= '0'; 		--EscreveREG
 		is_beq 		<= '0'; 		--EscrevePCCond
 		is_bne 		<= '0';		--IouD
-		op_alu		<= "00"; 	--OpALU
-		s_datareg 	<= '0';		--RegDst
+		s_datareg 	<= '0';		--MemparaReg
 		s_mem_add 	<= '0';		--LeMem
 		s_PCin		<= "00"; 	--OrigPC
-		s_aluAin 	<= '0';		--OrigAALU
-		s_aluBin  	<= "00";	--OrigBALU
-		s_reg_add 	<= '0';		--MemparaReg
+		s_aluAin 	<= "00";		--OrigAALU
+		s_aluBin  	<= "00";		--OrigBALU
+		s_reg_add 	<= '0';		--RegDst
 		unsig			<= '0';
 		wich_load	<= "11";
 		wich_store	<= "10";
@@ -88,10 +88,11 @@ logic: process (opcode, pstate)
 										s_aluBin <= "01";
 										wr_ir 	<= '1';
 										ext_type <= "00";
+										op_alu	<= "00";
 								
 			when decode_st 	=>	s_aluBin <= "11";
 								
-			when c_mem_add_st =>	s_aluAin <= '1';
+			when c_mem_add_st =>	s_aluAin <= "01";
 										s_aluBin <= "10";
 										if opcode = (iORI) then ext_type <= "01";
 										end if;
@@ -100,7 +101,8 @@ logic: process (opcode, pstate)
 							
 										
 			when readmem_st 	=>	s_mem_add <= '1';
-										s_aluAin <= '1';
+										s_aluAin <= "01";
+										s_aluBin <= "10";
 										if opcode = iLBU then unsig <= '1';
 																	wich_load <= "00";
 										else unsig <= '0';
@@ -137,13 +139,19 @@ logic: process (opcode, pstate)
 												store_type <= "010";
 										end if;
 									
-			when rtype_ex_st	=>	s_aluAin <= '1';
+			when rtype_ex_st	=>	if (funct = iSLL or funct = iSRL or funct = iSRA) 
+										then s_aluAin <= "10";
+										else s_aluAin <= "01";
+										end if;
 										op_alu <= "10";
 									
 			when writereg_st 	=>	s_reg_add <= '1';
 										wr_breg <= '1';
+										if opcode =iRTYPE
+										then op_alu <= "10";
+										end if;
 																		  
-			when branch_ex_st => s_aluAin <= '1';
+			when branch_ex_st => s_aluAin <= "01";
 										op_alu <= "01";
 										s_PCin <= "01";
 										if opcode = iBEQ 

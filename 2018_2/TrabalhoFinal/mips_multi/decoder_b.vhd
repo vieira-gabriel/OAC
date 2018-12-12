@@ -15,8 +15,8 @@ use work.mips_pkg.all;
   architecture rtl of decoder_b is
   signal tmp : std_logic_vector(31 downto 0);
     begin
-      d_out <= d_in(7 downto 0) & X"000000" when (sel = "00") else
-					X"00" & d_in(7 downto 0)& X"0000" when (sel = "01") else
-					X"0000" & d_in(7 downto 0)& X"00" when (sel = "10") else
+      d_out <= d_in(7 downto 0) & X"000000" when (sel = "11") else
+					X"00" & d_in(7 downto 0)& X"0000" when (sel = "10") else
+					X"0000" & d_in(7 downto 0)& X"00" when (sel = "01") else
 					X"000000" & d_in(7 downto 0);
     end architecture;
